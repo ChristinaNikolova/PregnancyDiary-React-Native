@@ -1,8 +1,8 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeNavigator from "./HomeNavigator";
+import BlogNavigator from "./BlogNavigator";
 import DiariesScreen from "../screens/DiariesScreen";
 import AddScreen from "../screens/AddScreen";
-import BlogScreen from "../screens/BlogScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import Ionicons from "@react-native-vector-icons/ionicons";
 
@@ -10,9 +10,7 @@ const Tabs = createBottomTabNavigator();
 
 export default function RootNavigator() {
     return (
-        <Tabs.Navigator screenOptions={{
-            headerTitleAlign: "left",
-        }}>
+        <Tabs.Navigator>
             <Tabs.Screen
                 name="HomeTab"
                 component={HomeNavigator}
@@ -36,10 +34,10 @@ export default function RootNavigator() {
                 }}
             />
             <Tabs.Screen
-                name="Blog"
-                component={BlogScreen}
+                name="BlogTab"
+                component={BlogNavigator}
                 options={{
-                    title: "Блог",
+                    headerShown: false,
                     tabBarIcon: ({ color, size }) => <Ionicons name="newspaper-outline" color={color} size={size} />,
                 }}
             />

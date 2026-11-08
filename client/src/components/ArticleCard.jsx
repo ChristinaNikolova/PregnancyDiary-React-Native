@@ -1,9 +1,12 @@
+import { useNavigation } from "@react-navigation/native";
 import Ionicons from "@react-native-vector-icons/ionicons";
 import { StyleSheet, Image, Text, Pressable } from "react-native";
 
-export default function ArticleCard({ title, picture }) {
+export default function ArticleCard({ id, title, picture }) {
+    const navigation = useNavigation();
+
     return (
-        <Pressable style={styles.articleCardWrapper}>
+        <Pressable style={styles.articleCardWrapper} onPress={() => navigation.navigate("ArticleDetails", { id })}>
             <Image source={{ uri: picture }} style={styles.articleCardPicture} />
             <Text style={styles.articleCardTitle}>{title}</Text>
             <Ionicons name="chevron-forward-outline" size={24} color="#A09087" />
