@@ -1,9 +1,23 @@
-import { Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import ArticlesList from "../components/ArticlesList";
 
+// TODO
+// Search
+// Filter
+// Scroll Content
+// Categories
+// Like/Dislike
 export default function BlogScreen() {
     return (
-        <View>
-            <Text>Blog Screen</Text>
+        <View style={styles.blogWrapper}>
+            <ArticlesList />
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    blogWrapper: {
+        flex: 1,
+        backgroundColor: '#FAF5EF',
+    },
+});
