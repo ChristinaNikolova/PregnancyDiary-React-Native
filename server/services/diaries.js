@@ -11,7 +11,7 @@ const {
   diaryDetailsViewModel,
 } = require("../utils/mapper/diary");
 const { errors } = require("../utils/constants/global");
-const { subTitle, text } = require("../utils/constants/week");
+const { subTitle, text, babySize, averageBabyWeight, averageBabyHeight } = require("../utils/constants/week");
 const { getById: getWeekById } = require("./weeks");
 
 async function create(
@@ -101,6 +101,9 @@ async function getWeeks() {
       title: weekNumber,
       subTitle: subTitle[weekTitle],
       text: text[weekTitle],
+      babySize: babySize[weekTitle],
+      averageBabyWeight: averageBabyWeight[weekTitle],
+      averageBabyHeight: averageBabyHeight[weekTitle],
       trimester: getTrimesterName(weekNumber),
     });
     weeks.push(week);

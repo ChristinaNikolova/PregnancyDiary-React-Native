@@ -22,8 +22,6 @@ router.put("/:id", hasUser(), async (req, res) => {
       req.body.mood,
       req.body.myWeight,
       req.body.myBellySize,
-      req.body.babyWeight,
-      req.body.babyHeight
     );
     res.json(week);
   } catch (error) {

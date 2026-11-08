@@ -19,8 +19,8 @@ function weekDetailsViewModel(week) {
     text: week.text,
     myWeight: week.myWeight,
     myBellySize: week.myBellySize,
-    babyWeight: week.babyWeight,
-    babyHeight: week.babyHeight,
+    babyAverageWeight: week.babyAverageWeight,
+    babyAverageHeight: week.babyAverageHeight,
     mood: week.mood,
     moments: week.moments
       .map(momentViewModel)
