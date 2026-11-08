@@ -1,12 +1,12 @@
-import { createNativeBottomTabNavigator } from "@react-navigation/bottom-tabs/unstable";
-import HomeScreen from "../screens/HomeScreen";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import HomeNavigator from "./HomeNavigator";
 
 export default function RootNavigator() {
-    const Tabs = createNativeBottomTabNavigator();
+    const Tabs = createBottomTabNavigator();
 
     return (
         <Tabs.Navigator>
-            <Tabs.Screen name="Home" component={HomeScreen} />
+            <Tabs.Screen name="HomeTab" component={HomeNavigator} options={{ headerShown: false }} />
         </Tabs.Navigator>
     );
 }
