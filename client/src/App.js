@@ -1,15 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet } from 'react-native';
+import RootNavigator from './navigation/RootNavigator';
 
 export default function App() {
   return (
-    <SafeAreaProvider>
-      <SafeAreaView >
-        <View>
-          <Text>Hi!</Text>
-        </View>
-      </SafeAreaView>
-    </SafeAreaProvider>
+    <>
+      <StatusBar style="auto" />
+      <NavigationContainer>
+        <RootNavigator />
+      </NavigationContainer>
+    </>
   );
 }
 
