@@ -15,7 +15,6 @@ function articleAdminViewModel(article) {
     title: article.title,
     category: article.category.name,
     likes: article.likes.length,
-    comments: article.comments.length,
   };
 }
 

@@ -17,11 +17,6 @@ const category = {
   NAME_MAX_LEN: 30,
 };
 
-const comment = {
-  CONTENT_MIN_LEN: 10,
-  CONTENT_MAX_LEN: 1000,
-};
-
 const diary = {
   TITLE_MIN_LEN: 5,
   TITLE_MAX_LEN: 100,
@@ -47,7 +42,6 @@ module.exports = {
   article,
   baby,
   category,
-  comment,
   diary,
   moment,
   user,

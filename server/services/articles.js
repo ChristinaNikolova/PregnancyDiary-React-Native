@@ -1,5 +1,4 @@
 const Article = require("../models/Article");
-const Comment = require("../models/Comment");
 const {
   Types: { ObjectId },
 } = require("mongoose");
@@ -80,10 +79,6 @@ async function update(id, title, content, picture, category) {
 }
 
 async function deleteById(id) {
-  const article = await Article.findById(id);
-  article.comments.forEach(async (commentId) => {
-    await Comment.findByIdAndDelete(commentId);
-  });
   return Article.findByIdAndDelete(id);
 }
 
