@@ -1,5 +1,6 @@
 import { StyleSheet, ScrollView, Text, Image, View } from "react-native";
 import { articles } from "../testData/articles";
+import { COLORS } from "../theme/colors";
 
 // TODO ScrollView
 // TODO Categories
@@ -26,7 +27,7 @@ export default function ArticleDetails({ route }) {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: "#FAF5EF"
+        backgroundColor: COLORS.background
     },
     picture: {
         width: "100%",
@@ -40,12 +41,12 @@ const styles = StyleSheet.create({
         fontSize: 28,
         fontWeight: "700",
         lineHeight: 34,
-        color: "#49372F",
+        color: COLORS.text,
         marginBottom: 36
     },
     text: {
         fontSize: 15,
         lineHeight: 23,
-        color: "#6B574E"
+        color: COLORS.text
     },
 });

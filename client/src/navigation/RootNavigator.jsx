@@ -3,6 +3,7 @@ import TabsNavigator from "./TabsNavigator";
 import ArticleDetailsScreen from "../screens/ArticleDetailsScreen";
 import { Pressable, View } from "react-native";
 import Ionicons from "@react-native-vector-icons/ionicons";
+import { COLORS } from "../theme/colors";
 
 // TODO extract values as constants
 const ICON_SIZE = 24
@@ -17,10 +18,10 @@ export default function RootNavigator() {
                 name="ArticleDetails"
                 component={ArticleDetailsScreen}
                 options={{
-                    headerTintColor: "#49372F",
+                    headerTintColor: COLORS.text,
                     headerTitle: "",
                     headerStyle: {
-                        backgroundColor: "#FAF5EF",
+                        backgroundColor: COLORS.background,
                         height: 120,
                     },
                     headerBackTitle: false,
