@@ -6,11 +6,11 @@ export default function ArticlesList() {
     return (
         <FlatList
             data={articles}
-            keyExtractor={(article) => article.id}
+            keyExtractor={(article) => article._id}
             contentContainerStyle={styles.articlesWrapper}
             renderItem={({ item }) =>
                 <ArticleCard
-                    id={item.id}
+                    id={item._id}
                     title={item.title}
                     picture={item.picture}
                 />

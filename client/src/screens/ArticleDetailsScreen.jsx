@@ -11,7 +11,7 @@ import { COLORS } from "../theme/colors";
 // TODO Rename styles
 export default function ArticleDetails({ route }) {
     const articleId = route.params.id;
-    const article = articles.filter((a) => a.id === articleId)[0];
+    const article = articles.filter((a) => a._id === articleId)[0];
 
     return (
         <ScrollView style={styles.screen}>
