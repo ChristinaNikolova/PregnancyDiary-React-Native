@@ -1,6 +1,7 @@
 import { StyleSheet, ScrollView, Text, Image, View } from "react-native";
 import { articles } from "../testData/articles";
 import { COLORS } from "../theme/colors";
+import { categories } from "../testData/categories";
 
 // TODO ScrollView
 // TODO Categories
@@ -11,7 +12,8 @@ import { COLORS } from "../theme/colors";
 // TODO Rename styles
 export default function ArticleDetails({ route }) {
     const articleId = route.params.id;
-    const article = articles.filter((a) => a._id === articleId)[0];
+    const article = articles.find((a) => a._id === articleId);
+    const articleCategory = categories.find((c) => c._id === article.category);
 
     return (
         <ScrollView style={styles.screen}>
@@ -19,6 +21,7 @@ export default function ArticleDetails({ route }) {
             <View style={styles.content}>
                 <Text style={styles.title}>{article.title}</Text>
                 <Text style={styles.text}>{article.content}</Text>
+                <Text>{articleCategory.name}</Text>
             </View>
         </ScrollView>
     );

@@ -6,7 +6,6 @@ export const articles = [
         category: "cat-2",
         content: "The first trimester is the beginning of an incredible journey. During these first twelve weeks, your body starts adapting to pregnancy while your baby develops at an amazing pace.",
         likes: [],
-        comments: [],
     },
     {
         _id: "article-2",
@@ -15,7 +14,6 @@ export const articles = [
         category: "cat-3",
         content: "As your due date approaches, preparing your hospital bag can help you feel more relaxed and organized. Pack comfortable clothes, toiletries, important documents, and essential items for your baby.",
         likes: [],
-        comments: [],
     },
     {
         _id: "article-3",
@@ -24,7 +22,6 @@ export const articles = [
         category: "cat-1",
         content: "The first weeks with a newborn are filled with new experiences, questions, and unforgettable moments. You and your baby are learning about each other and gradually finding a rhythm.",
         likes: [],
-        comments: [],
     },
     {
         _id: "article-4",
@@ -33,7 +30,6 @@ export const articles = [
         category: "cat-4",
         content: "A gentle daily routine can help create a sense of familiarity for your family. Observe your baby's natural patterns and build simple activities around feeding, sleeping, cuddling, and playing.",
         likes: [],
-        comments: [],
     },
     {
         _id: "article-5",
@@ -42,7 +38,6 @@ export const articles = [
         category: "cat-5",
         content: "Pregnancy brings many physical and emotional changes. Balanced nutrition, hydration, rest, gentle movement, and emotional support can all contribute to your wellbeing.",
         likes: [],
-        comments: [],
     },
     {
         _id: "article-6",
@@ -51,7 +46,6 @@ export const articles = [
         category: "cat-6",
         content: "Preparing your home for a new baby can be exciting. Start with practical essentials such as a safe sleeping space, baby clothes, nappies, feeding supplies, and basic care products.",
         likes: [],
-        comments: [],
     },
     {
         _id: "article-7",
@@ -60,6 +54,5 @@ export const articles = [
         category: "cat-7",
         content: "Dressing comfortably during pregnancy does not mean giving up your personal style. Choose soft fabrics, versatile pieces, comfortable footwear, and outfits that make you feel confident.",
         likes: [],
-        comments: [],
     },
 ];
