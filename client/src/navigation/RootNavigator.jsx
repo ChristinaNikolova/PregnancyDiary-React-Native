@@ -2,11 +2,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TabsNavigator from "./TabsNavigator";
 import ArticleDetailsScreen from "../screens/ArticleDetailsScreen";
 import { Pressable, View } from "react-native";
-import Ionicons from "@react-native-vector-icons/ionicons";
 import { COLORS } from "../theme/colors";
-
-// TODO extract values as constants
-const ICON_SIZE = 24
+import CustomIcon from "../components/shared/CustomIcon";
 
 const Stack = createStackNavigator();
 
@@ -31,19 +28,14 @@ export default function RootNavigator() {
                     headerRightContainerStyle: {
                         paddingRight: 16,
                     },
-                    headerRight: ({ tintColor }) => (
+                    // todo extract component?
+                    headerRight: () => (
                         <View style={{ flexDirection: "row", gap: 20, justifyContent: "center", }}>
                             <Pressable>
-                                <Ionicons
-                                    name="heart-outline"
-                                    size={ICON_SIZE}
-                                    color={tintColor} />
+                                <CustomIcon iconName="heart-outline" />
                             </Pressable>
                             <Pressable>
-                                <Ionicons
-                                    name="share-outline"
-                                    size={ICON_SIZE}
-                                    color={tintColor} />
+                                <CustomIcon iconName="share-outline" />
                             </Pressable>
                         </View>
                     )
