@@ -1,7 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import TabsNavigator from "./TabsNavigator";
 import ArticleDetailsScreen from "../screens/ArticleDetailsScreen";
-import ArticleDetailsHeader from "../components/ArticleDetailsHeader";
+import ArticleDetailsHeader from "../components/blog/ArticleDetailsHeader";
 import { COLORS, SPACING } from "../theme";
 
 const Stack = createStackNavigator();

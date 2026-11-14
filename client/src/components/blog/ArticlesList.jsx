@@ -1,8 +1,8 @@
 import { StyleSheet, FlatList, Alert, RefreshControl } from "react-native";
 import ArticleCard from "./ArticleCard";
 import { useEffect, useState } from "react";
-import { articlesApi } from "../api";
-import { SPACING } from "../theme";
+import { articlesApi } from "../../api";
+import { SPACING } from "../../theme";
 
 // TODO: RefreshCotroll
 // TODO: Extrach shared logic (fresh)

@@ -1,5 +1,5 @@
 import { Pressable, View } from "react-native";
-import Icon from "./shared/Icon";
+import Icon from "../shared/Icon";
 
 // todo add screen styles
 export default function ArticleDetailsHeader() {

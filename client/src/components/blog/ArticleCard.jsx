@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Image, Text, Pressable } from "react-native";
-import Icon from "./shared/Icon";
-import { COLORS, SPACING, TYPOGRAPHY } from "../theme";
+import Icon from "../shared/Icon";
+import { COLORS, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function ArticleCard({ id, title, picture }) {
     const navigation = useNavigation();

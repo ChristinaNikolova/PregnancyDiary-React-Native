@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import BlogScreen from "../screens/BlogScreen";
-import { COLORS } from "../theme";
+import { COLORS, TYPOGRAPHY } from "../theme";
 
 const Stack = createStackNavigator();
 
@@ -16,8 +16,15 @@ export default function BlogNavigator() {
                     title: "Blog",
                     headerStyle: {
                         backgroundColor: COLORS.background,
-                        height: 120,
+                        borderBottomWidth: 0,
+                        elevation: 0,
+                        shadowOpacity: 0,
                     },
+                    headerTitleStyle: {
+                        fontSize: TYPOGRAPHY.fontSize.xxl,
+                        color: COLORS.text,
+                        fontWeight: "600",
+                    }
                 }}
             />
         </Stack.Navigator>
