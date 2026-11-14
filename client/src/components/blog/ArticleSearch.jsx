@@ -2,7 +2,7 @@ import { StyleSheet, TextInput, View } from "react-native";
 import Icon from "../shared/Icon";
 import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
-export function ArticleSearch() {
+export function ArticleSearch({ searchQuery, handleSearch }) {
     return (
         <View style={styles.searchContainer}>
             <Icon
@@ -11,9 +11,12 @@ export function ArticleSearch() {
                 iconColor={COLORS.text}
             />
             <TextInput
+                returnKeyType="search"
+                value={searchQuery}
+                placeholder="Search articles..."
                 style={styles.searchInput}
-                placeholder="Search article"
                 placeholderTextColor={COLORS.textSecondary}
+                onChangeText={handleSearch}
             />
         </View>
     );

@@ -6,7 +6,7 @@ import { SPACING } from "../../theme";
 
 // TODO: RefreshCotroll
 // TODO: Extrach shared logic (fresh)
-export default function ArticlesList() {
+export default function ArticlesList({ searchQuery = "" }) {
     const [articles, setArticles] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
 
@@ -24,13 +24,17 @@ export default function ArticlesList() {
             .finally(() => setRefreshing(false));
     }
 
+    const filteredArticles = articles.filter((a) => a.title.toLowerCase().includes(searchQuery.toLowerCase()));
+
     return (
         <FlatList
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}
-            data={articles}
+            data={filteredArticles}
             keyExtractor={(article) => article.id}
             contentContainerStyle={styles.articlesWrapper}
             showsVerticalScrollIndicator={false}
+            keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
             renderItem={({ item }) =>
                 <ArticleCard
                     id={item.id}
