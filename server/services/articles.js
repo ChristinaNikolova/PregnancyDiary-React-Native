@@ -14,7 +14,6 @@ const { errors } = require("../utils/constants/global");
 async function all() {
   return (
     await Article.find({})
-      .populate("category", "name")
       .sort({ createdAt: -1, title: 1 })
   ).map(articleListViewModel);
 }

@@ -1,17 +1,17 @@
 import { useState, useEffect } from "react";
-import { Alert, ScrollView, StyleSheet } from "react-native";
+import { Alert, Pressable, ScrollView, StyleSheet } from "react-native";
 import Tag from "../shared/Tag";
 import { categoriesApi } from "../../api";
 import { SPACING } from "../../theme";
 
-export default function ArticleCategories() {
+export default function ArticleCategories({ handlePress }) {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         categoriesApi.all()
             .then(setCategories)
             .catch((error) => Alert.alert("Error", error.message));
-    }, [])
+    }, []);
 
     return (
         <ScrollView
@@ -20,7 +20,10 @@ export default function ArticleCategories() {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.categoriesContainer}
         >
-            {categories.map((c) => <Tag key={c.id} text={c.name} />)}
+            {categories.map((c) =>
+                <Pressable key={c.id} onPress={() => handlePress(c.id)}>
+                    <Tag text={c.name} />
+                </Pressable>)}
         </ScrollView>
     );
 }

@@ -8,7 +8,7 @@ import { SPACING } from "../../theme";
 // TODO: RefreshCotroll
 // TODO: Extrach shared logic (fresh)
 // TODO Loading State
-export default function ArticlesList({ searchQuery = "" }) {
+export default function ArticlesList({ searchQuery = "", pressedTag = "" }) {
     const [articles, setArticles] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
 
@@ -26,7 +26,15 @@ export default function ArticlesList({ searchQuery = "" }) {
             .finally(() => setRefreshing(false));
     }
 
-    const filteredArticles = articles.filter((a) => a.title.toLowerCase().includes(searchQuery.toLowerCase()));
+    const filteredArticles = articles.filter((a) => {
+        const matchesSearch = a.title
+            .toLowerCase()
+            .includes(searchQuery.toLowerCase());
+
+        const matchesCategory = !pressedTag || a.categoryId === pressedTag;
+
+        return matchesSearch && matchesCategory;
+    });
 
     if (!filteredArticles.length) {
         return <EmptyState text="No articles found" />

@@ -8,14 +8,18 @@ import { COLORS, SPACING } from "../theme";
 // TODO
 // Filter
 // Scroll Content
-// Categories
 // Like/Dislike
 // TODO BLOG FontSize!!!
 export default function BlogScreen() {
     const [searchQuery, setSearchQuery] = useState("");
+    const [pressedTag, setPressedTag] = useState("")
 
     const handleSearch = (text) => {
         setSearchQuery(text)
+    }
+
+    const handlePress = (id) => {
+        setPressedTag((prev) => prev !== id ? id : "");
     }
 
     return (
@@ -24,8 +28,13 @@ export default function BlogScreen() {
                 searchQuery={searchQuery}
                 handleSearch={handleSearch}
             />
-            <ArticleCategories />
-            <ArticlesList searchQuery={searchQuery} />
+            <ArticleCategories
+                handlePress={handlePress}
+            />
+            <ArticlesList
+                searchQuery={searchQuery}
+                pressedTag={pressedTag}
+            />
         </View>
     );
 }
