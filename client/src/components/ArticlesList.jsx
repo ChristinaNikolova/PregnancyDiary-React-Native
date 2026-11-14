@@ -1,10 +1,13 @@
-import { StyleSheet, FlatList, Alert } from "react-native";
+import { StyleSheet, FlatList, Alert, RefreshControl } from "react-native";
 import ArticleCard from "./ArticleCard";
 import { useEffect, useState } from "react";
 import { articlesApi } from "../api";
 
+// TODO: RefreshCotroll
+// TODO: Extrach shared logic (fresh)
 export default function ArticlesList() {
     const [articles, setArticles] = useState([]);
+    const [refreshing, setRefreshing] = useState(false);
 
     useEffect(() => {
         articlesApi.all()
@@ -12,8 +15,17 @@ export default function ArticlesList() {
             .catch((error) => Alert.alert("Error", error.message));
     }, []);
 
+    const handleRefresh = () => {
+        setRefreshing(true);
+        articlesApi.all()
+            .then((res) => setArticles(res.articles))
+            .catch((error) => Alert.alert("Error", error.message))
+            .finally(() => setRefreshing(false));
+    }
+
     return (
         <FlatList
+            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}
             data={articles}
             keyExtractor={(article) => article.id}
             contentContainerStyle={styles.articlesWrapper}
