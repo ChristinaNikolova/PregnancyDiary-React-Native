@@ -1,11 +1,13 @@
+import { useEffect, useState } from "react";
 import { StyleSheet, FlatList, Alert, RefreshControl } from "react-native";
 import ArticleCard from "./ArticleCard";
-import { useEffect, useState } from "react";
+import EmptyState from "../shared/EmptyState";
 import { articlesApi } from "../../api";
 import { SPACING } from "../../theme";
 
 // TODO: RefreshCotroll
 // TODO: Extrach shared logic (fresh)
+// TODO Loading State
 export default function ArticlesList({ searchQuery = "" }) {
     const [articles, setArticles] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
@@ -25,6 +27,10 @@ export default function ArticlesList({ searchQuery = "" }) {
     }
 
     const filteredArticles = articles.filter((a) => a.title.toLowerCase().includes(searchQuery.toLowerCase()));
+
+    if (!filteredArticles.length) {
+        return <EmptyState text="No articles found" />
+    }
 
     return (
         <FlatList
