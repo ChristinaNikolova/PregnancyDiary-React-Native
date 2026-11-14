@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Image, Text, Pressable } from "react-native";
 import Icon from "./shared/Icon";
-import { SPACING } from "../theme";
+import { COLORS, SPACING, TYPOGRAPHY } from "../theme";
 
 export default function ArticleCard({ id, title, picture }) {
     const navigation = useNavigation();
@@ -24,20 +24,20 @@ const styles = StyleSheet.create({
         paddingVertical: SPACING.md,
         paddingHorizontal: SPACING.xl,
         borderBottomWidth: 1,
-        borderBottomColor: '#EAD9CE',
+        borderBottomColor: COLORS.border,
     },
     articleCardPicture: {
         width: 76,
         height: 76,
         borderRadius: 12,
-        backgroundColor: '#EAD9CE',
+        backgroundColor: COLORS.background,
     },
     articleCardTitle: {
         flex: 1,
         fontFamily: 'DMSans_700Bold',
-        fontSize: 16,
+        fontSize: TYPOGRAPHY.fontSize.md,
         fontWeight: "700",
         lineHeight: 21,
-        color: '#49372F',
+        color: COLORS.text,
     },
 });

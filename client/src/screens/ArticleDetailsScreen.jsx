@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { articlesApi } from "../api";
 import Icon from "../components/shared/Icon";
 import Tag from "../components/shared/Tag";
-import { COLORS, SIZES, SPACING } from "../theme";
+import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
 
 // TODO ScrollView
 // TODO Categories
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
         paddingBottom: SPACING.huge,
     },
     title: {
-        fontSize: 28,
+        fontSize: TYPOGRAPHY.fontSize.title,
         fontWeight: "700",
         lineHeight: 35,
         color: COLORS.text,
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     },
     createdAtText: {
         color: COLORS.textSecondary,
-        fontSize: 13,
+        fontSize: TYPOGRAPHY.fontSize.sm,
     },
     likesContainer: {
         flexDirection: "row",
@@ -129,19 +129,19 @@ const styles = StyleSheet.create({
     },
     likesCount: {
         color: COLORS.text,
-        fontSize: 14,
+        fontSize: TYPOGRAPHY.fontSize.sm,
         fontWeight: "600",
     },
     likesLabel: {
         color: COLORS.textSecondary,
-        fontSize: 13,
+        fontSize: TYPOGRAPHY.fontSize.sm,
     },
     articleContent: {
         gap: 16,
     },
     paragraph: {
         color: COLORS.text,
-        fontSize: 15,
+        fontSize: TYPOGRAPHY.fontSize.md,
         lineHeight: 24,
     },
 });

@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import { COLORS, SPACING } from "../../theme";
+import { COLORS, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function Tag({ text }) {
     return (
@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     },
     tagText: {
         color: COLORS.text,
-        fontSize: 12,
+        fontSize: TYPOGRAPHY.fontSize.xs,
         fontWeight: "600",
     },
 });
