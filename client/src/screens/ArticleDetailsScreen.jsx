@@ -2,7 +2,7 @@ import { StyleSheet, ScrollView, Text, Image, View, Alert, RefreshControl } from
 import { COLORS } from "../theme/colors";
 import { useEffect, useState } from "react";
 import { articlesApi } from "../api";
-import CustomIcon from "../components/shared/CustomIcon";
+import Icon from "../components/shared/Icon";
 
 // TODO ScrollView
 // TODO Categories
@@ -63,7 +63,7 @@ export default function ArticleDetails({ route }) {
                     </View>
 
                     <View style={styles.likesContainer}>
-                        <CustomIcon
+                        <Icon
                             iconName="heart"
                             iconColor={COLORS.primary}
                             iconSize={18}

@@ -4,7 +4,7 @@ import BlogNavigator from "./BlogNavigator";
 import DiariesScreen from "../screens/DiariesScreen";
 import AddScreen from "../screens/AddScreen";
 import ProfileScreen from "../screens/ProfileScreen";
-import CustomIcon from "../components/shared/CustomIcon";
+import Icon from "../components/shared/Icon";
 
 const Tabs = createBottomTabNavigator();
 
@@ -17,7 +17,7 @@ export default function TabsNavigator() {
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ color, size }) =>
-                        <CustomIcon
+                        <Icon
                             iconName="home-outline"
                             iconSize={size}
                             iconColor={color}
@@ -29,7 +29,7 @@ export default function TabsNavigator() {
                 component={DiariesScreen}
                 options={{
                     tabBarIcon: ({ color, size }) =>
-                        <CustomIcon
+                        <Icon
                             iconName="calendar-outline"
                             iconSize={size}
                             iconColor={color}
@@ -41,7 +41,7 @@ export default function TabsNavigator() {
                 options={{
                     tabBarLabel: () => null,
                     tabBarIcon: ({ color, size }) =>
-                        <CustomIcon
+                        <Icon
                             iconName="add-outline"
                             iconSize={size}
                             iconColor={color}
@@ -54,7 +54,7 @@ export default function TabsNavigator() {
                 options={{
                     headerShown: false,
                     tabBarIcon: ({ color, size }) =>
-                        <CustomIcon
+                        <Icon
                             iconName="newspaper-outline"
                             iconSize={size}
                             iconColor={color}
@@ -66,7 +66,7 @@ export default function TabsNavigator() {
                 component={ProfileScreen}
                 options={{
                     tabBarIcon: ({ color, size }) =>
-                        <CustomIcon
+                        <Icon
                             iconName="person-outline"
                             iconSize={size}
                             iconColor={color}
