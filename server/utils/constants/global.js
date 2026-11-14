@@ -2,10 +2,6 @@ const important = {
   SECRET: process.env.JWT_SECRET,
 };
 
-const pagination = {
-  ARTICLES_PER_PAGE: 6,
-};
-
 const emails = {
   ADMIN: "admin@pregnancy-diary.com",
 };
@@ -43,7 +39,6 @@ const date = {
 
 module.exports = {
   important,
-  pagination,
   emails,
   messages,
   errors,

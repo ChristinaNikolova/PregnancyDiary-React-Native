@@ -11,18 +11,15 @@ const {
 } = require("../utils/mapper/article");
 const { errors } = require("../utils/constants/global");
 
-async function all(take, skip, searchedQuery) {
+async function all() {
   return (
-    await Article.find(
-      searchedQuery ? { title: { $regex: searchedQuery, $options: "i" } } : {}
-    )
+    await Article.find({})
       .populate("category", "name")
       .sort({ createdAt: -1, title: 1 })
-      .skip(skip)
-      .limit(take)
   ).map(articleListViewModel);
 }
 
+// TODO Do we need this
 async function allAdmin() {
   return (
     await Article.find({})

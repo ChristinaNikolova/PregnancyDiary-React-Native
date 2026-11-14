@@ -14,6 +14,7 @@ export default function ArticleCard({ id, title, picture }) {
     );
 }
 
+// todo reuse styles!!!
 const styles = StyleSheet.create({
     articleCardWrapper: {
         flexDirection: 'row',
