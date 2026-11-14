@@ -13,10 +13,13 @@ export default function Tag({ text }) {
 
 const styles = StyleSheet.create({
     tagWrapper: {
-        backgroundColor: COLORS.secondary,
-        paddingHorizontal: SPACING.base,
+        minHeight: 30,
+        alignSelf: "flex-start",
+        justifyContent: "center",
+        paddingHorizontal: SPACING.lg,
         paddingVertical: SPACING.sm,
         borderRadius: 20,
+        backgroundColor: COLORS.secondary,
     },
     tagText: {
         color: COLORS.text,

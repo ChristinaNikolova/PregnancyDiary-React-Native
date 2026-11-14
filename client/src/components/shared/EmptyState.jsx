@@ -12,7 +12,7 @@ export default function EmptyState({ text }) {
 const styles = StyleSheet.create({
     emptyContainer: {
         flex: 1,
-        justifyContent: "start",
+        justifyContent: "flex-start",
         alignItems: "center",
     },
     emptyText: {
