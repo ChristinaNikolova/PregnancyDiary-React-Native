@@ -40,13 +40,11 @@ function articleDetailsViewModel(article) {
   return {
     id: article._id,
     title: article.title,
-    content: splitContentIntoArray(
-      article.content.slice(article.content.indexOf(".") + 1)
-    ),
+    content: article.content,
     picture: article.picture,
-    likesCount: article.likes.length,
-    likes: article.likes,
-    categoryId: article.category._id,
+    //likesCount: article.likes.length,
+    //likes: article.likes,
+    // categoryId: article.category._id,
     category: article.category.name,
     createdAt: formatCreatedAt(article.createdAt),
   };

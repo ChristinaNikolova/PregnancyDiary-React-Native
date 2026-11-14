@@ -11,14 +11,14 @@ export default function ArticlesList() {
 
     useEffect(() => {
         articlesApi.all()
-            .then((res) => setArticles(res.articles))
+            .then(setArticles)
             .catch((error) => Alert.alert("Error", error.message));
     }, []);
 
     const handleRefresh = () => {
         setRefreshing(true);
         articlesApi.all()
-            .then((res) => setArticles(res.articles))
+            .then(setArticles)
             .catch((error) => Alert.alert("Error", error.message))
             .finally(() => setRefreshing(false));
     }

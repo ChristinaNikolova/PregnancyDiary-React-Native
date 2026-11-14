@@ -27,7 +27,7 @@ export default function RootNavigator() {
                     headerRightContainerStyle: {
                         paddingRight: 16,
                     },
-                    headerRight: () => ArticleDetailsHeader
+                    headerRight: () => <ArticleDetailsHeader />
                 }}
             />
         </Stack.Navigator>

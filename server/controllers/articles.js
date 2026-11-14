@@ -19,10 +19,11 @@ router.get("/lastThree", async (req, res) => {
   }
 });
 
+// TODO hasUser
 router.get("/all", async (req, res) => {
   try {
     const articles = await all();
-    res.json({ articles });
+    res.json(articles);
   } catch (error) {
     const message = mapErrors(error);
     res.status(400).json({ message });
@@ -40,7 +41,8 @@ router.get("/filter/:categoryId", async (req, res) => {
   }
 });
 
-router.get("/:id", hasUser(), async (req, res) => {
+// TODO hasUser
+router.get("/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const article = await getById(id);

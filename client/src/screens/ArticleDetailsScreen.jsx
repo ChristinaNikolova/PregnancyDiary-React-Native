@@ -1,7 +1,7 @@
-import { StyleSheet, ScrollView, Text, Image, View } from "react-native";
-import { articles } from "../testData/articles";
+import { StyleSheet, ScrollView, Text, Image, View, Alert } from "react-native";
 import { COLORS } from "../theme/colors";
-import { categories } from "../testData/categories";
+import { useEffect, useState } from "react";
+import { articlesApi } from "../api";
 
 // TODO ScrollView
 // TODO Categories
@@ -12,16 +12,22 @@ import { categories } from "../testData/categories";
 // TODO Rename styles
 export default function ArticleDetails({ route }) {
     const articleId = route.params.id;
-    const article = articles.find((a) => a._id === articleId);
-    const articleCategory = categories.find((c) => c._id === article.category);
+
+    const [article, setArticle] = useState({});
+
+    useEffect(() => {
+        articlesApi.getById(articleId)
+            .then(setArticle)
+            .catch((error) => Alert.alert("Error", error.message));
+    }, [articleId]);
 
     return (
         <ScrollView style={styles.screen}>
-            <Image source={{ uri: article.picture }} style={styles.picture} />
+            <Image source={{ uri: article?.picture }} style={styles.picture} />
             <View style={styles.content}>
-                <Text style={styles.title}>{article.title}</Text>
-                <Text style={styles.text}>{article.content}</Text>
-                <Text>{articleCategory.name}</Text>
+                <Text style={styles.title}>{article?.title}</Text>
+                <Text style={styles.text}>{article?.content}</Text>
+                <Text>{article?.category}</Text>
             </View>
         </ScrollView>
     );
