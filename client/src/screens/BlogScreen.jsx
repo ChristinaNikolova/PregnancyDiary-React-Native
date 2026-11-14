@@ -32,7 +32,7 @@ export default function BlogScreen() {
 
 const styles = StyleSheet.create({
     blogWrapper: {
-        flex: 1,
+        flex: 0,
         backgroundColor: COLORS.background,
         paddingTop: SPACING.lg,
         paddingBottom: SPACING.xxl,
