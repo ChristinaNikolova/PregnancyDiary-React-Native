@@ -29,6 +29,7 @@ export default function ArticlesList() {
             data={articles}
             keyExtractor={(article) => article.id}
             contentContainerStyle={styles.articlesWrapper}
+            showsVerticalScrollIndicator={false}
             renderItem={({ item }) =>
                 <ArticleCard
                     id={item.id}

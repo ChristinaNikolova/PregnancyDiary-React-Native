@@ -3,6 +3,7 @@ import { COLORS } from "../theme/colors";
 import { useEffect, useState } from "react";
 import { articlesApi } from "../api";
 import Icon from "../components/shared/Icon";
+import Tag from "../components/shared/Tag";
 
 // TODO ScrollView
 // TODO Categories
@@ -50,11 +51,7 @@ export default function ArticleDetails({ route }) {
                 </Text>
 
                 <View style={styles.metaContainer}>
-                    <View style={styles.tag}>
-                        <Text style={styles.tagText}>
-                            {article?.category}
-                        </Text>
-                    </View>
+                    <Tag text={article?.category} />
 
                     <View style={styles.createdAt}>
                         <Text style={styles.createdAtText}>
@@ -95,7 +92,7 @@ const styles = StyleSheet.create({
     picture: {
         width: "100%",
         height: 230,
-        resizeMode: "cover",
+        objectFit: "cover",
     },
     content: {
         paddingHorizontal: 20,
@@ -116,17 +113,6 @@ const styles = StyleSheet.create({
         alignContent: "center",
         gap: 10,
         marginBottom: 24,
-    },
-    tag: {
-        backgroundColor: COLORS.secondary,
-        paddingHorizontal: 14,
-        paddingVertical: 8,
-        borderRadius: 20,
-    },
-    tagText: {
-        color: COLORS.text,
-        fontSize: 12,
-        fontWeight: "600",
     },
     createdAt: {
         marginLeft: 4,
