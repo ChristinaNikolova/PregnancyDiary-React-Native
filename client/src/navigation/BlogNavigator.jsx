@@ -13,7 +13,7 @@ export default function BlogNavigator() {
                 name="Blog"
                 component={BlogScreen}
                 options={{
-                    title: "Блог",
+                    title: "Blog",
                     headerStyle: {
                         backgroundColor: COLORS.background,
                         height: 120,

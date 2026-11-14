@@ -40,9 +40,11 @@ function articleDetailsViewModel(article) {
   return {
     id: article._id,
     title: article.title,
-    content: article.content,
+    content: splitContentIntoArray(
+      article.content.slice(article.content.indexOf(".") + 1)
+    ),
     picture: article.picture,
-    //likesCount: article.likes.length,
+    likesCount: article.likes.length,
     //likes: article.likes,
     // categoryId: article.category._id,
     category: article.category.name,
@@ -58,7 +60,7 @@ function splitContentIntoArray(content) {
     .map((x) => x + ".");
   let result = [];
   while (sentences.length > 0) {
-    const currentGroupSentences = sentences.splice(0, 5);
+    const currentGroupSentences = sentences.splice(0, 3);
     result.push(currentGroupSentences.join(""));
   }
   return result;
