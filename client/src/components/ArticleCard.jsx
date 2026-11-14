@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Image, Text, Pressable } from "react-native";
 import Icon from "./shared/Icon";
+import { SPACING } from "../theme";
 
 export default function ArticleCard({ id, title, picture }) {
     const navigation = useNavigation();
@@ -20,8 +21,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         gap: 16,
-        paddingVertical: 12,
-        paddingHorizontal: 20,
+        paddingVertical: SPACING.md,
+        paddingHorizontal: SPACING.xl,
         borderBottomWidth: 1,
         borderBottomColor: '#EAD9CE',
     },

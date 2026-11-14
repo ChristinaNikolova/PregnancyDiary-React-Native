@@ -1,6 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import ArticlesList from "../components/ArticlesList";
-import { COLORS } from "../theme/colors";
+import { COLORS } from "../theme";
 
 // TODO
 // Search

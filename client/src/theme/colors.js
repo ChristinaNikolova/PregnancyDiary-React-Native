@@ -11,5 +11,3 @@ export const COLORS = {
     white: "#FFFFFF",
     error: "#C65D5D",
 };
-
-// TODO Use this!!!

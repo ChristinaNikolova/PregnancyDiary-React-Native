@@ -1,9 +1,9 @@
 import { StyleSheet, ScrollView, Text, Image, View, Alert, RefreshControl } from "react-native";
-import { COLORS } from "../theme/colors";
 import { useEffect, useState } from "react";
 import { articlesApi } from "../api";
 import Icon from "../components/shared/Icon";
 import Tag from "../components/shared/Tag";
+import { COLORS, SPACING } from "../theme";
 
 // TODO ScrollView
 // TODO Categories
@@ -95,16 +95,16 @@ const styles = StyleSheet.create({
         objectFit: "cover",
     },
     content: {
-        paddingHorizontal: 20,
-        paddingTop: 22,
-        paddingBottom: 40,
+        paddingHorizontal: SPACING.xl,
+        paddingTop: SPACING.xl,
+        paddingBottom: SPACING.huge,
     },
     title: {
         fontSize: 28,
         fontWeight: "700",
         lineHeight: 35,
         color: COLORS.text,
-        marginBottom: 20,
+        marginBottom: SPACING.xl,
     },
     metaContainer: {
         flexDirection: "row",
@@ -112,10 +112,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
         alignContent: "center",
         gap: 10,
-        marginBottom: 24,
+        marginBottom: SPACING.xxl,
     },
     createdAt: {
-        marginLeft: 4,
+        marginLeft: SPACING.xs,
     },
     createdAtText: {
         color: COLORS.textSecondary,
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         gap: 3,
-        marginBottom: 24,
+        mmarginBottom: SPACING.xxl,
     },
     likesCount: {
         color: COLORS.text,

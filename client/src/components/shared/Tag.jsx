@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import { COLORS } from "../../theme/colors";
+import { COLORS, SPACING } from "../../theme";
 
 export default function Tag({ text }) {
     return (
@@ -14,8 +14,8 @@ export default function Tag({ text }) {
 const styles = StyleSheet.create({
     tagWrapper: {
         backgroundColor: COLORS.secondary,
-        paddingHorizontal: 14,
-        paddingVertical: 8,
+        paddingHorizontal: SPACING.base,
+        paddingVertical: SPACING.sm,
         borderRadius: 20,
     },
     tagText: {

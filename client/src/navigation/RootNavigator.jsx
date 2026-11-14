@@ -2,7 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TabsNavigator from "./TabsNavigator";
 import ArticleDetailsScreen from "../screens/ArticleDetailsScreen";
 import ArticleDetailsHeader from "../components/ArticleDetailsHeader";
-import { COLORS } from "../theme/colors";
+import { COLORS, SPACING } from "../theme";
 
 const Stack = createStackNavigator();
 
@@ -22,10 +22,10 @@ export default function RootNavigator() {
                     },
                     headerBackTitle: false,
                     headerLeftContainerStyle: {
-                        paddingLeft: 16,
+                        paddingLeft: SPACING.lg,
                     },
                     headerRightContainerStyle: {
-                        paddingRight: 16,
+                        paddingRight: SPACING.lg,
                     },
                     headerRight: () => <ArticleDetailsHeader />
                 }}

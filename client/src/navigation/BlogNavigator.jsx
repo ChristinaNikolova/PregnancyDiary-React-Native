@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import BlogScreen from "../screens/BlogScreen";
-import { COLORS } from "../theme/colors";
+import { COLORS } from "../theme";
 
 const Stack = createStackNavigator();
 
