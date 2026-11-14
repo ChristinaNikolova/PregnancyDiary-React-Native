@@ -16,6 +16,7 @@ export default function ArticleCategories() {
     return (
         <ScrollView
             horizontal
+            style={styles.categoriesScroll}
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.categoriesContainer}
         >
@@ -25,6 +26,9 @@ export default function ArticleCategories() {
 }
 
 const styles = StyleSheet.create({
+    categoriesScroll: {
+        flexGrow: 0,
+    },
     categoriesContainer: {
         paddingHorizontal: SPACING.lg,
         paddingBottom: SPACING.lg,
