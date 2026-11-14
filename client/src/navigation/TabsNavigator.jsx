@@ -5,12 +5,19 @@ import DiariesScreen from "../screens/DiariesScreen";
 import AddScreen from "../screens/AddScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import Icon from "../components/shared/Icon";
+import { COLORS } from "../theme";
 
 const Tabs = createBottomTabNavigator();
 
 export default function TabsNavigator() {
     return (
-        <Tabs.Navigator>
+        <Tabs.Navigator screenOptions={{
+            tabBarActiveTintColor: COLORS.primary,
+            tabBarInactiveTintColor: COLORS.textSecondary,
+            tabBarStyle: {
+                backgroundColor: COLORS.surface,
+            },
+        }}>
             <Tabs.Screen
                 name="HomeTab"
                 component={HomeNavigator}
@@ -40,6 +47,14 @@ export default function TabsNavigator() {
                 component={AddScreen}
                 options={{
                     tabBarLabel: () => null,
+                    tabBarIconStyle: {
+                        backgroundColor: COLORS.secondary,
+                        width: 40,
+                        height: 40,
+                        borderRadius: 26,
+                        justifyContent: "center",
+                        alignItems: "center",
+                    },
                     tabBarIcon: ({ color, size }) =>
                         <Icon
                             iconName="add-outline"
@@ -52,6 +67,7 @@ export default function TabsNavigator() {
                 name="BlogTab"
                 component={BlogNavigator}
                 options={{
+                    title: "Blog",
                     headerShown: false,
                     tabBarIcon: ({ color, size }) =>
                         <Icon
