@@ -1,8 +1,8 @@
 import { StyleSheet, TextInput, View } from "react-native";
 import Icon from "../shared/Icon";
 import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
-
-export function ArticleSearch({ searchQuery, handleSearch }) {
+// TODO UseMemo/UseCallback/Reducer
+export default function ArticleSearch({ searchQuery, handleSearch }) {
     return (
         <View style={styles.searchContainer}>
             <Icon

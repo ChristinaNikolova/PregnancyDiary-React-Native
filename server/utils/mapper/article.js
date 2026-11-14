@@ -1,5 +1,6 @@
 const { formatCreatedAt } = require("../parser");
 
+// TODO Clenaup
 function articleListViewModel(article) {
   return {
     id: article._id,

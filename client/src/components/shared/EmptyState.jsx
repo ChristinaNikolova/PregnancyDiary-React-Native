@@ -1,7 +1,7 @@
 import { StyleSheet, View, Text } from "react-native";
 import { TYPOGRAPHY, COLORS } from "../../theme";
 
-export function EmptyState({ text }) {
+export default function EmptyState({ text }) {
     return (
         <View style={styles.emptyContainer}>
             <Text style={styles.emptyText}>{text}</Text>

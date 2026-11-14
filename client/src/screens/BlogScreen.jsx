@@ -1,8 +1,9 @@
-import { useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { useEffect, useState } from "react";
+import { Alert, StyleSheet, Text, View } from "react-native";
+import ArticleSearch from "../components/blog/ArticleSearch";
 import ArticlesList from "../components/blog/ArticlesList";
 import { COLORS, SPACING } from "../theme";
-import { ArticleSearch } from "../components/blog/ArticleSearch";
+import { categoriesApi } from "../api";
 
 // TODO
 // Filter
@@ -12,6 +13,13 @@ import { ArticleSearch } from "../components/blog/ArticleSearch";
 // TODO BLOG FontSize!!!
 export default function BlogScreen() {
     const [searchQuery, setSearchQuery] = useState("");
+    const [categories, setCategories] = useState([]);
+
+    useEffect(() => {
+        categoriesApi.all()
+            .then(setCategories)
+            .catch((error) => Alert.alert("Error", error.message));
+    }, [])
 
     const handleSearch = (text) => {
         setSearchQuery(text)
@@ -23,6 +31,9 @@ export default function BlogScreen() {
                 searchQuery={searchQuery}
                 handleSearch={handleSearch}
             />
+            <View>
+                {categories.map((c) => <Text key={c.id}>{c.name}</Text>)}
+            </View>
             <ArticlesList searchQuery={searchQuery} />
         </View>
     );
