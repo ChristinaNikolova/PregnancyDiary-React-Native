@@ -5,21 +5,19 @@ import ArticlesList from "../components/blog/ArticlesList";
 import ArticleCategories from "../components/blog/ArticleCategories";
 import { COLORS, SPACING } from "../theme";
 
-// TODO
-// Filter
-// Scroll Content
-// Like/Dislike
+// TODO Scroll Content
+// TODO Like/Dislike
 // TODO BLOG FontSize!!!
 export default function BlogScreen() {
     const [searchQuery, setSearchQuery] = useState("");
-    const [pressedTag, setPressedTag] = useState("")
+    const [pressedTagId, setPressedTagId] = useState("")
 
     const handleSearch = (text) => {
         setSearchQuery(text)
     }
 
     const handlePress = (id) => {
-        setPressedTag((prev) => prev !== id ? id : "");
+        setPressedTagId((prev) => prev !== id ? id : "");
     }
 
     return (
@@ -29,11 +27,12 @@ export default function BlogScreen() {
                 handleSearch={handleSearch}
             />
             <ArticleCategories
+                selectedId={pressedTagId}
                 handlePress={handlePress}
             />
             <ArticlesList
                 searchQuery={searchQuery}
-                pressedTag={pressedTag}
+                pressedTagId={pressedTagId}
             />
         </View>
     );

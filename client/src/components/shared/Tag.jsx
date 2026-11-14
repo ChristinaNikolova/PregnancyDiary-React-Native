@@ -1,10 +1,16 @@
 import { StyleSheet, Text, View } from "react-native";
 import { COLORS, SPACING, TYPOGRAPHY } from "../../theme";
 
-export default function Tag({ text }) {
+export default function Tag({ text, selected = false }) {
     return (
-        <View style={styles.tagWrapper}>
-            <Text style={styles.tagText}>
+        <View style={[
+            styles.tagWrapper,
+            selected && styles.selectedTag
+        ]}>
+            <Text style={[
+                styles.tagText,
+                selected && styles.selectedTagText
+            ]}>
                 {text}
             </Text>
         </View>
@@ -25,5 +31,11 @@ const styles = StyleSheet.create({
         color: COLORS.text,
         fontSize: TYPOGRAPHY.fontSize.xs,
         fontWeight: "600",
+    },
+    selectedTag: {
+        backgroundColor: COLORS.primary,
+    },
+    selectedTagText: {
+        color: COLORS.white,
     },
 });

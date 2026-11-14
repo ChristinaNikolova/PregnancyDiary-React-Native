@@ -4,7 +4,7 @@ import Tag from "../shared/Tag";
 import { categoriesApi } from "../../api";
 import { SPACING } from "../../theme";
 
-export default function ArticleCategories({ handlePress }) {
+export default function ArticleCategories({ selectedId, handlePress }) {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
@@ -22,7 +22,7 @@ export default function ArticleCategories({ handlePress }) {
         >
             {categories.map((c) =>
                 <Pressable key={c.id} onPress={() => handlePress(c.id)}>
-                    <Tag text={c.name} />
+                    <Tag text={c.name} selected={selectedId === c.id} />
                 </Pressable>)}
         </ScrollView>
     );

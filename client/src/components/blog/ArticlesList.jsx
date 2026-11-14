@@ -8,7 +8,7 @@ import { SPACING } from "../../theme";
 // TODO: RefreshCotroll
 // TODO: Extrach shared logic (fresh)
 // TODO Loading State
-export default function ArticlesList({ searchQuery = "", pressedTag = "" }) {
+export default function ArticlesList({ searchQuery = "", pressedTagId = "" }) {
     const [articles, setArticles] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
 
@@ -31,7 +31,7 @@ export default function ArticlesList({ searchQuery = "", pressedTag = "" }) {
             .toLowerCase()
             .includes(searchQuery.toLowerCase());
 
-        const matchesCategory = !pressedTag || a.categoryId === pressedTag;
+        const matchesCategory = !pressedTagId || a.categoryId === pressedTagId;
 
         return matchesSearch && matchesCategory;
     });
