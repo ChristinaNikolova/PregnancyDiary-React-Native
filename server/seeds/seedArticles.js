@@ -4,7 +4,10 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const Article = require("../models/Article");
 const Category = require("../models/Category");
-const articles = require("./articles");
+const articles = [
+    ...require("./articles"),
+    ...require("./additionalArticles"),
+];
 
 async function seedArticles() {
     try {
