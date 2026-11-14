@@ -1,10 +1,7 @@
 import Ionicons from "@react-native-vector-icons/ionicons";
-import { COLORS } from "../../theme";
+import { COLORS, SIZES } from "../../theme";
 
-// TODO extract values as constants
-const ICON_SIZE = 24
-
-export default function Icon({ iconName, iconSize = ICON_SIZE, iconColor = COLORS.text }) {
+export default function Icon({ iconName, iconSize = SIZES.iconDefault, iconColor = COLORS.text }) {
     return (
         <Ionicons
             name={iconName}

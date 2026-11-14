@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { articlesApi } from "../api";
 import Icon from "../components/shared/Icon";
 import Tag from "../components/shared/Tag";
-import { COLORS, SPACING } from "../theme";
+import { COLORS, SIZES, SPACING } from "../theme";
 
 // TODO ScrollView
 // TODO Categories
@@ -63,7 +63,7 @@ export default function ArticleDetails({ route }) {
                         <Icon
                             iconName="heart"
                             iconColor={COLORS.primary}
-                            iconSize={18}
+                            iconSize={SIZES.iconMedium}
                         />
                         <Text style={styles.likesCount}>
                             {article.likesCount}
