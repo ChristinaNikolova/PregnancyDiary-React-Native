@@ -4,7 +4,8 @@ import Tag from "./Tag";
 
 export default function PressableTag({ tagText, selected = false, handlePress }) {
     const handleHapticsPress = () => {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium).catch(() => { });
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
+            .catch(() => { });
         handlePress?.();
     }
 

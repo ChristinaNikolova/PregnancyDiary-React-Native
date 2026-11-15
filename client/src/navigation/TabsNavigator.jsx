@@ -1,4 +1,5 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import * as Haptics from "expo-haptics";
 import HomeNavigator from "./HomeNavigator";
 import BlogNavigator from "./BlogNavigator";
 import DiariesScreen from "../screens/DiariesScreen";
@@ -11,13 +12,20 @@ const Tabs = createBottomTabNavigator();
 
 export default function TabsNavigator() {
     return (
-        <Tabs.Navigator screenOptions={{
-            tabBarActiveTintColor: COLORS.primary,
-            tabBarInactiveTintColor: COLORS.textSecondary,
-            tabBarStyle: {
-                backgroundColor: COLORS.surface,
-            },
-        }}>
+        <Tabs.Navigator
+            screenListeners={{
+                tabPress: () => {
+                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+                        .catch(() => { });
+                },
+            }}
+            screenOptions={{
+                tabBarActiveTintColor: COLORS.primary,
+                tabBarInactiveTintColor: COLORS.textSecondary,
+                tabBarStyle: {
+                    backgroundColor: COLORS.surface,
+                },
+            }}>
             <Tabs.Screen
                 name="HomeTab"
                 component={HomeNavigator}
