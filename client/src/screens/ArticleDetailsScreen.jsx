@@ -34,7 +34,7 @@ export default function ArticleDetails({ navigation, route }) {
             .finally(() => setRefreshing(false));
     }
 
-    handlePress = () => {
+    const handlePress = () => {
         navigation.navigate(ROUTES.MAIN, {
             screen: ROUTES.BLOG_TAB,
             params: {
