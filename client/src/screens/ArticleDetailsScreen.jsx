@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { StyleSheet, ScrollView, Text, Image, View, Alert, RefreshControl } from "react-native";
 import Icon from "../components/shared/Icon";
 import PressableTag from "../components/shared/PressableTag";
+import ArticleDetailsHeader from "../components/blog/ArticleDetailsHeader";
 import { articlesApi } from "../api";
 import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
 import { ROUTES } from "../navigation/routes";
@@ -26,6 +27,16 @@ export default function ArticleDetails({ navigation, route }) {
             .then(setArticle)
             .catch((error) => Alert.alert("Error", error.message));
     }, [articleId]);
+
+    useEffect(() => {
+        navigation.setOptions({
+            headerRight: () =>
+                <ArticleDetailsHeader
+                    id={articleId}
+                    title={article.title}
+                />,
+        })
+    }, [article, navigation]);
 
     const handleRefresh = () => {
         setRefreshing(true);

@@ -1,11 +1,20 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Share } from "react-native";
 import PressableIcon from "../shared/PressableIcon";
 
-export default function ArticleDetailsHeader() {
+// TODO add correct url after deploy
+export default function ArticleDetailsHeader({ id, title }) {
+    const handleShare = async () => {
+        await Share.share({
+            title: title,
+            message: title,
+            url: `https://your-domain.com/articles/${id}`,
+        })
+    };
+
     return (
         <View style={styles.screen}>
             <PressableIcon iconName="heart-outline" />
-            <PressableIcon iconName="share-outline" />
+            <PressableIcon handlePress={handleShare} iconName="share-outline" />
         </View>
     );
 }
