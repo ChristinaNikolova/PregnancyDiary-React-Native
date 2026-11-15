@@ -1,9 +1,10 @@
+import { memo } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Image, Text, Pressable } from "react-native";
 import Icon from "../shared/Icon";
 import { COLORS, SPACING, TYPOGRAPHY } from "../../theme";
 
-export default function ArticleCard({ id, title, picture }) {
+function ArticleCard({ id, title, picture }) {
     const navigation = useNavigation();
 
     return (
@@ -14,6 +15,8 @@ export default function ArticleCard({ id, title, picture }) {
         </Pressable>
     );
 }
+
+export default memo(ArticleCard);
 
 // todo reuse styles!!!
 const styles = StyleSheet.create({

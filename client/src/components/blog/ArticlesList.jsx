@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { StyleSheet, FlatList, Alert, RefreshControl } from "react-native";
 import ArticleCard from "./ArticleCard";
 import EmptyState from "../shared/EmptyState";
@@ -26,17 +26,19 @@ export default function ArticlesList({ searchQuery = "", pressedTagId = "" }) {
             .finally(() => setRefreshing(false));
     }
 
-    const filteredArticles = articles.filter((a) => {
-        const matchesSearch = a.title
-            .toLowerCase()
-            .includes(searchQuery.toLowerCase());
+    const filteredArticles = useMemo(() => {
+        return articles.filter((a) => {
+            const matchesSearch = a.title
+                .toLowerCase()
+                .includes(searchQuery.toLowerCase());
 
-        const matchesCategory = !pressedTagId || a.categoryId === pressedTagId;
+            const matchesCategory = !pressedTagId || a.categoryId === pressedTagId;
 
-        return matchesSearch && matchesCategory;
-    });
+            return matchesSearch && matchesCategory;
+        });
+    }, [articles, searchQuery, pressedTagId]);
 
-    if (!filteredArticles.length) {
+    if (!filteredArticles?.length) {
         return <EmptyState text="No articles found" />
     }
 
