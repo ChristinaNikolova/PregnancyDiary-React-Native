@@ -6,6 +6,7 @@ import { COLORS, SPACING } from "../theme";
 
 const Stack = createStackNavigator();
 
+// TODO reuse Routes contanst
 export default function RootNavigator() {
     return (
         <Stack.Navigator>

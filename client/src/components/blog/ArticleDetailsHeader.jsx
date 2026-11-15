@@ -1,6 +1,7 @@
 import { Pressable, StyleSheet, View } from "react-native";
 import Icon from "../shared/Icon";
 
+// TODO extract pressableicon
 export default function ArticleDetailsHeader() {
     return (
         <View style={styles.screen}>

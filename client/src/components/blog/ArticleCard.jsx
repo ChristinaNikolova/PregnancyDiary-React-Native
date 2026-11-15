@@ -3,12 +3,17 @@ import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Image, Text, Pressable } from "react-native";
 import Icon from "../shared/Icon";
 import { COLORS, SPACING, TYPOGRAPHY } from "../../theme";
+import { ROUTES } from "../../navigation/routes";
 
 function ArticleCard({ id, title, picture }) {
     const navigation = useNavigation();
 
+    const handlePress = () => {
+        navigation.navigate(ROUTES.ARTICLE_DETAILS, { id })
+    }
+
     return (
-        <Pressable style={styles.articleCardWrapper} onPress={() => navigation.navigate("ArticleDetails", { id })}>
+        <Pressable style={styles.articleCardWrapper} onPress={handlePress}>
             <Image source={{ uri: picture }} style={styles.articleCardPicture} />
             <Text style={styles.articleCardTitle}>{title}</Text>
             <Icon iconName="chevron-forward-outline" />

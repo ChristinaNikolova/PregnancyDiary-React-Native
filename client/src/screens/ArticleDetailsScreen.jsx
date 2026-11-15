@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, ScrollView, Text, Image, View, Alert, RefreshControl, Pressable } from "react-native";
+import { StyleSheet, ScrollView, Text, Image, View, Alert, RefreshControl } from "react-native";
 import Icon from "../components/shared/Icon";
-import Tag from "../components/shared/Tag";
+import PressableTag from "../components/shared/PressableTag";
 import { articlesApi } from "../api";
 import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
 import { ROUTES } from "../navigation/routes";
@@ -14,6 +14,7 @@ import { ROUTES } from "../navigation/routes";
 // TODO Rename styles
 
 // TODO CHECK generated Code!!!
+// Todo Extract Paragraph component
 export default function ArticleDetails({ navigation, route }) {
     const articleId = route.params.id;
 
@@ -63,9 +64,10 @@ export default function ArticleDetails({ navigation, route }) {
                 </Text>
 
                 <View style={styles.metaContainer}>
-                    <Pressable onPress={handlePress}>
-                        <Tag text={article?.category} />
-                    </Pressable>
+                    <PressableTag
+                        text={article?.category}
+                        handlePress={handlePress}
+                    />
 
                     <View style={styles.createdAt}>
                         <Text style={styles.createdAtText}>

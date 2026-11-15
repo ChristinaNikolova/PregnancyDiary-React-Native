@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Alert, Pressable, ScrollView, StyleSheet } from "react-native";
-import Tag from "../shared/Tag";
+import { Alert, ScrollView, StyleSheet } from "react-native";
+import PressableTag from "../shared/PressableTag";
 import { categoriesApi } from "../../api";
 import { SPACING } from "../../theme";
 
@@ -21,9 +21,13 @@ export default function ArticleCategories({ selectedId, handlePress }) {
             contentContainerStyle={styles.categoriesContainer}
         >
             {categories.map((c) =>
-                <Pressable key={c.id} onPress={() => handlePress(c.id)}>
-                    <Tag text={c.name} selected={selectedId === c.id} />
-                </Pressable>)}
+                <PressableTag
+                    key={c.id}
+                    text={c.name}
+                    selected={selectedId === c.id}
+                    handlePress={() => handlePress(c.id)}
+                />
+            )}
         </ScrollView>
     );
 }
