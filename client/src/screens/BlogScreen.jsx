@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import ArticleSearch from "../components/blog/ArticleSearch";
 import ArticlesList from "../components/blog/ArticlesList";
@@ -8,9 +8,17 @@ import { COLORS, SPACING } from "../theme";
 // TODO Scroll Content
 // TODO Like/Dislike
 // TODO BLOG FontSize!!!
-export default function BlogScreen() {
+export default function BlogScreen({ route }) {
+    const categoryId = route.params?.categoryId;
+
     const [searchQuery, setSearchQuery] = useState("");
-    const [pressedTagId, setPressedTagId] = useState("")
+    const [pressedTagId, setPressedTagId] = useState(categoryId || "");
+
+    useEffect(() => {
+        if (categoryId) {
+            setPressedTagId(categoryId);
+        }
+    }, [categoryId]);
 
     const handleSearch = (text) => {
         setSearchQuery(text)

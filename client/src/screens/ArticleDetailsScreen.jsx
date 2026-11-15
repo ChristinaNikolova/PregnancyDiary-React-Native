@@ -1,12 +1,12 @@
-import { StyleSheet, ScrollView, Text, Image, View, Alert, RefreshControl } from "react-native";
 import { useEffect, useState } from "react";
-import { articlesApi } from "../api";
+import { StyleSheet, ScrollView, Text, Image, View, Alert, RefreshControl, Pressable } from "react-native";
 import Icon from "../components/shared/Icon";
 import Tag from "../components/shared/Tag";
+import { articlesApi } from "../api";
 import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
+import { ROUTES } from "../navigation/routes";
 
 // TODO ScrollView
-// TODO Categories
 // TODO Like, Share Button
 // TODO remove tabs navigation
 // TODO check all mockups!!!
@@ -14,7 +14,7 @@ import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
 // TODO Rename styles
 
 // TODO CHECK generated Code!!!
-export default function ArticleDetails({ route }) {
+export default function ArticleDetails({ navigation, route }) {
     const articleId = route.params.id;
 
     const [article, setArticle] = useState({});
@@ -34,6 +34,18 @@ export default function ArticleDetails({ route }) {
             .finally(() => setRefreshing(false));
     }
 
+    handlePress = () => {
+        navigation.navigate(ROUTES.MAIN, {
+            screen: ROUTES.BLOG_TAB,
+            params: {
+                screen: ROUTES.BLOG,
+                params: {
+                    categoryId: article.categoryId,
+                },
+            },
+        })
+    }
+
     return (
         <ScrollView
             style={styles.screen}
@@ -51,7 +63,9 @@ export default function ArticleDetails({ route }) {
                 </Text>
 
                 <View style={styles.metaContainer}>
-                    <Tag text={article?.category} />
+                    <Pressable onPress={handlePress}>
+                        <Tag text={article?.category} />
+                    </Pressable>
 
                     <View style={styles.createdAt}>
                         <Text style={styles.createdAtText}>

@@ -47,7 +47,7 @@ function articleDetailsViewModel(article) {
     picture: article.picture,
     likesCount: article.likes.length,
     //likes: article.likes,
-    // categoryId: article.category._id,
+    categoryId: article.category._id,
     category: article.category.name,
     createdAt: formatCreatedAt(article.createdAt),
   };
