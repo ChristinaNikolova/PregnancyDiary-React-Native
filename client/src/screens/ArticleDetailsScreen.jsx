@@ -36,7 +36,7 @@ export default function ArticleDetails({ navigation, route }) {
     }
 
     const handlePress = () => {
-        navigation.navigate(ROUTES.MAIN, {
+        navigation.popTo(ROUTES.MAIN, {
             screen: ROUTES.BLOG_TAB,
             params: {
                 screen: ROUTES.BLOG,
@@ -44,8 +44,8 @@ export default function ArticleDetails({ navigation, route }) {
                     categoryId: article.categoryId,
                 },
             },
-        })
-    }
+        });
+    };
 
     return (
         <ScrollView
