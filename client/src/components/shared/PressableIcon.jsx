@@ -1,9 +1,9 @@
 import { Pressable } from "react-native";
 import Icon from "./Icon";
 
-export default function PressableIcon({ iconName }) {
+export default function PressableIcon({ iconName, handlePress }) {
     return (
-        <Pressable>
+        <Pressable onPress={handlePress}>
             <Icon iconName={iconName} />
         </Pressable>
     );
