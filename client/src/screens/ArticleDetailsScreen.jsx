@@ -65,7 +65,7 @@ export default function ArticleDetails({ navigation, route }) {
 
                 <View style={styles.metaContainer}>
                     <PressableTag
-                        text={article?.category}
+                        tagText={article?.category}
                         handlePress={handlePress}
                     />
 

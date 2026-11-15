@@ -23,7 +23,7 @@ export default function ArticleCategories({ selectedId, handlePress }) {
             {categories.map((c) =>
                 <PressableTag
                     key={c.id}
-                    text={c.name}
+                    tagText={c.name}
                     selected={selectedId === c.id}
                     handlePress={() => handlePress(c.id)}
                 />

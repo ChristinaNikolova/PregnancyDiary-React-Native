@@ -1,16 +1,11 @@
-import { Pressable, StyleSheet, View } from "react-native";
-import Icon from "../shared/Icon";
+import { StyleSheet, View } from "react-native";
+import PressableIcon from "../shared/PressableIcon";
 
-// TODO extract pressableicon
 export default function ArticleDetailsHeader() {
     return (
         <View style={styles.screen}>
-            <Pressable>
-                <Icon iconName="heart-outline" />
-            </Pressable>
-            <Pressable>
-                <Icon iconName="share-outline" />
-            </Pressable>
+            <PressableIcon iconName="heart-outline" />
+            <PressableIcon iconName="share-outline" />
         </View>
     );
 }
