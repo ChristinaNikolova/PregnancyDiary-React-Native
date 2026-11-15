@@ -1,10 +1,9 @@
-import { Pressable, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import Icon from "../shared/Icon";
 
-// todo add screen styles
 export default function ArticleDetailsHeader() {
     return (
-        <View style={{ flexDirection: "row", gap: 20, justifyContent: "center", }}>
+        <View style={styles.screen}>
             <Pressable>
                 <Icon iconName="heart-outline" />
             </Pressable>
@@ -14,3 +13,11 @@ export default function ArticleDetailsHeader() {
         </View>
     );
 }
+
+const styles = StyleSheet.create({
+    screen: {
+        flexDirection: "row",
+        justifyContent: "center",
+        gap: 20,
+    },
+});
