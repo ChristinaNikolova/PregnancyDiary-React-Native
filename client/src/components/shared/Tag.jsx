@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         paddingHorizontal: SPACING.lg,
         paddingVertical: SPACING.sm,
-        borderRadius: BORDERS.radius.xl,
+        borderRadius: BORDERS.radius.xxl,
         backgroundColor: COLORS.secondary,
     },
     tagText: {
