@@ -7,6 +7,7 @@ import { SPACING } from "../../theme";
 export default function ArticleCategories({ selectedId, handlePress }) {
     const [categories, setCategories] = useState([]);
 
+    // TODO create custom hook
     useEffect(() => {
         categoriesApi.all()
             .then(setCategories)

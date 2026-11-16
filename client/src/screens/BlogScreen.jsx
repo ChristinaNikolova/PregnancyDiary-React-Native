@@ -13,6 +13,7 @@ export default function BlogScreen({ route }) {
     const [searchQuery, setSearchQuery] = useState("");
     const [pressedTagId, setPressedTagId] = useState(categoryId || "");
 
+    // TODO try not to use useEffect in the components!!!!
     useEffect(() => {
         if (categoryId) {
             setPressedTagId(categoryId);

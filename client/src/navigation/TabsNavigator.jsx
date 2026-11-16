@@ -32,6 +32,7 @@ export default function TabsNavigator() {
                 name="HomeTab"
                 component={HomeNavigator}
                 options={{
+                    title: "Home",
                     headerShown: false,
                     tabBarIcon: ({ color, size }) =>
                         <Icon
