@@ -1,12 +1,11 @@
 import { Pressable } from "react-native";
-import * as Haptics from "expo-haptics";
 import Tag from "./Tag";
+import { triggerHaptic } from "../../utils/haptics";
 
 export default function PressableTag({ tagText, selected = false, handlePress }) {
     const handleHapticsPress = () => {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
-            .catch(() => { });
-        handlePress?.();
+        triggerHaptic();
+        handlePress();
     }
 
     return (

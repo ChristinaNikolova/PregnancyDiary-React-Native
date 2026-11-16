@@ -1,11 +1,11 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import * as Haptics from "expo-haptics";
 import HomeNavigator from "./HomeNavigator";
 import BlogNavigator from "./BlogNavigator";
 import DiariesScreen from "../screens/DiariesScreen";
 import AddScreen from "../screens/AddScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import Icon from "../components/shared/Icon";
+import { triggerHaptic } from "../utils/haptics";
 import { COLORS } from "../theme";
 
 const Tabs = createBottomTabNavigator();
@@ -14,10 +14,7 @@ export default function TabsNavigator() {
     return (
         <Tabs.Navigator
             screenListeners={{
-                tabPress: () => {
-                    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
-                        .catch(() => { });
-                },
+                tabPress: () => triggerHaptic(),
             }}
             screenOptions={{
                 tabBarActiveTintColor: COLORS.primary,
