@@ -9,4 +9,27 @@ export const TYPOGRAPHY = {
         title: 28,
         heading: 32,
     },
+    // TODO check if needed!
+    fontWeight: {
+        regular: "400",
+        medium: "500",
+        semiBold: "600",
+        bold: "700",
+    },
+    lineHeight: {
+        xs: 18,
+        sm: 21,
+        md: 24,
+        lg: 27,
+        xl: 30,
+        xxl: 34,
+        title: 38,
+        heading: 42,
+    },
+    fontFamily: {
+        regular: "Poppins_400Regular",
+        medium: "Poppins_500Medium",
+        semiBold: "Poppins_600SemiBold",
+        bold: "Poppins_700Bold",
+    },
 };

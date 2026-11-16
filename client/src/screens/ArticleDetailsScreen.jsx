@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: TYPOGRAPHY.fontSize.title,
         fontWeight: "700",
-        lineHeight: 35,
+        lineHeight: TYPOGRAPHY.lineHeight.xxl,
         color: COLORS.text,
         marginBottom: SPACING.xl,
     },
@@ -169,6 +169,6 @@ const styles = StyleSheet.create({
     paragraph: {
         color: COLORS.text,
         fontSize: TYPOGRAPHY.fontSize.md,
-        lineHeight: 24,
+        lineHeight: TYPOGRAPHY.lineHeight.md,
     },
 });

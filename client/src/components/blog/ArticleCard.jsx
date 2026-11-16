@@ -29,6 +29,7 @@ function ArticleCard({ id, title, picture }) {
 export default memo(ArticleCard);
 
 // todo reuse styles!!!
+// TODO Use Poppins
 const styles = StyleSheet.create({
     articleCardWrapper: {
         flexDirection: 'row',
@@ -47,10 +48,9 @@ const styles = StyleSheet.create({
     },
     articleCardTitle: {
         flex: 1,
-        fontFamily: 'DMSans_700Bold',
         fontSize: TYPOGRAPHY.fontSize.md,
         fontWeight: "700",
-        lineHeight: 21,
+        lineHeight: TYPOGRAPHY.lineHeight.sm,
         color: COLORS.text,
     },
 });

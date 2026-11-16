@@ -4,14 +4,16 @@ import { triggerShare } from "../../utils/native-helpers/share";
 
 // TODO add correct url after deploy
 // TODO Pressable Components -> dynamic styles!!!
+// TODO Check if nanivation.goBack is needed!!!
 
 export default function ArticleDetailsHeader({ id, title }) {
     const handleShare = () => {
         triggerShare(id, title);
+        // TODO add share logic here
     };
 
     const handleLike = () => {
-        // add like logic
+        // TODO add like logic here
     }
 
     return (
