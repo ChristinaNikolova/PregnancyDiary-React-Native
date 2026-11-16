@@ -1,16 +1,13 @@
-import { StyleSheet, View, Share } from "react-native";
+import { StyleSheet, View } from "react-native";
 import PressableIcon from "../shared/PressableIcon";
+import { triggerShare } from "../../utils/native-helpers/share";
 
 // TODO add correct url after deploy
 // TODO Pressable Components -> dynamic styles!!!
-// TODO Extract share as a util function
+
 export default function ArticleDetailsHeader({ id, title }) {
-    const handleShare = async () => {
-        await Share.share({
-            title: title,
-            message: title,
-            url: `https://your-domain.com/articles/${id}`,
-        })
+    const handleShare = () => {
+        triggerShare(id, title);
     };
 
     const handleLike = () => {
