@@ -19,7 +19,7 @@ export default function Tag({ text, selected = false }) {
 
 const styles = StyleSheet.create({
     tagWrapper: {
-        minHeight: 30,
+        minHeight: 32,
         alignSelf: "flex-start",
         justifyContent: "center",
         paddingHorizontal: SPACING.lg,
