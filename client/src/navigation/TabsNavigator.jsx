@@ -6,7 +6,7 @@ import AddScreen from "../screens/AddScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import Icon from "../components/shared/Icon";
 import { triggerHaptic } from "../utils/native-helpers/haptics";
-import { COLORS, TYPOGRAPHY } from "../theme";
+import { BORDERS, COLORS, TYPOGRAPHY } from "../theme";
 
 const Tabs = createBottomTabNavigator();
 
@@ -61,7 +61,7 @@ export default function TabsNavigator() {
                         backgroundColor: COLORS.secondary,
                         width: 40,
                         height: 40,
-                        borderRadius: 26,
+                        borderRadius: BORDERS.radius.xxl,
                         justifyContent: "center",
                         alignItems: "center",
                     },

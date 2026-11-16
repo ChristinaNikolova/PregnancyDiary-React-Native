@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from "react-native";
-import { COLORS, SPACING, TYPOGRAPHY } from "../../theme";
+import { BORDERS, COLORS, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function Tag({ text, selected = false }) {
     return (
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         paddingHorizontal: SPACING.lg,
         paddingVertical: SPACING.sm,
-        borderRadius: 20,
+        borderRadius: BORDERS.radius.xl,
         backgroundColor: COLORS.secondary,
     },
     tagText: {

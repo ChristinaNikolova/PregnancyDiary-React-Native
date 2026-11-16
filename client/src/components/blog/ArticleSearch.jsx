@@ -1,6 +1,6 @@
 import { StyleSheet, TextInput, View } from "react-native";
 import Icon from "../shared/Icon";
-import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
+import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 // TODO UseMemo/UseCallback/Reducer
 export default function ArticleSearch({ searchQuery, handleSearch }) {
     return (
@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: SPACING.lg,
         height: 48,
         backgroundColor: COLORS.surface,
-        borderRadius: 24,
-        borderWidth: 1,
+        borderRadius: BORDERS.radius.xxl,
+        borderWidth: BORDERS.width.thin,
         borderColor: COLORS.border,
     },
     input: {

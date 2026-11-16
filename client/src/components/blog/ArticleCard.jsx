@@ -2,7 +2,7 @@ import { memo } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Image, Text, Pressable } from "react-native";
 import Icon from "../shared/Icon";
-import { COLORS, EFFECTS, SPACING, TYPOGRAPHY } from "../../theme";
+import { BORDERS, COLORS, EFFECTS, SPACING, TYPOGRAPHY } from "../../theme";
 import { ROUTES } from "../../navigation/routes";
 
 function ArticleCard({ id, title, picture }) {
@@ -36,12 +36,12 @@ const styles = StyleSheet.create({
         paddingVertical: SPACING.md,
         paddingHorizontal: SPACING.xl,
         borderBottomColor: COLORS.border,
-        borderBottomWidth: 1,
+        borderBottomWidth: BORDERS.width.thin,
     },
     picture: {
         width: 76,
         height: 76,
-        borderRadius: 12,
+        borderRadius: BORDERS.radius.lg,
         backgroundColor: COLORS.background,
     },
     title: {
