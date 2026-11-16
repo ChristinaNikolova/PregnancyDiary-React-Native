@@ -47,7 +47,7 @@ export default function ArticlesList({ searchQuery = "", pressedTagId = "" }) {
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}
             data={filteredArticles}
             keyExtractor={(article) => article.id}
-            contentContainerStyle={styles.articlesWrapper}
+            contentContainerStyle={styles.screen}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
             keyboardDismissMode="on-drag"
@@ -63,7 +63,7 @@ export default function ArticlesList({ searchQuery = "", pressedTagId = "" }) {
 }
 
 const styles = StyleSheet.create({
-    articlesWrapper: {
+    screen: {
         paddingBottom: SPACING.xxxl,
     },
 });

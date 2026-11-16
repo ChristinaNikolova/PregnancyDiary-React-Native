@@ -4,7 +4,7 @@ import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 // TODO UseMemo/UseCallback/Reducer
 export default function ArticleSearch({ searchQuery, handleSearch }) {
     return (
-        <View style={styles.searchContainer}>
+        <View style={styles.container}>
             <Icon
                 iconName="search-outline"
                 iconSize={SIZES.iconSmall}
@@ -14,7 +14,7 @@ export default function ArticleSearch({ searchQuery, handleSearch }) {
                 returnKeyType="search"
                 value={searchQuery}
                 placeholder="Search articles..."
-                style={styles.searchInput}
+                style={styles.input}
                 placeholderTextColor={COLORS.textSecondary}
                 onChangeText={handleSearch}
             />
@@ -23,20 +23,19 @@ export default function ArticleSearch({ searchQuery, handleSearch }) {
 }
 
 const styles = StyleSheet.create({
-    searchContainer: {
+    container: {
         flexDirection: "row",
         alignItems: "center",
+        marginHorizontal: SPACING.lg,
+        marginBottom: SPACING.lg,
+        paddingHorizontal: SPACING.lg,
+        height: 48,
         backgroundColor: COLORS.surface,
         borderRadius: 24,
         borderWidth: 1,
         borderColor: COLORS.border,
-        paddingHorizontal: SPACING.lg,
-        height: 48,
-        marginHorizontal: SPACING.lg,
-        marginBottom: SPACING.lg,
     },
-
-    searchInput: {
+    input: {
         flex: 1,
         marginLeft: SPACING.md,
         fontFamily: TYPOGRAPHY.fontFamily.regular,

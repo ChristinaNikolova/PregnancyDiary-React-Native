@@ -7,7 +7,6 @@ import { COLORS, SPACING } from "../theme";
 
 // TODO Scroll Content
 // TODO Like/Dislike
-// TODO BLOG FontSize!!!
 export default function BlogScreen({ route }) {
     const categoryId = route.params?.categoryId;
 
@@ -29,7 +28,7 @@ export default function BlogScreen({ route }) {
     }
 
     return (
-        <View style={styles.blogWrapper}>
+        <View style={styles.screen}>
             <ArticleSearch
                 searchQuery={searchQuery}
                 handleSearch={handleSearch}
@@ -47,7 +46,7 @@ export default function BlogScreen({ route }) {
 }
 
 const styles = StyleSheet.create({
-    blogWrapper: {
+    screen: {
         flex: 1,
         backgroundColor: COLORS.background,
         paddingTop: SPACING.lg,

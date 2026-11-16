@@ -16,9 +16,9 @@ export default function ArticleCategories({ selectedId, handlePress }) {
     return (
         <ScrollView
             horizontal
-            style={styles.categoriesScroll}
+            style={styles.screen}
             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.categoriesContainer}
+            contentContainerStyle={styles.container}
         >
             {categories.map((c) =>
                 <PressableTag
@@ -33,12 +33,12 @@ export default function ArticleCategories({ selectedId, handlePress }) {
 }
 
 const styles = StyleSheet.create({
-    categoriesScroll: {
+    screen: {
         flexGrow: 0,
     },
-    categoriesContainer: {
+    container: {
         paddingHorizontal: SPACING.lg,
         paddingBottom: SPACING.lg,
-        gap: SPACING.sm,
+        gap: 8,
     },
 });

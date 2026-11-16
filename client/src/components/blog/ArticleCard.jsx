@@ -15,12 +15,12 @@ function ArticleCard({ id, title, picture }) {
     return (
         <Pressable
             style={({ pressed }) => [
-                styles.articleCardWrapper,
+                styles.screen,
                 pressed && { opacity: EFFECTS.opacity },
             ]}
             onPress={handlePress} >
-            <Image source={{ uri: picture }} style={styles.articleCardPicture} />
-            <Text style={styles.articleCardTitle}>{title}</Text>
+            <Image source={{ uri: picture }} style={styles.picture} />
+            <Text style={styles.title}>{title}</Text>
             <Icon iconName="chevron-forward-outline" />
         </Pressable>
     );
@@ -28,25 +28,23 @@ function ArticleCard({ id, title, picture }) {
 
 export default memo(ArticleCard);
 
-// todo reuse styles!!!
-// TODO Use Poppins
 const styles = StyleSheet.create({
-    articleCardWrapper: {
+    screen: {
         flexDirection: 'row',
         alignItems: 'center',
         gap: 16,
         paddingVertical: SPACING.md,
         paddingHorizontal: SPACING.xl,
-        borderBottomWidth: 1,
         borderBottomColor: COLORS.border,
+        borderBottomWidth: 1,
     },
-    articleCardPicture: {
+    picture: {
         width: 76,
         height: 76,
         borderRadius: 12,
         backgroundColor: COLORS.background,
     },
-    articleCardTitle: {
+    title: {
         flex: 1,
         fontFamily: TYPOGRAPHY.fontFamily.bold,
         fontSize: TYPOGRAPHY.fontSize.md,

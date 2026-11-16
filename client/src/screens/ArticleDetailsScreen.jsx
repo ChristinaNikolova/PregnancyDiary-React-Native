@@ -68,24 +68,20 @@ export default function ArticleDetails({ navigation, route }) {
                 source={{ uri: article?.picture }}
                 style={styles.picture}
             />
-
             <View style={styles.content}>
                 <Text style={styles.title}>
                     {article?.title}
                 </Text>
-
                 <View style={styles.metaContainer}>
                     <PressableTag
                         tagText={article?.category}
                         handlePress={handlePress}
                     />
-
                     <View style={styles.createdAt}>
                         <Text style={styles.createdAtText}>
                             {article?.createdAt}
                         </Text>
                     </View>
-
                     <View style={styles.likesContainer}>
                         <Icon
                             iconName="heart"
@@ -98,7 +94,6 @@ export default function ArticleDetails({ navigation, route }) {
                         <Text style={styles.likesLabel}>likes</Text>
                     </View>
                 </View>
-
                 <View style={styles.articleContent}>
                     {article?.content?.map((paragraph, index) => (
                         <Text key={index} style={styles.paragraph}>
