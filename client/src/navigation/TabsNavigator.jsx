@@ -5,7 +5,7 @@ import DiariesScreen from "../screens/DiariesScreen";
 import AddScreen from "../screens/AddScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import Icon from "../components/shared/Icon";
-import { triggerHaptic } from "../utils/haptics";
+import { triggerHaptic } from "../utils/native-helpers/haptics";
 import { COLORS } from "../theme";
 
 const Tabs = createBottomTabNavigator();

@@ -1,6 +1,6 @@
 import { Pressable } from "react-native";
 import Icon from "./Icon";
-import { triggerHaptic } from "../../utils/haptics";
+import { triggerHaptic } from "../../utils/native-helpers/haptics";
 import { EFFECTS } from "../../theme";
 
 export default function PressableIcon({ iconName, handlePress }) {
