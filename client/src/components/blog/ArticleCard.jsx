@@ -2,7 +2,7 @@ import { memo } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Image, Text, Pressable } from "react-native";
 import Icon from "../shared/Icon";
-import { COLORS, SPACING, TYPOGRAPHY } from "../../theme";
+import { COLORS, EFFECTS, SPACING, TYPOGRAPHY } from "../../theme";
 import { ROUTES } from "../../navigation/routes";
 
 function ArticleCard({ id, title, picture }) {
@@ -13,7 +13,12 @@ function ArticleCard({ id, title, picture }) {
     }
 
     return (
-        <Pressable style={styles.articleCardWrapper} onPress={handlePress}>
+        <Pressable
+            style={({ pressed }) => [
+                styles.articleCardWrapper,
+                pressed && { opacity: EFFECTS.opacity },
+            ]}
+            onPress={handlePress} >
             <Image source={{ uri: picture }} style={styles.articleCardPicture} />
             <Text style={styles.articleCardTitle}>{title}</Text>
             <Icon iconName="chevron-forward-outline" />

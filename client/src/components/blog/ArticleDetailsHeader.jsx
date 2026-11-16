@@ -1,12 +1,11 @@
 import { StyleSheet, View, Share } from "react-native";
 import PressableIcon from "../shared/PressableIcon";
-import { triggerHaptic } from "../../utils/haptics";
 
 // TODO add correct url after deploy
 // TODO Pressable Components -> dynamic styles!!!
+// TODO Extract share as a util function
 export default function ArticleDetailsHeader({ id, title }) {
     const handleShare = async () => {
-        triggerHaptic();
         await Share.share({
             title: title,
             message: title,
@@ -15,7 +14,6 @@ export default function ArticleDetailsHeader({ id, title }) {
     };
 
     const handleLike = () => {
-        triggerHaptic();
         // add like logic
     }
 
