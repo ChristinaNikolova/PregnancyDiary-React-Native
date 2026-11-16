@@ -6,7 +6,7 @@ import AddScreen from "../screens/AddScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 import Icon from "../components/shared/Icon";
 import { triggerHaptic } from "../utils/native-helpers/haptics";
-import { COLORS } from "../theme";
+import { COLORS, TYPOGRAPHY } from "../theme";
 
 const Tabs = createBottomTabNavigator();
 
@@ -21,6 +21,11 @@ export default function TabsNavigator() {
                 tabBarInactiveTintColor: COLORS.textSecondary,
                 tabBarStyle: {
                     backgroundColor: COLORS.surface,
+                },
+                headerTitleStyle: {
+                    fontFamily: TYPOGRAPHY.fontFamily.semiBold,
+                    fontSize: TYPOGRAPHY.fontSize.xxl,
+                    color: COLORS.text,
                 },
             }}>
             <Tabs.Screen

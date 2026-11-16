@@ -127,11 +127,11 @@ const styles = StyleSheet.create({
         paddingBottom: SPACING.huge,
     },
     title: {
+        marginBottom: SPACING.xl,
+        fontFamily: TYPOGRAPHY.fontFamily.bold,
         fontSize: TYPOGRAPHY.fontSize.title,
-        fontWeight: "700",
         lineHeight: TYPOGRAPHY.lineHeight.xxl,
         color: COLORS.text,
-        marginBottom: SPACING.xl,
     },
     metaContainer: {
         flexDirection: "row",
@@ -145,30 +145,33 @@ const styles = StyleSheet.create({
         marginLeft: SPACING.xs,
     },
     createdAtText: {
-        color: COLORS.textSecondary,
+        fontFamily: TYPOGRAPHY.fontFamily.regular,
         fontSize: TYPOGRAPHY.fontSize.sm,
+        color: COLORS.textSecondary,
     },
     likesContainer: {
         flexDirection: "row",
         alignItems: "center",
         gap: 3,
-        mmarginBottom: SPACING.xxl,
+        marginBottom: SPACING.xxl,
     },
     likesCount: {
-        color: COLORS.text,
+        fontFamily: TYPOGRAPHY.fontFamily.semiBold,
         fontSize: TYPOGRAPHY.fontSize.sm,
-        fontWeight: "600",
+        color: COLORS.text,
     },
     likesLabel: {
-        color: COLORS.textSecondary,
+        fontFamily: TYPOGRAPHY.fontFamily.regular,
         fontSize: TYPOGRAPHY.fontSize.sm,
+        color: COLORS.textSecondary,
     },
     articleContent: {
         gap: 16,
     },
     paragraph: {
-        color: COLORS.text,
+        fontFamily: TYPOGRAPHY.fontFamily.regular,
         fontSize: TYPOGRAPHY.fontSize.md,
         lineHeight: TYPOGRAPHY.lineHeight.md,
+        color: COLORS.text,
     },
 });

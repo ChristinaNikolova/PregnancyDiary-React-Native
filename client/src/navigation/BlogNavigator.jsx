@@ -8,6 +8,11 @@ export default function BlogNavigator() {
     return (
         <Stack.Navigator screenOptions={{
             headerTitleAlign: "left",
+            headerTitleStyle: {
+                fontFamily: TYPOGRAPHY.fontFamily.semiBold,
+                fontSize: TYPOGRAPHY.fontSize.xxl,
+                color: COLORS.text,
+            },
         }}>
             <Stack.Screen
                 name="Blog"
@@ -23,7 +28,6 @@ export default function BlogNavigator() {
                     headerTitleStyle: {
                         fontSize: TYPOGRAPHY.fontSize.xxl,
                         color: COLORS.text,
-                        fontWeight: "600",
                     }
                 }}
             />

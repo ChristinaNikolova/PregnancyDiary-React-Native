@@ -28,9 +28,9 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.secondary,
     },
     tagText: {
-        color: COLORS.text,
+        fontFamily: TYPOGRAPHY.fontFamily.semiBold,
         fontSize: TYPOGRAPHY.fontSize.xs,
-        fontWeight: "600",
+        color: COLORS.text,
     },
     selectedTag: {
         backgroundColor: COLORS.primary,

@@ -16,9 +16,9 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     emptyText: {
+        fontFamily: TYPOGRAPHY.fontFamily.bold,
         fontSize: TYPOGRAPHY.fontSize.md,
-        textAlign: "center",
-        fontWeight: 700,
         color: COLORS.textSecondary,
+        textAlign: "center",
     },
 });

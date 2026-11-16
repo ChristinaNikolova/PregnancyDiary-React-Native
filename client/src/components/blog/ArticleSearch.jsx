@@ -39,8 +39,8 @@ const styles = StyleSheet.create({
     searchInput: {
         flex: 1,
         marginLeft: SPACING.md,
+        fontFamily: TYPOGRAPHY.fontFamily.regular,
         fontSize: TYPOGRAPHY.fontSize.sm,
         color: COLORS.text,
-        paddingVertical: 0,
     },
 });

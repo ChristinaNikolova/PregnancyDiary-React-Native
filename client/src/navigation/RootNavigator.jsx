@@ -2,14 +2,20 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TabsNavigator from "./TabsNavigator";
 import ArticleDetailsScreen from "../screens/ArticleDetailsScreen";
 import ArticleDetailsHeader from "../components/blog/ArticleDetailsHeader";
-import { COLORS, SPACING } from "../theme";
+import { COLORS, SPACING, TYPOGRAPHY } from "../theme";
 
 const Stack = createStackNavigator();
 
 // TODO reuse Routes contanst
 export default function RootNavigator() {
     return (
-        <Stack.Navigator>
+        <Stack.Navigator screenOptions={{
+            headerTitleStyle: {
+                fontFamily: TYPOGRAPHY.fontFamily.semiBold,
+                fontSize: TYPOGRAPHY.fontSize.xxl,
+                color: COLORS.text,
+            },
+        }}>
             <Stack.Screen
                 name="Main"
                 component={TabsNavigator}

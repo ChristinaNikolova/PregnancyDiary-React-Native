@@ -48,8 +48,8 @@ const styles = StyleSheet.create({
     },
     articleCardTitle: {
         flex: 1,
+        fontFamily: TYPOGRAPHY.fontFamily.bold,
         fontSize: TYPOGRAPHY.fontSize.md,
-        fontWeight: "700",
         lineHeight: TYPOGRAPHY.lineHeight.sm,
         color: COLORS.text,
     },
