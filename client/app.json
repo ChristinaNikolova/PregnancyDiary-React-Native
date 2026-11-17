@@ -22,7 +22,14 @@
     },
     "plugins": [
       "@react-native-vector-icons/ionicons",
-      "expo-font"
+      "expo-font",
+      [
+        "expo-secure-store",
+        {
+          "configureAndroidBackup": true,
+          "faceIDPermission": "Allow $(PRODUCT_NAME) to access your Face ID biometric data."
+        }
+      ]
     ]
   }
 }
