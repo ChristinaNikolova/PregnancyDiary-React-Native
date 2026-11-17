@@ -8,6 +8,7 @@ import {
 } from "@expo-google-fonts/poppins";
 import { StatusBar } from 'expo-status-bar';
 import RootNavigator from './navigation/RootNavigator';
+import AuthProvider from './contexts/auth/AuthProvider';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -24,10 +25,12 @@ export default function App() {
 
   return (
     <>
-      <StatusBar style="auto" />
-      <NavigationContainer>
-        <RootNavigator />
-      </NavigationContainer>
+      <AuthProvider>
+        <StatusBar style="auto" />
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+      </AuthProvider>
     </>
   );
 }
