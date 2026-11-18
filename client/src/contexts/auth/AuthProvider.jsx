@@ -1,5 +1,5 @@
 import { AuthContext } from "./AuthContext";
-import usePersistedState from "../hooks/usePersistedState";
+import usePersistedState from "../../hooks/usePersistedState";
 
 export default function AuthProvider({ children }) {
     const [authToken, setAuthToken, authTokenLoaded] = usePersistedState("authToken", "");
