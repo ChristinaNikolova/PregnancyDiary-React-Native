@@ -2,11 +2,41 @@ import { useState } from "react";
 import { ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import PressableButton from "../components/shared/PressableButton";
+import useForm from "../hooks/useForm";
 import { BORDERS, COLORS, SPACING, TYPOGRAPHY } from "../theme";
 
+const initialValues = {
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    rePass: "",
+};
+
+// TODO validation + error messages - client + server
 export default function RegisterScreen() {
     const [showPassword, setShowPassword] = useState(false);
     const [showRepeatPassword, setShowRepeatPassword] = useState(false);
+
+    const { fieldHandler, submitHandler } = useForm(
+        handleRegister,
+        initialValues,
+    );
+
+    async function handleRegister(data) {
+        try {
+            console.log("handleRegister")
+            // const result = await execute(
+            //     serverPaths.REGISTER,
+            //     httpMethods.POST,
+            //     data
+            // );
+            // userAuth(result);
+            // navigate("/");
+        } catch (err) {
+            console.error(err.message);
+        }
+    }
 
     return (
         <ImageBackground
@@ -46,8 +76,7 @@ export default function RegisterScreen() {
                                     style={styles.input}
                                     placeholder="First name"
                                     placeholderTextColor={COLORS.textSecondary}
-                                    // value={name}
-                                    // onChangeText={setName}
+                                    {...fieldHandler("firstName")}
                                     autoCapitalize="words"
                                 />
                             </View>
@@ -61,8 +90,7 @@ export default function RegisterScreen() {
                                     style={styles.input}
                                     placeholder="Last name"
                                     placeholderTextColor={COLORS.textSecondary}
-                                    // value={name}
-                                    // onChangeText={setName}
+                                    {...fieldHandler("lastName")}
                                     autoCapitalize="words"
                                 />
                             </View>
@@ -76,8 +104,7 @@ export default function RegisterScreen() {
                                     style={styles.input}
                                     placeholder="Email"
                                     placeholderTextColor={COLORS.textSecondary}
-                                    // value={email}
-                                    // onChangeText={setEmail}
+                                    {...fieldHandler("email")}
                                     keyboardType="email-address"
                                     autoCapitalize="none"
                                 />
@@ -92,9 +119,8 @@ export default function RegisterScreen() {
                                     style={styles.input}
                                     placeholder="Password"
                                     placeholderTextColor={COLORS.textSecondary}
-                                // value={password}
-                                // onChangeText={setPassword}
-                                // secureTextEntry={!showPassword}
+                                    secureTextEntry={!showPassword}
+                                    {...fieldHandler("password")}
                                 />
                                 <Pressable
                                     onPress={() => setShowPassword((prev) => !prev)}
@@ -118,9 +144,8 @@ export default function RegisterScreen() {
                                     style={styles.input}
                                     placeholder="Repeat password"
                                     placeholderTextColor={COLORS.textSecondary}
-                                // value={confirmPassword}
-                                // onChangeText={setConfirmPassword}
-                                // secureTextEntry={!showConfirmPassword}
+                                    secureTextEntry={!showRepeatPassword}
+                                    {...fieldHandler("rePass")}
                                 />
                                 <Pressable
                                     onPress={() => setShowRepeatPassword((prev) => !prev)}
@@ -137,7 +162,7 @@ export default function RegisterScreen() {
                             <View style={styles.registerButton}>
                                 <PressableButton
                                     buttonText="Register"
-                                // handlePress={handleRegister}
+                                    handlePress={submitHandler}
                                 />
                             </View>
                         </View>
