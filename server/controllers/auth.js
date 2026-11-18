@@ -26,6 +26,7 @@ router.post(
       if (errors.length > 0) {
         throw mapErrors(errors);
       }
+      console.log('server')
       const token = await register(
         req.body.firstName,
         req.body.lastName,

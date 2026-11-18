@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
+import { Alert, ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import PressableButton from "../components/shared/PressableButton";
 import useForm from "../hooks/useForm";
 import { BORDERS, COLORS, SPACING, TYPOGRAPHY } from "../theme";
+import { authApi } from "../api";
 
 const initialValues = {
     firstName: "",
@@ -23,18 +24,21 @@ export default function RegisterScreen() {
         initialValues,
     );
 
+    // todo async/await try/catch
     async function handleRegister(data) {
         try {
-            console.log("handleRegister")
-            // const result = await execute(
-            //     serverPaths.REGISTER,
-            //     httpMethods.POST,
-            //     data
-            // );
-            // userAuth(result);
-            // navigate("/");
+            const { firstName, lastName, email, password } = data;
+
+            const result = await authApi.register(
+                firstName,
+                lastName,
+                email,
+                password
+            );
+
+            console.log("REGISTER RESULT:", result);
         } catch (err) {
-            console.error(err.message);
+            console.error(err.response?.data || err.message);
         }
     }
 
