@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text } from "react-native";
 import { BORDERS, COLORS, EFFECTS, SPACING, TYPOGRAPHY } from "../../theme";
 import { triggerHaptic } from "../../utils/native-helpers/haptics";
 
-export default function PressableButton({ handlePress }) {
+export default function PressableButton({ buttonText, handlePress }) {
     const handleHapticsPress = () => {
         triggerHaptic();
         handlePress?.();
@@ -19,7 +19,7 @@ export default function PressableButton({ handlePress }) {
             ]}
             onPress={handleHapticsPress}
         >
-            <Text style={styles.buttonText}>Start</Text>
+            <Text style={styles.buttonText}>{buttonText}</Text>
         </Pressable>
     );
 }
