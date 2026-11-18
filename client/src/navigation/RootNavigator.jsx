@@ -1,5 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import TabsNavigator from "./TabsNavigator";
+import AuthNavigator from "./AuthNavigator";
 import ArticleDetailsScreen from "../screens/ArticleDetailsScreen";
 import ArticleDetailsHeader from "../components/blog/ArticleDetailsHeader";
 import { COLORS, SPACING, TYPOGRAPHY } from "../theme";
@@ -20,6 +21,13 @@ export default function RootNavigator() {
                 name="Main"
                 component={TabsNavigator}
                 options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="Auth"
+                component={AuthNavigator}
+                options={{
+                    headerShown: false,
+                }}
             />
             <Stack.Screen
                 name="ArticleDetails"
