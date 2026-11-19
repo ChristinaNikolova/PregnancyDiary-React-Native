@@ -36,9 +36,9 @@ export default function TabsNavigator() {
                     headerShown: false,
                     tabBarIcon: ({ color, size }) =>
                         <Icon
-                            iconName="home-outline"
-                            iconSize={size}
-                            iconColor={color}
+                            name="home-outline"
+                            size={size}
+                            color={color}
                         />,
                 }}
             />
@@ -48,9 +48,9 @@ export default function TabsNavigator() {
                 options={{
                     tabBarIcon: ({ color, size }) =>
                         <Icon
-                            iconName="calendar-outline"
-                            iconSize={size}
-                            iconColor={color}
+                            name="calendar-outline"
+                            size={size}
+                            color={color}
                         />,
                 }} />
             <Tabs.Screen
@@ -68,9 +68,9 @@ export default function TabsNavigator() {
                     },
                     tabBarIcon: ({ color, size }) =>
                         <Icon
-                            iconName="add-outline"
-                            iconSize={size}
-                            iconColor={color}
+                            name="add-outline"
+                            size={size}
+                            color={color}
                         />,
                 }}
             />
@@ -82,9 +82,9 @@ export default function TabsNavigator() {
                     headerShown: false,
                     tabBarIcon: ({ color, size }) =>
                         <Icon
-                            iconName="newspaper-outline"
-                            iconSize={size}
-                            iconColor={color}
+                            name="newspaper-outline"
+                            size={size}
+                            color={color}
                         />,
                 }}
             />
@@ -94,9 +94,9 @@ export default function TabsNavigator() {
                 options={{
                     tabBarIcon: ({ color, size }) =>
                         <Icon
-                            iconName="person-outline"
-                            iconSize={size}
-                            iconColor={color}
+                            name="person-outline"
+                            size={size}
+                            color={color}
                         />,
                 }}
             />

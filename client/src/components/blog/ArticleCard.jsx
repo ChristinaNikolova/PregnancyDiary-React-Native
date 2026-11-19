@@ -21,7 +21,7 @@ function ArticleCard({ id, title, picture }) {
             onPress={handlePress} >
             <Image source={{ uri: picture }} style={styles.picture} />
             <Text style={styles.title}>{title}</Text>
-            <Icon iconName="chevron-forward-outline" />
+            <Icon name="chevron-forward-outline" />
         </Pressable>
     );
 }

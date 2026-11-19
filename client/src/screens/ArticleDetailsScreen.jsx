@@ -84,9 +84,9 @@ export default function ArticleDetails({ navigation, route }) {
                     </View>
                     <View style={styles.likesContainer}>
                         <Icon
-                            iconName="heart"
-                            iconColor={COLORS.primary}
-                            iconSize={SIZES.iconMedium}
+                            name="heart"
+                            color={COLORS.primary}
+                            size={SIZES.iconMedium}
                         />
                         <Text style={styles.likesCount}>
                             {article.likesCount}

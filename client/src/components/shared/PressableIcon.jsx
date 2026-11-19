@@ -18,7 +18,7 @@ export default function PressableIcon({ iconName, handlePress }) {
                 },
             ]}
             onPress={handleHapticsPress}>
-            <Icon iconName={iconName} />
+            <Icon name={iconName} />
         </Pressable>
     );
 }
