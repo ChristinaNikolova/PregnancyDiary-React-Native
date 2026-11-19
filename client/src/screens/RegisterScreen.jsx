@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Alert, ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
-import { Feather } from "@expo/vector-icons";
+import { ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
 import PressableButton from "../components/shared/PressableButton";
+import FormInput from "../components/shared/FormInput";
+import Icon from "../components/shared/Icon";
 import useForm from "../hooks/useForm";
-import { BORDERS, COLORS, SPACING, TYPOGRAPHY } from "../theme";
+import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
 import { authApi } from "../api";
 
 const initialValues = {
@@ -59,8 +60,8 @@ export default function RegisterScreen() {
                 >
                     <View style={styles.container}>
                         <View style={styles.header}>
-                            <Feather
-                                name="heart"
+                            <Icon
+                                name="heart-outline"
                                 size={36}
                                 color={COLORS.primary}
                             />
@@ -70,53 +71,32 @@ export default function RegisterScreen() {
                             </Text>
                         </View>
                         <View style={styles.form}>
+                            <FormInput
+                                fieldName="firstName"
+                                placeholder="First name"
+                                fieldHandler={fieldHandler}
+                                iconName="person-outline"
+                                autoCapitalize="words"
+                            />
+                            <FormInput
+                                fieldName="lastName"
+                                placeholder="Last name"
+                                fieldHandler={fieldHandler}
+                                iconName="person-outline"
+                                autoCapitalize="words"
+                            />
+                            <FormInput
+                                fieldName="email"
+                                placeholder="Email"
+                                fieldHandler={fieldHandler}
+                                iconName="mail-outline"
+                                autoCapitalize="none"
+                                keyboardType="email-address"
+                            />
                             <View style={styles.inputContainer}>
-                                <Feather
-                                    name="user"
-                                    size={SPACING.lg}
-                                    color={COLORS.textSecondary}
-                                />
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="First name"
-                                    placeholderTextColor={COLORS.textSecondary}
-                                    {...fieldHandler("firstName")}
-                                    autoCapitalize="words"
-                                />
-                            </View>
-                            <View style={styles.inputContainer}>
-                                <Feather
-                                    name="user"
-                                    size={SPACING.lg}
-                                    color={COLORS.textSecondary}
-                                />
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Last name"
-                                    placeholderTextColor={COLORS.textSecondary}
-                                    {...fieldHandler("lastName")}
-                                    autoCapitalize="words"
-                                />
-                            </View>
-                            <View style={styles.inputContainer}>
-                                <Feather
-                                    name="mail"
-                                    size={SPACING.lg}
-                                    color={COLORS.textSecondary}
-                                />
-                                <TextInput
-                                    style={styles.input}
-                                    placeholder="Email"
-                                    placeholderTextColor={COLORS.textSecondary}
-                                    {...fieldHandler("email")}
-                                    keyboardType="email-address"
-                                    autoCapitalize="none"
-                                />
-                            </View>
-                            <View style={styles.inputContainer}>
-                                <Feather
-                                    name="lock"
-                                    size={SPACING.lg}
+                                <Icon
+                                    name="lock-closed-outline"
+                                    size={SIZES.iconSmall}
                                     color={COLORS.textSecondary}
                                 />
                                 <TextInput
@@ -131,17 +111,17 @@ export default function RegisterScreen() {
                                     hitSlop={10}
                                     style={styles.passwordToggle}
                                 >
-                                    <Feather
-                                        name={showPassword ? "eye-off" : "eye"}
-                                        size={SPACING.lg}
+                                    <Icon
+                                        name={showPassword ? "eye-off-outline" : "eye-outline"}
+                                        size={SIZES.iconMedium}
                                         color={COLORS.textSecondary}
                                     />
                                 </Pressable>
                             </View>
                             <View style={styles.inputContainer}>
-                                <Feather
-                                    name="lock"
-                                    size={SPACING.lg}
+                                <Icon
+                                    name="lock-closed-outline"
+                                    size={SIZES.iconSmall}
                                     color={COLORS.textSecondary}
                                 />
                                 <TextInput
@@ -156,9 +136,9 @@ export default function RegisterScreen() {
                                     hitSlop={10}
                                     style={styles.passwordToggle}
                                 >
-                                    <Feather
-                                        name={showRepeatPassword ? "eye-off" : "eye"}
-                                        size={SPACING.lg}
+                                    <Icon
+                                        name={showRepeatPassword ? "eye-off-outline" : "eye-outline"}
+                                        size={SIZES.iconMedium}
                                         color={COLORS.textSecondary}
                                     />
                                 </Pressable>
@@ -188,6 +168,7 @@ export default function RegisterScreen() {
 }
 
 // todo reuse theme + gap/spacing
+// todo remove login
 const styles = StyleSheet.create({
     background: {
         flex: 1,

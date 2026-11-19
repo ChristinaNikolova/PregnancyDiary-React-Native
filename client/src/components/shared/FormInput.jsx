@@ -1,6 +1,6 @@
 import { StyleSheet, TextInput, View } from "react-native";
-import { Feather } from "@expo/vector-icons";
-import { BORDERS, COLORS, SPACING, TYPOGRAPHY } from "../../theme";
+import Icon from "./Icon";
+import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function FormInput({
     fieldName,
@@ -12,9 +12,9 @@ export default function FormInput({
     return (
         <View style={styles.inputContainer}>
             {iconName && (
-                <Feather
+                <Icon
                     name={iconName}
-                    size={SPACING.lg}
+                    size={SIZES.iconSmall}
                     color={COLORS.textSecondary}
                 />
             )}
