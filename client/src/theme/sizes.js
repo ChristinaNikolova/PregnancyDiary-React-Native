@@ -4,4 +4,5 @@ export const SIZES = {
     iconDefault: 24,
     iconLarge: 28,
     iconXLarge: 32,
+    iconHuge: 36,
 };

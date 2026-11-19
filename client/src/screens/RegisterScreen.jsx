@@ -62,7 +62,7 @@ export default function RegisterScreen() {
                         <View style={styles.header}>
                             <Icon
                                 name="heart-outline"
-                                size={36}
+                                size={SIZES.iconHuge}
                                 color={COLORS.primary}
                             />
                             <Text style={styles.title}>Create account</Text>
