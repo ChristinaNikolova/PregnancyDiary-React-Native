@@ -18,7 +18,7 @@ const initialValues = {
     rePass: "",
 };
 
-// TODO validation + error messages - client + server
+// TODO validation + error messages - client
 export default function RegisterScreen() {
     const [showPassword, setShowPassword] = useState(false);
     const [showRepeatPassword, setShowRepeatPassword] = useState(false);

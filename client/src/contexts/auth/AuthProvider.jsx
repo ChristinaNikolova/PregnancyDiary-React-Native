@@ -1,5 +1,6 @@
 import { AuthContext } from "./AuthContext";
 import usePersistedState from "../../hooks/usePersistedState";
+import api, { API_PATHS } from "../../api/api";
 
 export default function AuthProvider({ children }) {
     const [authToken, setAuthToken, authTokenLoaded] = usePersistedState("authToken", "");
@@ -14,10 +15,19 @@ export default function AuthProvider({ children }) {
         setId(authData ? authData._id : "");
     };
 
-    const logout = () => {
-        userAuth(null);
+    const logout = async () => {
+        try {
+            await api.get(`${API_PATHS.AUTH}/logout`, {
+                headers: {
+                    "X-Authorization": `Bearer ${authToken}`,
+                },
+            });
+        } catch (error) {
+            console.error(error);
+        } finally {
+            userAuth(null);
+        }
     };
-
     return (
         <AuthContext.Provider
             value={{
