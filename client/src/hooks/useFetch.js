@@ -2,6 +2,7 @@
 import { useState, useCallback } from "react";
 import useConfigToken from "./useConfigToken";
 import api from "../api/api";
+import { httpMethods } from "../utils/constants/global";
 
 // TODO: Add AbortController to cancel pending requests when needed.
 export default function useFetch() {
@@ -12,7 +13,7 @@ export default function useFetch() {
     const { authToken } = useConfigToken();
 
     const execute = useCallback(
-        async (url, method = "GET", data = null) => {
+        async (url, method = httpMethods.GET, data = null) => {
             setLoading(true);
             setServerError("");
 
