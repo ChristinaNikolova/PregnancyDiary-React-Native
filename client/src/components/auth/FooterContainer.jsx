@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { Link } from '@react-navigation/native';
 import { COLORS, SPACING, TYPOGRAPHY } from "../../theme";
 
@@ -6,9 +6,9 @@ export default function FooterContainer({ text, link }) {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>{text}</Text>
-            <Pressable>
-                <Link style={styles.link} screen={link}>{link}</Link>
-            </Pressable>
+            <Link style={styles.link} screen={link}>
+                {link}
+            </Link>
         </View>
     );
 }
