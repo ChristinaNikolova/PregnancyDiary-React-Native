@@ -18,7 +18,6 @@ const initialValues = {
 };
 
 // TODO validation + error messages - client
-// todo wrong password
 export default function LoginScreen() {
     const { userAuth } = useAuthContext();
 
@@ -58,7 +57,6 @@ export default function LoginScreen() {
                     fieldHandler={fieldHandler}
                     iconName="mail-outline"
                     autoCapitalize="none"
-                    autoCorrect={false}
                     keyboardType="email-address"
                 />
                 <FormInput

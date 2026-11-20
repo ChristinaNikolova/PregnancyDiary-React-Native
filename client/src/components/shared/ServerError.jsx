@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { BORDERS, COLORS, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function ServerError({ error }) {

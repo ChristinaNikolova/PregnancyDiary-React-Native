@@ -26,12 +26,12 @@ export default function AuthProvider({ children }) {
                     "X-Authorization": `Bearer ${authToken}`,
                 },
             });
+            userAuth(null);
         } catch (error) {
             console.error(error);
-        } finally {
-            userAuth(null);
         }
     };
+
     return (
         <AuthContext.Provider
             value={{
