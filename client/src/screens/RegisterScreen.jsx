@@ -3,8 +3,11 @@ import { ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView,
 import PrimaryButton from "../components/shared/PrimaryButton";
 import FormInput from "../components/shared/FormInput";
 import Icon from "../components/shared/Icon";
+import ServerError from "../components/shared/ServerError";
 import useForm from "../hooks/useForm";
-import { authApi } from "../api";
+import useFetch from "../hooks/useFetch";
+import useAuthContext from "../contexts/auth/useAuthContext";
+import { API_PATHS } from "../api/api";
 import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
 
 const initialValues = {
@@ -20,24 +23,27 @@ export default function RegisterScreen() {
     const [showPassword, setShowPassword] = useState(false);
     const [showRepeatPassword, setShowRepeatPassword] = useState(false);
 
+    const { userAuth } = useAuthContext();
+
+    const { execute, loading, serverError } = useFetch();
+
     const { fieldHandler, submitHandler } = useForm(
         handleRegister,
         initialValues,
     );
 
     // todo async/await try/catch
+    // todo constants
+    // todo add loading
+    // todo fix pass, confirm pass bug
     async function handleRegister(data) {
         try {
-            const { firstName, lastName, email, password } = data;
-
-            const result = await authApi.register(
-                firstName,
-                lastName,
-                email,
-                password
+            const result = await execute(
+                `${API_PATHS.AUTH}/register`,
+                "post",
+                data
             );
-
-            console.log("REGISTER RESULT:", result);
+            userAuth(result);
         } catch (err) {
             console.error(err.response?.data || err.message);
         }
@@ -70,6 +76,9 @@ export default function RegisterScreen() {
                                 Start your special journey with us.
                             </Text>
                         </View>
+                        {serverError ? (
+                            <ServerError error={serverError} />
+                        ) : null}
                         <View style={styles.form}>
                             <FormInput
                                 fieldName="firstName"

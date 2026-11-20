@@ -3,12 +3,20 @@ import TabsNavigator from "./TabsNavigator";
 import AuthNavigator from "./AuthNavigator";
 import ArticleDetailsScreen from "../screens/ArticleDetailsScreen";
 import ArticleDetailsHeader from "../components/blog/ArticleDetailsHeader";
+import useAuthContext from "../contexts/auth/useAuthContext";
 import { COLORS, SPACING, TYPOGRAPHY } from "../theme";
 
 const Stack = createStackNavigator();
 
 // TODO reuse Routes contanst
+// todo other guareded paths
 export default function RootNavigator() {
+    const { isAuthenticated, isLoaded } = useAuthContext();
+
+    if (!isLoaded) {
+        return null;
+    }
+
     return (
         <Stack.Navigator screenOptions={{
             headerTitleStyle: {
@@ -17,18 +25,20 @@ export default function RootNavigator() {
                 color: COLORS.text,
             },
         }}>
-            <Stack.Screen
-                name="Main"
-                component={TabsNavigator}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen
-                name="Auth"
-                component={AuthNavigator}
-                options={{
-                    headerShown: false,
-                }}
-            />
+            {!isAuthenticated ?
+                <Stack.Screen
+                    name="Auth"
+                    component={AuthNavigator}
+                    options={{
+                        headerShown: false,
+                    }}
+                /> :
+                <Stack.Screen
+                    name="Main"
+                    component={TabsNavigator}
+                    options={{ headerShown: false }}
+                />
+            }
             <Stack.Screen
                 name="ArticleDetails"
                 component={ArticleDetailsScreen}
