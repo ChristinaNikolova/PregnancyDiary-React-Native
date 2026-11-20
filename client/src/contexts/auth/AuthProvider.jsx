@@ -5,13 +5,17 @@ import api, { API_PATHS } from "../../api/api";
 export default function AuthProvider({ children }) {
     const [authToken, setAuthToken, authTokenLoaded] = usePersistedState("authToken", "");
     const [email, setEmail, emailLoaded] = usePersistedState("email", "");
+    const [firstName, setFirstName, firstNameLoaded] = usePersistedState("firstName", "");
+    const [lastName, setLastName, lastNameLoaded] = usePersistedState("lastName", "");
     const [id, setId, idLoaded] = usePersistedState("userId", "");
 
-    const isLoaded = authTokenLoaded && emailLoaded && idLoaded;
+    const isLoaded = authTokenLoaded && emailLoaded && firstNameLoaded && lastNameLoaded && idLoaded;
 
     const userAuth = (authData) => {
         setAuthToken(authData ? authData.accessToken : "");
         setEmail(authData ? authData.email : "");
+        setFirstName(authData ? authData.firstName : "");
+        setLastName(authData ? authData.lastName : "");
         setId(authData ? authData._id : "");
     };
 
@@ -39,6 +43,8 @@ export default function AuthProvider({ children }) {
                     id: id,
                     authToken: authToken,
                     email: email,
+                    firstName: firstName,
+                    lastName: lastName,
                 },
             }}
         >

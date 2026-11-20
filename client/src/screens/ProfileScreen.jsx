@@ -43,8 +43,7 @@ export default function ProfileScreen() {
                 />
                 <View style={styles.userInfo}>
                     <Text style={styles.userName}>
-                        {/* {user.firstName} {user.lastName} */}
-                        {user.email}
+                        {user.firstName} {user.lastName}
                     </Text>
                     <Text style={styles.email}>{user.email}</Text>
                 </View>
