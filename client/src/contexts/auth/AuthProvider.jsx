@@ -14,10 +14,15 @@ export default function AuthProvider({ children }) {
         setId(authData ? authData._id : "");
     };
 
+    const logout = () => {
+        userAuth(null);
+    };
+
     return (
         <AuthContext.Provider
             value={{
                 userAuth,
+                logout,
                 isAuthenticated: !!authToken,
                 isLoaded,
                 user: {
