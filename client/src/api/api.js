@@ -1,6 +1,6 @@
 import axios from "axios"
 
-// todo constants
+// todo add constants
 const BASE_URL = "http://192.168.2.100:3030";
 
 export const API_PATHS = {
