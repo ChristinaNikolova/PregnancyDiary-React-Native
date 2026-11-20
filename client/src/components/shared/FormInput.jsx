@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 import Icon from "./Icon";
+import FormInputPasswordIcon from "./FormInputPasswordIcon";
 import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function FormInput({
@@ -7,8 +9,15 @@ export default function FormInput({
     placeholder,
     iconName,
     fieldHandler,
+    isPassword = false,
     ...props
 }) {
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleShowPasswordPress = () => {
+        setShowPassword((prev) => !prev)
+    }
+
     return (
         <View style={styles.inputContainer}>
             {iconName && (
@@ -22,9 +31,16 @@ export default function FormInput({
                 style={styles.input}
                 placeholder={placeholder}
                 placeholderTextColor={COLORS.textSecondary}
+                secureTextEntry={isPassword && !showPassword}
                 {...fieldHandler(fieldName)}
                 {...props}
             />
+            {isPassword && (
+                <FormInputPasswordIcon
+                    showPassword={showPassword}
+                    handlePress={handleShowPasswordPress}
+                />
+            )}
         </View>
     );
 }
