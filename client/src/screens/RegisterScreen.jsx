@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { ImageBackground, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from "react-native";
-import PressableButton from "../components/shared/PressableButton";
+import PrimaryButton from "../components/shared/PrimaryButton";
 import FormInput from "../components/shared/FormInput";
 import Icon from "../components/shared/Icon";
 import useForm from "../hooks/useForm";
-import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
 import { authApi } from "../api";
+import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
 
 const initialValues = {
     firstName: "",
@@ -144,7 +144,7 @@ export default function RegisterScreen() {
                                 </Pressable>
                             </View>
                             <View style={styles.registerButton}>
-                                <PressableButton
+                                <PrimaryButton
                                     buttonText="Register"
                                     handlePress={submitHandler}
                                 />
