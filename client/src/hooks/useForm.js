@@ -13,7 +13,6 @@ export default function useForm(
     //const [files, setFiles] = useState({});
 
     const fieldHandler = (fieldName) => {
-        console.log('fieldName', fieldName)
         return {
             value: values[fieldName],
             onChangeText: (value) => changeHandler(fieldName, value),
@@ -23,7 +22,6 @@ export default function useForm(
 
     const changeHandler = (fieldName, value) => {
         setValues((state) => ({ ...state, [fieldName]: value }));
-        console.log("chane")
     };
 
     const validateHandler = (fieldName) => {
@@ -35,7 +33,6 @@ export default function useForm(
 
     const submitHandler = async () => {
         // const data = formHelpers.prepareData(values, files);
-        console.log("data values", values);
         await callback(values);
     };
 
