@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 import ArticleSearch from "../components/blog/ArticleSearch";
 import ArticlesList from "../components/blog/ArticlesList";
 import ArticleCategories from "../components/blog/ArticleCategories";
-import { COLORS, SPACING } from "../theme";
+import { COLORS, SIZES, SPACING } from "../theme";
+import Icon from "../components/shared/Icon";
 
 // TODO Scroll Content
 // TODO Like/Dislike
-export default function BlogScreen({ route }) {
+export default function BlogScreen({ navigation, route }) {
     const categoryId = route.params?.categoryId;
-    const showFavourites = route.params?.showFavourites;
+    const isUserFavourites = route.params?.showFavourites ?? false;
 
     const [searchQuery, setSearchQuery] = useState("");
     const [pressedTagId, setPressedTagId] = useState(categoryId || "");
+    const [showFavourites, setShowFavourites] = useState(false);
 
     // TODO try not to use useEffect in the components!!!!
     useEffect(() => {
@@ -20,6 +22,10 @@ export default function BlogScreen({ route }) {
             setPressedTagId(categoryId);
         }
     }, [categoryId]);
+
+    useEffect(() => {
+        setShowFavourites(isUserFavourites);
+    }, [isUserFavourites]);
 
     const handleSearch = (text) => {
         setSearchQuery(text)
@@ -29,8 +35,24 @@ export default function BlogScreen({ route }) {
         setPressedTagId((prev) => prev !== id ? id : "");
     }
 
+    const handleClearFavourites = () => {
+        setShowFavourites(false);
+        navigation.setParams({ showFavourites: false });
+    };
+
     return (
         <View style={styles.screen}>
+            {showFavourites && (
+                <Pressable
+                    onPress={handleClearFavourites}
+                    hitSlop={10}
+                >
+                    <Icon
+                        name="close-circle-outline"
+                        size={SIZES.iconMedium}
+                    />
+                </Pressable>
+            )}
             <ArticleSearch
                 searchQuery={searchQuery}
                 handleSearch={handleSearch}
