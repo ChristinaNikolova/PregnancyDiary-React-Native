@@ -7,14 +7,14 @@ const {
   articleAdminViewModel,
   articleListByCategoryViewModel,
   articleDetailsViewModel,
-  articleLastThreeListViewModel,
 } = require("../utils/mapper/article");
 const { errors } = require("../utils/constants/global");
 
-async function all() {
+async function all(limit) {
   return (
     await Article.find({})
       .sort({ createdAt: -1, title: 1 })
+      .limit(limit)
   ).map(articleListViewModel);
 }
 
@@ -27,15 +27,22 @@ async function allAdmin() {
   ).map(articleAdminViewModel);
 }
 
-async function getByCategory(categoryId) {
-  return (await Article.find({ category: new ObjectId(categoryId) })).map(
-    articleListByCategoryViewModel
-  );
-}
-
 async function getById(id) {
   const article = await Article.findById(id).populate("category", "name");
   return articleDetailsViewModel(article);
+}
+
+async function like(id, userId) {
+  const article = await Article.findById(id);
+
+  if (article.likes.includes(userId)) {
+    const index = article.likes.indexOf(userId);
+    article.likes.splice(index, 1);
+  } else {
+    article.likes.push(userId);
+  }
+
+  return article.save();
 }
 
 async function getByIdAdmin(id) {
@@ -78,27 +85,6 @@ async function deleteById(id) {
   return Article.findByIdAndDelete(id);
 }
 
-async function getTotalCount(searchedQuery) {
-  return (
-    await Article.find(
-      searchedQuery ? { title: { $regex: searchedQuery, $options: "i" } } : {}
-    )
-  ).length;
-}
-
-async function like(id, userId) {
-  const article = await Article.findById(id);
-
-  if (article.likes.includes(userId)) {
-    const index = article.likes.indexOf(userId);
-    article.likes.splice(index, 1);
-  } else {
-    article.likes.push(userId);
-  }
-
-  return article.save();
-}
-
 async function getByTitle(title) {
   return await Article.findOne({ title }).collation({
     locale: "en",
@@ -106,15 +92,8 @@ async function getByTitle(title) {
   });
 }
 
-async function getLastThree() {
-  return (
-    await Article.find({}).sort({ createdAt: -1, title: 1 }).limit(3)
-  ).map(articleLastThreeListViewModel);
-}
-
 module.exports = {
   all,
-  getTotalCount,
   create,
   allAdmin,
   deleteById,
@@ -122,6 +101,4 @@ module.exports = {
   getByIdAdmin,
   update,
   like,
-  getByCategory,
-  getLastThree,
 };
