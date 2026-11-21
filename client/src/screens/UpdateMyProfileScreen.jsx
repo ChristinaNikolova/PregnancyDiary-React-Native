@@ -1,6 +1,6 @@
 
 import { useNavigation } from "@react-navigation/native";
-import { ScrollView, View, Image, Pressable, StyleSheet } from "react-native";
+import { ScrollView, View, Image, Pressable, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
 import PrimaryButton from "../components/shared/PrimaryButton";
 import Icon from "../components/shared/Icon";
 import FormInput from "../components/form/FormInput";
@@ -51,65 +51,74 @@ export default function UpdateMyProfileScreen() {
     }
 
     return (
-        <ScrollView
-            style={styles.container}
-            contentContainerStyle={styles.contentContainer}
-            showsVerticalScrollIndicator={false}
+        <KeyboardAvoidingView
+            style={styles.keyboardView}
+            behavior={Platform.OS === "ios" ? "padding" : undefined}
         >
-            <View style={styles.profilePictureSection}>
-                <View style={styles.profilePictureContainer}>
-                    <Image
-                        source={require("../assets/images/default_profile_image.png")}
-                        style={styles.profilePicture}
-                    />
-                    <Pressable style={styles.editPictureButton}>
-                        <Icon name="camera" />
-                    </Pressable>
+            <ScrollView
+                style={styles.container}
+                contentContainerStyle={styles.contentContainer}
+                showsVerticalScrollIndicator={false}
+                keyboardShouldPersistTaps="handled"
+            >
+                <View style={styles.profilePictureSection}>
+                    <View style={styles.profilePictureContainer}>
+                        <Image
+                            source={require("../assets/images/default_profile_image.png")}
+                            style={styles.profilePicture}
+                        />
+                        <Pressable style={styles.editPictureButton}>
+                            <Icon name="camera" />
+                        </Pressable>
+                    </View>
+                    <View style={styles.pictureActions}>
+                        <PressableTag
+                            tagText="Change picture"
+                            handlePress={null}
+                        />
+                        <PressableTag
+                            tagText="Delete picture"
+                            handlePress={null}
+                        />
+                    </View>
                 </View>
-                <View style={styles.pictureActions}>
-                    <PressableTag
-                        tagText="Change picture"
-                        handlePress={null}
+                {serverError ?
+                    <ServerError error={serverError} />
+                    : null}
+                <View style={styles.formSection}>
+                    <FormInput
+                        fieldName="firstName"
+                        placeholder="First name"
+                        fieldHandler={fieldHandler}
+                        iconName="person-outline"
+                        error={errors.firstName}
+                        autoCapitalize="words"
                     />
-                    <PressableTag
-                        tagText="Delete picture"
-                        handlePress={null}
-                    />
-                </View>
-            </View>
-            {serverError ?
-                <ServerError error={serverError} />
-                : null}
-            <View style={styles.formSection}>
-                <FormInput
-                    fieldName="firstName"
-                    placeholder="First name"
-                    fieldHandler={fieldHandler}
-                    iconName="person-outline"
-                    error={errors.firstName}
-                    autoCapitalize="words"
-                />
 
-                <FormInput
-                    fieldName="lastName"
-                    placeholder="Last name"
-                    fieldHandler={fieldHandler}
-                    iconName="person-outline"
-                    error={errors.lastName}
-                    autoCapitalize="words"
+                    <FormInput
+                        fieldName="lastName"
+                        placeholder="Last name"
+                        fieldHandler={fieldHandler}
+                        iconName="person-outline"
+                        error={errors.lastName}
+                        autoCapitalize="words"
+                    />
+                </View>
+                <PrimaryButton
+                    buttonText="Update"
+                    disabled={disabledForm()}
+                    handlePress={submitHandler}
                 />
-            </View>
-            <PrimaryButton
-                buttonText="Update"
-                disabled={disabledForm()}
-                handlePress={submitHandler}
-            />
-        </ScrollView>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 }
 
 // todo check stykes
 const styles = StyleSheet.create({
+    keyboardView: {
+        flex: 1,
+    },
     container: {
         flex: 1,
         backgroundColor: COLORS.background,
