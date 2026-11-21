@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import ArticleSearch from "../components/blog/ArticleSearch";
 import ArticlesList from "../components/blog/ArticlesList";
 import ArticleCategories from "../components/blog/ArticleCategories";
-import { COLORS, SIZES, SPACING } from "../theme";
-import Icon from "../components/shared/Icon";
+import ClearButton from "../components/shared/ClearButton";
+import { COLORS, SPACING } from "../theme";
 
 // TODO Scroll Content
 // TODO Like/Dislike
@@ -42,17 +42,6 @@ export default function BlogScreen({ navigation, route }) {
 
     return (
         <View style={styles.screen}>
-            {showFavourites && (
-                <Pressable
-                    onPress={handleClearFavourites}
-                    hitSlop={10}
-                >
-                    <Icon
-                        name="close-circle-outline"
-                        size={SIZES.iconMedium}
-                    />
-                </Pressable>
-            )}
             <ArticleSearch
                 searchQuery={searchQuery}
                 handleSearch={handleSearch}
@@ -61,6 +50,7 @@ export default function BlogScreen({ navigation, route }) {
                 selectedId={pressedTagId}
                 handlePress={handlePress}
             />
+            {showFavourites && <ClearButton handlePress={handleClearFavourites} />}
             <ArticlesList
                 searchQuery={searchQuery}
                 pressedTagId={pressedTagId}
@@ -73,8 +63,8 @@ export default function BlogScreen({ navigation, route }) {
 const styles = StyleSheet.create({
     screen: {
         flex: 1,
-        backgroundColor: COLORS.background,
         paddingTop: SPACING.lg,
         paddingBottom: SPACING.xxl,
+        backgroundColor: COLORS.background,
     },
 });

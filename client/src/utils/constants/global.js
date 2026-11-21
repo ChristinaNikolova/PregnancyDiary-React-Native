@@ -5,6 +5,10 @@ export const httpMethods = {
     DELETE: "DELETE",
 };
 
+export const hitSlop = {
+    DEFAULT: 10,
+}
+
 export const errorMessages = {
     "SECURE_STORE_GET": "Failed to load value from SecureStore",
     "SECURE_STORE_SET": "Failed to save value to SecureStore",

@@ -1,12 +1,13 @@
 import { Pressable, StyleSheet } from "react-native";
 import Icon from "./Icon";
+import { hitSlop } from "../../utils/constants/global";
 import { COLORS, SIZES } from "../../theme";
 
 export default function FormInputPasswordIcon({ showPassword, handlePress }) {
     return (
         <Pressable
             onPress={handlePress}
-            hitSlop={10}
+            hitSlop={hitSlop.DEFAULT}
             style={styles.passwordToggle}
         >
             <Icon
