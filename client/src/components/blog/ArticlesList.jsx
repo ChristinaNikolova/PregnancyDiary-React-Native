@@ -13,7 +13,13 @@ import { SPACING } from "../../theme";
 // TODO: Extrach shared logic (fresh)
 // TODO Loading State
 // todo add alert, loading comonents
-export default function ArticlesList({ searchQuery = "", pressedTagId = "", isFavourite = false }) {
+export default function ArticlesList({
+    searchQuery = "",
+    pressedTagId = "",
+    isFavourite = false,
+    limit = null,
+    scrollEnabled = true
+}) {
     const [refreshing, setRefreshing] = useState(false);
 
     const { user } = useAuthContext();
@@ -24,8 +30,12 @@ export default function ArticlesList({ searchQuery = "", pressedTagId = "", isFa
     } = useFetch(`${API_PATHS.ARTICLES}`);
 
     const fetchArticles = useCallback(async () => {
+        const url = limit ?
+            `${API_PATHS.ARTICLES}?limit=${limit}`
+            : API_PATHS.ARTICLES;
+
         await execute(
-            `${API_PATHS.ARTICLES}`,
+            url,
             httpMethods.GET
         );
     }, [execute]);
@@ -85,6 +95,7 @@ export default function ArticlesList({ searchQuery = "", pressedTagId = "", isFa
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
             keyboardDismissMode="on-drag"
+            scrollEnabled={scrollEnabled}
             renderItem={({ item }) =>
                 <ArticleCard
                     id={item.id}
@@ -98,6 +109,6 @@ export default function ArticlesList({ searchQuery = "", pressedTagId = "", isFa
 
 const styles = StyleSheet.create({
     screen: {
-        paddingBottom: SPACING.xxxl,
+        paddingBottom: SPACING.md,
     },
 });

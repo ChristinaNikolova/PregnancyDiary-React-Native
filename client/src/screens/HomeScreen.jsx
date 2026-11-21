@@ -1,10 +1,9 @@
 
-import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-
+import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import useAuthContext from '../contexts/auth/useAuthContext';
-import { COLORS } from '../theme/colors';
+import ArticlesList from '../components/blog/ArticlesList';
 import Icon from '../components/shared/Icon';
-import { SIZES, SPACING, TYPOGRAPHY } from '../theme';
+import { SIZES, SPACING, TYPOGRAPHY, COLORS } from '../theme';
 
 const shortcuts = [
     { id: 'memories', title: 'Спомени', icon: 'book-outline' },
@@ -12,7 +11,7 @@ const shortcuts = [
     { id: 'weeks', title: 'Седмици', icon: 'calendar-outline' },
     { id: 'checklist', title: 'Checklist', icon: 'checkbox-outline' },
 ];
-
+// todo pull to refresh
 export default function HomeScreen() {
     const { user } = useAuthContext();
 
@@ -83,37 +82,14 @@ export default function HomeScreen() {
                     </View>
                 ))}
             </View>
-
-            {/* Recommended Articles */}
-            <View style={styles.recommendedSection}>
+            <>
                 <View style={styles.sectionHeader}>
                     <Text style={styles.sectionTitle}>
-                        Препоръчано за теб
-                    </Text>
-
-                    <Text style={styles.seeAllText}>
-                        Виж всички →
+                        Newest articles in our blog
                     </Text>
                 </View>
-
-                <View style={styles.articleCard}>
-                    <Image
-                        source={require('../assets/images/welcome.png')}
-                        style={styles.articleImage}
-                        resizeMode="cover"
-                    />
-
-                    <View style={styles.articleContent}>
-                        <Text style={styles.articleCategory}>
-                            БРЕМЕННОСТ
-                        </Text>
-
-                        <Text style={styles.articleTitle}>
-                            Хранене през втори триместър
-                        </Text>
-                    </View>
-                </View>
-            </View>
+                <ArticlesList limit={3} scrollEnabled={false} />
+            </>
         </ScrollView>
     );
 }
@@ -214,7 +190,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
     },
 
-    // Shortcuts
+    // TODO Shortcuts
     shortcutsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -242,61 +218,16 @@ const styles = StyleSheet.create({
         color: COLORS.text,
         textAlign: 'center',
     },
-
-    // Recommended Articles
-    recommendedSection: {
-        marginBottom: 20,
-    },
-
     sectionHeader: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 16,
+        marginBottom: SPACING.lg,
     },
-
     sectionTitle: {
-        fontSize: 22,
-        fontWeight: '700',
-        color: COLORS.text,
-    },
-
-    seeAllText: {
-        fontSize: 14,
-        fontWeight: '600',
-        color: COLORS.darkPink,
-    },
-
-    articleCard: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: COLORS.card,
-        borderRadius: 22,
-        overflow: 'hidden',
-    },
-
-    articleImage: {
-        width: 125,
-        height: 120,
-    },
-
-    articleContent: {
-        flex: 1,
-        padding: 14,
-    },
-
-    articleCategory: {
-        fontSize: 11,
-        fontWeight: '700',
-        color: COLORS.darkPink,
-        marginBottom: 8,
-        letterSpacing: 1,
-    },
-
-    articleTitle: {
-        fontSize: 17,
-        fontWeight: '700',
-        lineHeight: 24,
+        fontFamily: TYPOGRAPHY.fontFamily.bold,
+        fontSize: TYPOGRAPHY.fontSize.md,
+        textTransform: "uppercase",
         color: COLORS.text,
     },
 });
