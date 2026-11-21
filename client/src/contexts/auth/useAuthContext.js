@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { AuthContext } from "./AuthContext";
+import { errorMessages } from "../../utils/constants/global";
 
 export default function useAuthContext() {
     const context = useContext(AuthContext);
 
     if (!context) {
-        // TODO add constant here
-        throw new Error("useAuthContext must be used within AuthProvider");
+        throw new Error(errorMessages.NO_CONTEXT);
     }
 
     return context;

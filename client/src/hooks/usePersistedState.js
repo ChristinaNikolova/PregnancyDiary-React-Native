@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import * as SecureStore from 'expo-secure-store';
+import { errorMessages } from "../utils/constants/global";
 
 export default function usePersistedState(key, initialValue) {
     const [value, setValue] = useState(initialValue);
@@ -13,8 +14,7 @@ export default function usePersistedState(key, initialValue) {
                 }
             })
             .catch((error) => {
-                // todo add constant
-                console.error("Failed to load value from SecureStore", error);
+                console.error(errorMessages.SECURE_STORE_GET, error);
             })
             .finally(() => {
                 setIsLoaded(true);
@@ -26,7 +26,7 @@ export default function usePersistedState(key, initialValue) {
 
         SecureStore.setItemAsync(key, JSON.stringify(value))
             .catch((error) => {
-                console.error("Failed to save value to SecureStore", error);
+                console.error(errorMessages.SECURE_STORE_SET, error);
             });
     }, [key, value, isLoaded]);
 

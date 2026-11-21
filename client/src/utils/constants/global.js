@@ -4,3 +4,9 @@ export const httpMethods = {
     PUT: "PUT",
     DELETE: "DELETE",
 };
+
+export const errorMessages = {
+    "SECURE_STORE_GET": "Failed to load value from SecureStore",
+    "SECURE_STORE_SET": "Failed to save value to SecureStore",
+    "NO_CONTEXT": "useAuthContext must be used within AuthProvider",
+}
