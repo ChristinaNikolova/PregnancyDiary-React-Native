@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text } from "react-native";
 import { BORDERS, COLORS, EFFECTS, SPACING, TYPOGRAPHY } from "../../theme";
 import { triggerHaptic } from "../../utils/native-helpers/haptics";
 
-export default function PrimaryButton({ buttonText, handlePress }) {
+export default function PrimaryButton({ buttonText, disabled = false, handlePress }) {
     const handleHapticsPress = () => {
         triggerHaptic();
         handlePress?.();
@@ -10,12 +10,14 @@ export default function PrimaryButton({ buttonText, handlePress }) {
 
     return (
         <Pressable
+            disabled={disabled}
             style={({ pressed }) => [
                 styles.button,
-                pressed && {
+                pressed && !disabled && {
                     opacity: EFFECTS.opacity,
                     transform: [{ scale: EFFECTS.scale }],
                 },
+                disabled && styles.disabledButton,
             ]}
             onPress={handleHapticsPress}
         >
@@ -39,5 +41,8 @@ const styles = StyleSheet.create({
         fontFamily: TYPOGRAPHY.fontFamily.medium,
         fontSize: TYPOGRAPHY.fontSize.md,
         color: COLORS.white,
+    },
+    disabledButton: {
+        opacity: EFFECTS.disabledOpacity,
     },
 });

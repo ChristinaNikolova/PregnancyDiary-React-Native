@@ -24,7 +24,6 @@ export default function useForm(
             ...values,
             [fieldName]: value,
         };
-
         setValues(newValues);
 
         if (Object.values(touched).some(Boolean)) {
@@ -37,30 +36,28 @@ export default function useForm(
             ...touched,
             [fieldName]: true,
         };
-
         setTouched(newTouched);
-
         const errors = validator[validatorName](values, newTouched);
         setErrors(errors);
     };
 
     const submitHandler = async () => {
         const data = formHelpers.prepareData(values);
-
         await callback(data);
     };
 
-    // const disabledForm = () => {
-    //     return (
-    //         Object.values(values).some((x) => typeof x === "string" && !x) ||
-    //         Object.keys(errors).length
-    //     );
-    // };
+    const disabledForm = () => {
+        return (
+            Object.values(values).some((x) => typeof x === "string" && !x) ||
+            Object.keys(errors).length > 0
+        );
+    };
 
     return {
         values,
         errors,
         submitHandler,
         fieldHandler,
+        disabledForm
     };
 }

@@ -25,7 +25,7 @@ export default function RegisterScreen() {
 
     const { execute, loading, serverError } = useFetch();
 
-    const { fieldHandler, submitHandler, errors } = useForm(
+    const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
         handleRegister,
         "register",
         initialValues,
@@ -103,6 +103,7 @@ export default function RegisterScreen() {
                 <View style={styles.button}>
                     <PrimaryButton
                         buttonText="Register"
+                        disabled={disabledForm()}
                         handlePress={submitHandler}
                     />
                 </View>

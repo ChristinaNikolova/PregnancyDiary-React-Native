@@ -22,7 +22,7 @@ export default function LoginScreen() {
 
     const { execute, loading, serverError } = useFetch();
 
-    const { fieldHandler, submitHandler, errors } = useForm(
+    const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
         handleLogin,
         "login",
         initialValues,
@@ -72,6 +72,7 @@ export default function LoginScreen() {
                 <View style={styles.button}>
                     <PrimaryButton
                         buttonText="Login"
+                        disabled={disabledForm()}
                         handlePress={submitHandler}
                     />
                 </View>
