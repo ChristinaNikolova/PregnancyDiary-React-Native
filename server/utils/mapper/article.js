@@ -7,6 +7,7 @@ function articleListViewModel(article) {
     title: article.title,
     picture: article.picture,
     categoryId: article.category._id,
+    likes: article.likes,
   };
 }
 
@@ -46,7 +47,7 @@ function articleDetailsViewModel(article) {
     ),
     picture: article.picture,
     likesCount: article.likes.length,
-    //likes: article.likes,
+    likes: article.likes,
     categoryId: article.category._id,
     category: article.category.name,
     createdAt: formatCreatedAt(article.createdAt),

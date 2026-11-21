@@ -9,6 +9,7 @@ import { COLORS, SPACING } from "../theme";
 // TODO Like/Dislike
 export default function BlogScreen({ route }) {
     const categoryId = route.params?.categoryId;
+    const showFavourites = route.params?.showFavourites;
 
     const [searchQuery, setSearchQuery] = useState("");
     const [pressedTagId, setPressedTagId] = useState(categoryId || "");
@@ -41,6 +42,7 @@ export default function BlogScreen({ route }) {
             <ArticlesList
                 searchQuery={searchQuery}
                 pressedTagId={pressedTagId}
+                isFavourite={showFavourites}
             />
         </View>
     );

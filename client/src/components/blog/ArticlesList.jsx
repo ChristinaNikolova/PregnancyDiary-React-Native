@@ -2,15 +2,19 @@ import { useEffect, useMemo, useState } from "react";
 import { StyleSheet, FlatList, Alert, RefreshControl } from "react-native";
 import ArticleCard from "./ArticleCard";
 import EmptyState from "../shared/EmptyState";
+import useAuthContext from "../../contexts/auth/useAuthContext";
 import { articlesApi } from "../../api";
+import { errorMessagesNoItems } from "../../utils/constants/global";
 import { SPACING } from "../../theme";
 
 // TODO: RefreshCotroll
 // TODO: Extrach shared logic (fresh)
 // TODO Loading State
-export default function ArticlesList({ searchQuery = "", pressedTagId = "" }) {
+export default function ArticlesList({ searchQuery = "", pressedTagId = "", isFavourite = false }) {
     const [articles, setArticles] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
+
+    const { user } = useAuthContext();
 
     useEffect(() => {
         articlesApi.all()
@@ -34,12 +38,14 @@ export default function ArticlesList({ searchQuery = "", pressedTagId = "" }) {
 
             const matchesCategory = !pressedTagId || a.categoryId === pressedTagId;
 
-            return matchesSearch && matchesCategory;
+            const favourites = !isFavourite || a.likes?.includes(user.id);
+
+            return matchesSearch && matchesCategory && favourites;
         });
-    }, [articles, searchQuery, pressedTagId]);
+    }, [articles, searchQuery, pressedTagId, isFavourite]);
 
     if (!filteredArticles?.length) {
-        return <EmptyState text="No articles found" />
+        return <EmptyState text={errorMessagesNoItems.NO_ARTICLES} />
     }
 
     return (

@@ -2,10 +2,20 @@ import { Image, Pressable, StyleSheet, View, Text, ScrollView } from "react-nati
 import Icon from "../components/shared/Icon";
 import useAuthContext from "../contexts/auth/useAuthContext";
 import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
+import { ROUTES } from "../navigation/routes";
 
 // todo notifications, setting.....
-export default function ProfileScreen() {
+export default function ProfileScreen({ navigation }) {
     const { user, logout } = useAuthContext();
+
+    const handleFavouritesPress = () => {
+        navigation.navigate(ROUTES.BLOG_TAB, {
+            screen: "Blog",
+            params: {
+                showFavourites: true,
+            },
+        });
+    }
 
     const menuItems = [
         {
@@ -22,7 +32,7 @@ export default function ProfileScreen() {
             iconName: "heart-outline",
             iconSize: SIZES.iconMedium,
             iconColor: COLORS.textSecondary,
-            onPress: () => { },
+            onPress: handleFavouritesPress,
         },
         {
             id: "logout",

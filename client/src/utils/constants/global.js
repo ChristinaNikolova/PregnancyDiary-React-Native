@@ -11,3 +11,7 @@ export const errorMessages = {
     "NO_CONTEXT": "useAuthContext must be used within AuthProvider",
     "ABORT_CONTR_ERROR": "ERR_CANCELED",
 }
+
+export const errorMessagesNoItems = {
+    "NO_ARTICLES": "No articles founde",
+}
