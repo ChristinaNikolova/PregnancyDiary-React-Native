@@ -7,7 +7,6 @@ import ClearButton from "../components/shared/ClearButton";
 import { COLORS, SPACING } from "../theme";
 
 // TODO Scroll Content
-// TODO Like/Dislike
 export default function BlogScreen({ navigation, route }) {
     const categoryId = route.params?.categoryId;
     const isUserFavourites = route.params?.showFavourites ?? false;

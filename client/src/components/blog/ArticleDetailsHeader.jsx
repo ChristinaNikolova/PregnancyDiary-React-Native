@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { StyleSheet, View } from "react-native";
 import PressableIcon from "../shared/PressableIcon";
 import { triggerShare } from "../../utils/native-helpers/share";
@@ -11,11 +10,10 @@ import { SPACING } from "../../theme";
 // TODO Pressable Components -> dynamic styles!!!
 // TODO Check if nanivation.goBack is needed!!!
 
-export default function ArticleDetailsHeader({ id, title }) {
-    const [isFavourite, setIsFavourite] = useState(false);
-
+export default function ArticleDetailsHeader({ id, title, isFavourite = false, handleLikePress }) {
     const { execute } = useFetch();
 
+    // todo errors dev
     const handleShare = () => {
         triggerShare(id, title);
         // TODO add share logic here
@@ -28,7 +26,7 @@ export default function ArticleDetailsHeader({ id, title }) {
                 httpMethods.POST,
                 {},
             );
-            setIsFavourite(result);
+            handleLikePress(result);
         } catch (err) {
             console.error(err.message);
         }

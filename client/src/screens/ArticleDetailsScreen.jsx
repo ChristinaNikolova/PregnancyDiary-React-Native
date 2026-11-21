@@ -3,12 +3,13 @@ import { StyleSheet, ScrollView, Text, Image, View, Alert, RefreshControl } from
 import Icon from "../components/shared/Icon";
 import PressableTag from "../components/shared/PressableTag";
 import ArticleDetailsHeader from "../components/blog/ArticleDetailsHeader";
+import useAuthContext from "../contexts/auth/useAuthContext";
 import { articlesApi } from "../api";
 import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
 import { ROUTES } from "../navigation/routes";
 
 // TODO ScrollView
-// TODO Like, Share Button
+// TODO Share Button
 // TODO remove tabs navigation
 // TODO check all mockups!!!
 // TODO Extract css styles
@@ -22,6 +23,8 @@ export default function ArticleDetails({ navigation, route }) {
     const [article, setArticle] = useState({});
     const [refreshing, setRefreshing] = useState(false);
 
+    const { user } = useAuthContext();
+
     useEffect(() => {
         articlesApi.getById(articleId)
             .then(setArticle)
@@ -30,13 +33,16 @@ export default function ArticleDetails({ navigation, route }) {
 
     useEffect(() => {
         navigation.setOptions({
-            headerRight: () =>
+            headerRight: () => (
                 <ArticleDetailsHeader
                     id={articleId}
                     title={article.title}
-                />,
-        })
-    }, [article, navigation]);
+                    isFavourite={article?.likes?.includes(user?.id)}
+                    handleLikePress={handleLikePress}
+                />
+            ),
+        });
+    }, [article, navigation, articleId, user.id]);
 
     const handleRefresh = () => {
         setRefreshing(true);
@@ -56,6 +62,14 @@ export default function ArticleDetails({ navigation, route }) {
                 },
             },
         });
+    };
+
+    const handleLikePress = (updatedArticle) => {
+        setArticle((prev) => ({
+            ...prev,
+            likes: updatedArticle.likes,
+            likesCount: updatedArticle.likes.length,
+        }));
     };
 
     return (
