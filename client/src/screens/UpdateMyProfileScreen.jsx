@@ -34,6 +34,7 @@ export default function UpdateMyProfileScreen() {
         initialValues,
     );
 
+    // todo add location for test
     async function handleUpdateProfile(data) {
         try {
             const { firstName, lastName } = data;
