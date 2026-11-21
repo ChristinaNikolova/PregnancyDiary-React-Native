@@ -21,26 +21,20 @@ export default function ArticlesList({
     scrollEnabled = true
 }) {
     const [refreshing, setRefreshing] = useState(false);
+    const isFirstFocus = useRef(true);
 
+    const url = limit
+        ? `${API_PATHS.ARTICLES}?limit=${limit}`
+        : API_PATHS.ARTICLES;
+
+    const { values: articles, execute, loading } = useFetch(url);
     const { user } = useAuthContext();
-    const {
-        values: articles,
-        execute,
-        loading
-    } = useFetch(`${API_PATHS.ARTICLES}`);
 
     const fetchArticles = useCallback(async () => {
-        const url = limit ?
-            `${API_PATHS.ARTICLES}?limit=${limit}`
-            : API_PATHS.ARTICLES;
+        await execute(url, httpMethods.GET);
+    }, [execute, url]);
 
-        await execute(
-            url,
-            httpMethods.GET
-        );
-    }, [execute]);
 
-    const isFirstFocus = useRef(true);
 
     useFocusEffect(
         useCallback(() => {
