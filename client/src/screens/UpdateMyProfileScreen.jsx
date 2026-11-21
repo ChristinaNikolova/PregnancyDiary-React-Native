@@ -114,6 +114,7 @@ export default function UpdateMyProfileScreen() {
 }
 
 // todo check stykes
+// todo change und remove picture after picture is uploaded
 const styles = StyleSheet.create({
     keyboardView: {
         flex: 1,

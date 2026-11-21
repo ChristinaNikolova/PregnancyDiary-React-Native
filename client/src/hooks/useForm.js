@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Keyboard } from "react-native";
 import { validator } from "../utils/helpers/validator";
 import { formHelpers } from "../utils/helpers/form";
 
@@ -42,6 +43,7 @@ export default function useForm(
     };
 
     const submitHandler = async () => {
+        Keyboard.dismiss();
         const data = formHelpers.prepareData(values);
         await callback(data);
     };
