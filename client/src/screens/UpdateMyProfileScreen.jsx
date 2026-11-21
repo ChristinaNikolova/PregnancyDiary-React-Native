@@ -1,4 +1,5 @@
 
+import { useNavigation } from "@react-navigation/native";
 import { ScrollView, View, Image, Pressable, StyleSheet } from "react-native";
 import PrimaryButton from "../components/shared/PrimaryButton";
 import Icon from "../components/shared/Icon";
@@ -14,7 +15,8 @@ import { BORDERS, COLORS, SPACING, TYPOGRAPHY } from "../theme";
 
 // todo test position server error
 export default function UpdateMyProfileScreen() {
-    const { user } = useAuthContext();
+    const navigation = useNavigation();
+    const { user, updateUser } = useAuthContext();
     const initialValues = {
         firstName: user.firstName,
         lastName: user.lastName,
@@ -41,8 +43,8 @@ export default function UpdateMyProfileScreen() {
                 httpMethods.PUT,
                 { firstName, lastName }
             );
-            // userAuth(result);
-            console.log(result);
+            updateUser(result);
+            navigation.goBack();
         } catch (err) {
             console.error(err.response?.data || err.message);
         }
@@ -97,7 +99,6 @@ export default function UpdateMyProfileScreen() {
                     autoCapitalize="words"
                 />
             </View>
-
             <PrimaryButton
                 buttonText="Update"
                 disabled={disabledForm()}
@@ -107,6 +108,7 @@ export default function UpdateMyProfileScreen() {
     );
 }
 
+// todo check stykes
 const styles = StyleSheet.create({
     container: {
         flex: 1,

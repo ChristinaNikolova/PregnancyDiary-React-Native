@@ -19,6 +19,11 @@ export default function AuthProvider({ children }) {
         setId(authData ? authData._id : "");
     };
 
+    const updateUser = (user) => {
+        setFirstName(user.firstName);
+        setLastName(user.lastName);
+    };
+
     const logout = async () => {
         try {
             await api.get(`${API_PATHS.AUTH}/logout`, {
@@ -36,6 +41,7 @@ export default function AuthProvider({ children }) {
         <AuthContext.Provider
             value={{
                 userAuth,
+                updateUser,
                 logout,
                 isAuthenticated: !!authToken,
                 isLoaded,
