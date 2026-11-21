@@ -13,7 +13,6 @@ import { API_PATHS } from "../api/api";
 import { httpMethods } from "../utils/constants/global";
 import { BORDERS, COLORS, SPACING, TYPOGRAPHY } from "../theme";
 
-// todo test position server error
 export default function UpdateMyProfileScreen() {
     const navigation = useNavigation();
     const { user, updateUser } = useAuthContext();
