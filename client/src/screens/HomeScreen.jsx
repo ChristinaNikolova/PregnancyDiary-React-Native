@@ -2,18 +2,45 @@
 import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
 import useAuthContext from '../contexts/auth/useAuthContext';
 import ArticlesList from '../components/blog/ArticlesList';
+import ShortcutIcon from '../components/shared/ShortcutIcon';
 import Icon from '../components/shared/Icon';
+import { ROUTES } from '../navigation/routes';
 import { SIZES, SPACING, TYPOGRAPHY, COLORS } from '../theme';
 
-const shortcuts = [
-    { id: 'memories', title: 'Спомени', icon: 'book-outline' },
-    { id: 'favourites', title: 'Любими', icon: 'heart-outline' },
-    { id: 'weeks', title: 'Седмици', icon: 'calendar-outline' },
-    { id: 'checklist', title: 'Checklist', icon: 'checkbox-outline' },
-];
-// todo pull to refresh
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
     const { user } = useAuthContext();
+
+    const shortcuts = [
+        {
+            id: 'weeks',
+            title: 'Weeks',
+            icon: 'calendar-outline',
+            handlePress: () => navigation.navigate('Weeks'),
+        },
+        {
+            id: 'memories',
+            title: 'Memories',
+            icon: 'book-outline',
+            handlePress: () => navigation.navigate('Memories'),
+        },
+        {
+            id: 'checklist',
+            title: 'Checklist',
+            icon: 'checkbox-outline',
+            handlePress: () => navigation.navigate('Checklist'),
+        },
+        {
+            id: 'favourites',
+            title: 'Favourites',
+            icon: 'heart-outline',
+            handlePress: () => navigation.navigate(ROUTES.BLOG_TAB, {
+                screen: "Blog",
+                params: {
+                    showFavourites: true,
+                },
+            }),
+        },
+    ];
 
     return (
         <ScrollView
@@ -63,23 +90,14 @@ export default function HomeScreen() {
                     </View>
                 </View>
             </ImageBackground>
-
-            {/* Shortcuts */}
             <View style={styles.shortcutsContainer}>
                 {shortcuts.map((item) => (
-                    <View key={item.id} style={styles.shortcut}>
-                        <View style={styles.shortcutIconContainer}>
-                            <Icon
-                                name={item.icon}
-                                size={30}
-                                color={COLORS.brown}
-                            />
-                        </View>
-
-                        <Text style={styles.shortcutTitle}>
-                            {item.title}
-                        </Text>
-                    </View>
+                    <ShortcutIcon
+                        key={item.id}
+                        title={item.title}
+                        iconName={item.icon}
+                        handlePress={item.handlePress}
+                    />
                 ))}
             </View>
             <>
@@ -189,34 +207,11 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         marginLeft: 5,
     },
-
-    // TODO Shortcuts
     shortcutsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginBottom: 35,
-    },
-
-    shortcut: {
-        flex: 1,
-        alignItems: 'center',
-    },
-
-    shortcutIconContainer: {
-        width: 68,
-        height: 68,
-        borderRadius: 23,
-        backgroundColor: COLORS.peach,
-        alignItems: 'center',
-        justifyContent: 'center',
-        marginBottom: 9,
-    },
-
-    shortcutTitle: {
-        fontSize: 13,
-        fontWeight: '600',
-        color: COLORS.text,
-        textAlign: 'center',
+        marginTop: SPACING.xxl,
+        marginBottom: SPACING.huge,
     },
     sectionHeader: {
         flexDirection: 'row',
@@ -226,7 +221,7 @@ const styles = StyleSheet.create({
     },
     sectionTitle: {
         fontFamily: TYPOGRAPHY.fontFamily.bold,
-        fontSize: TYPOGRAPHY.fontSize.md,
+        fontSize: TYPOGRAPHY.fontSize.xl,
         textTransform: "uppercase",
         color: COLORS.text,
     },

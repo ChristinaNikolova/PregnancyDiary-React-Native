@@ -15,7 +15,7 @@ export default function ProfileScreen({ navigation }) {
                 showFavourites: true,
             },
         });
-    }
+    };
 
     const menuItems = [
         {
