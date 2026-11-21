@@ -3,7 +3,7 @@ import useConfigToken from "./useConfigToken";
 import api from "../api/api";
 import { errorMessages, httpMethods } from "../utils/constants/global";
 
-export default function useFetch() {
+export default function useFetch(initialUrl = null) {
     const [values, setValues] = useState(null);
     const [loading, setLoading] = useState(false);
     const [serverError, setServerError] = useState("");
@@ -55,11 +55,17 @@ export default function useFetch() {
     );
 
     useEffect(() => {
+        if (initialUrl) {
+            execute(initialUrl).catch(() => { });
+        }
+    }, [initialUrl, execute]);
+
+    useEffect(() => {
         return () => {
             controllers.current.forEach((controller) => controller.abort());
             controllers.current.clear();
         };
     }, []);
 
-    return { execute, values, loading, serverError };
+    return { execute, values, setValues, loading, serverError };
 }

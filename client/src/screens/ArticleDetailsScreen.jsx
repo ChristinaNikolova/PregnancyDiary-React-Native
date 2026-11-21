@@ -4,9 +4,11 @@ import Icon from "../components/shared/Icon";
 import PressableTag from "../components/shared/PressableTag";
 import ArticleDetailsHeader from "../components/blog/ArticleDetailsHeader";
 import useAuthContext from "../contexts/auth/useAuthContext";
-import { articlesApi } from "../api";
-import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
+import useFetch from "../hooks/useFetch";
 import { ROUTES } from "../navigation/routes";
+import { API_PATHS } from "../api/api";
+import { httpMethods } from "../utils/constants/global";
+import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
 
 // TODO ScrollView
 // TODO Share Button
@@ -19,38 +21,43 @@ import { ROUTES } from "../navigation/routes";
 // Todo Extract Paragraph component
 export default function ArticleDetails({ navigation, route }) {
     const articleId = route.params.id;
-
-    const [article, setArticle] = useState({});
     const [refreshing, setRefreshing] = useState(false);
 
     const { user } = useAuthContext();
-
-    useEffect(() => {
-        articlesApi.getById(articleId)
-            .then(setArticle)
-            .catch((error) => Alert.alert("Error", error.message));
-    }, [articleId]);
+    const {
+        values: article,
+        setValues: setArticle,
+        execute,
+        loading
+    } = useFetch(`${API_PATHS.ARTICLES}/${articleId}`);
 
     useEffect(() => {
         navigation.setOptions({
             headerRight: () => (
                 <ArticleDetailsHeader
                     id={articleId}
-                    title={article.title}
+                    title={article?.title}
                     isFavourite={article?.likes?.includes(user?.id)}
                     handleLikePress={handleLikePress}
                 />
             ),
         });
-    }, [article, navigation, articleId, user.id]);
+    }, [article, navigation, articleId, user?.id]);
 
-    const handleRefresh = () => {
+    const handleRefresh = async () => {
         setRefreshing(true);
-        articlesApi.getById(articleId)
-            .then(setArticle)
-            .catch((error) => Alert.alert("Error", error.message))
-            .finally(() => setRefreshing(false));
-    }
+
+        try {
+            await execute(
+                `${API_PATHS.ARTICLES}/${articleId}`,
+                httpMethods.GET
+            );
+        } catch (error) {
+            Alert.alert("Error", error.message);
+        } finally {
+            setRefreshing(false);
+        }
+    };
 
     const handlePress = () => {
         navigation.popTo(ROUTES.MAIN, {
@@ -103,7 +110,7 @@ export default function ArticleDetails({ navigation, route }) {
                             size={SIZES.iconMedium}
                         />
                         <Text style={styles.likesCount}>
-                            {article.likesCount}
+                            {article?.likesCount}
                         </Text>
                         <Text style={styles.likesLabel}>likes</Text>
                     </View>

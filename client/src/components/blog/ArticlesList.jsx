@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { StyleSheet, FlatList, Alert, RefreshControl } from "react-native";
 import ArticleCard from "./ArticleCard";
@@ -14,25 +14,32 @@ import { SPACING } from "../../theme";
 // TODO Loading State
 // todo add alert, loading comonents
 export default function ArticlesList({ searchQuery = "", pressedTagId = "", isFavourite = false }) {
-    const [articles, setArticles] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
 
     const { user } = useAuthContext();
-    const { execute, loading } = useFetch();
+    const {
+        values: articles,
+        execute,
+        loading
+    } = useFetch(`${API_PATHS.ARTICLES}/all`);
 
     const fetchArticles = useCallback(async () => {
-        const result = await execute(
-            `${API_PATHS.ARTICLES}/all`,
-            httpMethods.GET
-        );
-        setArticles(result);
+        await execute(`${API_PATHS.ARTICLES}/all`, httpMethods.GET);
     }, [execute]);
+
+    const isFirstFocus = useRef(true);
 
     useFocusEffect(
         useCallback(() => {
-            fetchArticles().catch((error) =>
-                Alert.alert("Error", error.message)
-            );
+            if (isFirstFocus.current) {
+                isFirstFocus.current = false;
+                return;
+            }
+
+            fetchArticles()
+                .catch((error) =>
+                    Alert.alert("Error", error.message)
+                );
         }, [fetchArticles])
     );
 
@@ -49,7 +56,7 @@ export default function ArticlesList({ searchQuery = "", pressedTagId = "", isFa
     };
 
     const filteredArticles = useMemo(() => {
-        return articles.filter((a) => {
+        return (articles ?? []).filter((a) => {
             const matchesSearch = a.title
                 .toLowerCase()
                 .includes(searchQuery.toLowerCase());

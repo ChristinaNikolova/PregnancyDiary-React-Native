@@ -41,8 +41,7 @@ router.get("/filter/:categoryId", async (req, res) => {
   }
 });
 
-// TODO hasUser
-router.get("/:id", async (req, res) => {
+router.get("/:id", hasUser(), async (req, res) => {
   try {
     const id = req.params.id;
     const article = await getById(id);
