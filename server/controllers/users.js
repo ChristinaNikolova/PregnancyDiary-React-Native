@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const { hasUser } = require("../middlewares/guards");
+const { update } = require("../services/users");
 const { mapErrors } = require("../utils/parser");
 
 router.put("/", hasUser(), async (req, res) => {

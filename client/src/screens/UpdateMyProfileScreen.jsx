@@ -8,8 +8,11 @@ import ServerError from "../components/shared/ServerError";
 import useFetch from "../hooks/useFetch";
 import useAuthContext from "../contexts/auth/useAuthContext";
 import useForm from "../hooks/useForm";
+import { API_PATHS } from "../api/api";
+import { httpMethods } from "../utils/constants/global";
 import { BORDERS, COLORS, SPACING, TYPOGRAPHY } from "../theme";
 
+// todo test position server error
 export default function UpdateMyProfileScreen() {
     const { user } = useAuthContext();
     const initialValues = {
@@ -32,13 +35,14 @@ export default function UpdateMyProfileScreen() {
 
     async function handleUpdateProfile(data) {
         try {
-            const { firstName, lastName, email, password } = data;
+            const { firstName, lastName } = data;
             const result = await execute(
-                `${API_PATHS.AUTH}/register`,
-                httpMethods.POST,
-                { firstName, lastName, email, password }
+                `${API_PATHS.USERS}`,
+                httpMethods.PUT,
+                { firstName, lastName }
             );
-            userAuth(result);
+            // userAuth(result);
+            console.log(result);
         } catch (err) {
             console.error(err.response?.data || err.message);
         }
@@ -60,18 +64,15 @@ export default function UpdateMyProfileScreen() {
                         <Icon name="camera" />
                     </Pressable>
                 </View>
-
                 <View style={styles.pictureActions}>
                     <PressableTag
                         tagText="Change picture"
                         handlePress={null}
                     />
-
                     <PressableTag
                         tagText="Delete picture"
                         handlePress={null}
                     />
-
                 </View>
             </View>
             {serverError ?
