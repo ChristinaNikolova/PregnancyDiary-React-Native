@@ -20,44 +20,27 @@ export default function ArticlesList({ searchQuery = "", pressedTagId = "", isFa
     const { user } = useAuthContext();
     const { execute, loading } = useFetch();
 
+    const fetchArticles = useCallback(async () => {
+        const result = await execute(
+            `${API_PATHS.ARTICLES}/all`,
+            httpMethods.GET
+        );
+        setArticles(result);
+    }, [execute]);
+
     useFocusEffect(
         useCallback(() => {
-            let isActive = true;
-
-            const fetchArticles = async () => {
-                try {
-                    const result = await execute(
-                        `${API_PATHS.ARTICLES}/all`,
-                        httpMethods.GET
-                    );
-
-                    if (isActive) {
-                        setArticles(result);
-                    }
-                } catch (error) {
-                    if (isActive) {
-                        Alert.alert("Error", error.message);
-                    }
-                }
-            };
-
-            fetchArticles();
-
-            return () => {
-                isActive = false;
-            };
-        }, [execute])
+            fetchArticles().catch((error) =>
+                Alert.alert("Error", error.message)
+            );
+        }, [fetchArticles])
     );
 
     const handleRefresh = async () => {
         setRefreshing(true);
 
         try {
-            const result = await execute(
-                `${API_PATHS.ARTICLES}/all`,
-                httpMethods.GET
-            );
-            setArticles(result);
+            await fetchArticles();
         } catch (error) {
             Alert.alert("Error", error.message);
         } finally {
@@ -73,11 +56,11 @@ export default function ArticlesList({ searchQuery = "", pressedTagId = "", isFa
 
             const matchesCategory = !pressedTagId || a.categoryId === pressedTagId;
 
-            const favourites = !isFavourite || a.likes?.includes(user.id);
+            const favourites = !isFavourite || a.likes?.includes(user?.id);
 
             return matchesSearch && matchesCategory && favourites;
         });
-    }, [articles, searchQuery, pressedTagId, isFavourite]);
+    }, [articles, searchQuery, pressedTagId, isFavourite, user?.id]);
 
     if (!filteredArticles?.length) {
         return <EmptyState text={errorMessagesNoItems.NO_ARTICLES} />
