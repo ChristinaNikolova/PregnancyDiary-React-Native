@@ -37,6 +37,9 @@ export default function FormInput({
                     secureTextEntry={isPassword && !showPassword}
                     {...fieldHandler(fieldName)}
                     {...props}
+                    autoCorrect={false}
+                    spellCheck={false}
+                    submitBehavior="submit"
                 />
                 {isPassword && (
                     <FormInputPasswordIcon
