@@ -1,19 +1,21 @@
-
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import useConfigToken from "./useConfigToken";
 import api from "../api/api";
-import { httpMethods } from "../utils/constants/global";
+import { errorMessages, httpMethods } from "../utils/constants/global";
 
-// TODO: Add AbortController to cancel pending requests when needed.
 export default function useFetch() {
     const [values, setValues] = useState(null);
     const [loading, setLoading] = useState(false);
     const [serverError, setServerError] = useState("");
+    const controllers = useRef(new Set());
 
     const { authToken } = useConfigToken();
 
     const execute = useCallback(
         async (url, method = httpMethods.GET, data = null) => {
+            const controller = new AbortController();
+            controllers.current.add(controller);
+
             setLoading(true);
             setServerError("");
 
@@ -22,6 +24,7 @@ export default function useFetch() {
                     url,
                     method,
                     data,
+                    signal: controller.signal,
                     headers: authToken
                         ? { "X-Authorization": `Bearer ${authToken}` }
                         : {},
@@ -32,6 +35,10 @@ export default function useFetch() {
                 setValues(result);
                 return result;
             } catch (err) {
+                if (err.code === errorMessages.ABORT_CONTR_ERROR) {
+                    return;
+                }
+
                 const message =
                     err.response?.data?.message?.[0]?.msg ||
                     err.response?.data?.message ||
@@ -40,11 +47,19 @@ export default function useFetch() {
                 setServerError(message);
                 throw err;
             } finally {
-                setLoading(false);
+                controllers.current.delete(controller);
+                setLoading(controllers.current.size > 0);
             }
         },
         [authToken]
     );
+
+    useEffect(() => {
+        return () => {
+            controllers.current.forEach((controller) => controller.abort());
+            controllers.current.clear();
+        };
+    }, []);
 
     return { execute, values, loading, serverError };
 }
