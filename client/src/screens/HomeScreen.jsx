@@ -1,7 +1,10 @@
 
 import { Image, ImageBackground, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Icon from '@react-native-vector-icons/ionicons';
+
+import useAuthContext from '../contexts/auth/useAuthContext';
 import { COLORS } from '../theme/colors';
+import Icon from '../components/shared/Icon';
+import { SIZES, SPACING, TYPOGRAPHY } from '../theme';
 
 const shortcuts = [
     { id: 'memories', title: 'Спомени', icon: 'book-outline' },
@@ -11,26 +14,33 @@ const shortcuts = [
 ];
 
 export default function HomeScreen() {
+    const { user } = useAuthContext();
+
     return (
         <ScrollView
             style={styles.container}
             contentContainerStyle={styles.contentContainer}
             showsVerticalScrollIndicator={false}
         >
-            {/* Header */}
             <View style={styles.header}>
                 <View>
-                    <Text style={styles.greeting}>Здравей! ♡</Text>
-                    <Text style={styles.subtitle}>Добре дошла в PregnancyDiary</Text>
+                    <View style={styles.greetingContainer}>
+                        <Text style={styles.greeting}>
+                            Hello, {user.firstName}!
+                        </Text>
+                        <Icon
+                            name="heart-outline"
+                            size={SIZES.iconLarge}
+                            color={COLORS.primary} />
+                    </View>
+                    <Text style={styles.subtitle}>Welcome to PregnancyDiary!</Text>
                 </View>
-
-                <View style={styles.notificationButton}>
+                {/* TODO add notifications */}
+                {/* <View style={styles.notificationButton}>
                     <Icon name="notifications-outline" size={26} color={COLORS.brown} />
                     <View style={styles.notificationDot} />
-                </View>
+                </View> */}
             </View>
-
-            {/* Empty Diary */}
             <ImageBackground
                 source={require('../assets/images/welcome.png')}
                 style={styles.emptyDiaryCard}
@@ -113,52 +123,52 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: COLORS.background,
     },
-
     contentContainer: {
-        paddingHorizontal: 20,
-        paddingTop: 20,
-        paddingBottom: 30,
+        paddingHorizontal: SPACING.xl,
+        paddingTop: SPACING.xl,
+        paddingBottom: SPACING.xxxl,
     },
-
-    // Header
     header: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 25,
+        marginBottom: SPACING.xxl,
     },
-
+    greetingContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
     greeting: {
-        fontSize: 28,
-        fontWeight: '700',
+        marginRight: SPACING.md,
+        fontFamily: TYPOGRAPHY.fontFamily.bold,
+        fontSize: TYPOGRAPHY.fontSize.title,
         color: COLORS.text,
     },
-
     subtitle: {
-        fontSize: 14,
-        color: COLORS.secondaryText,
-        marginTop: 5,
+        marginTop: SPACING.xs,
+        fontFamily: TYPOGRAPHY.fontFamily.semiBold,
+        fontSize: TYPOGRAPHY.fontSize.sm,
+        color: COLORS.textSecondary,
     },
-
-    notificationButton: {
-        width: 44,
-        height: 44,
-        borderRadius: 22,
-        backgroundColor: COLORS.peach,
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'relative',
-    },
-
-    notificationDot: {
-        position: 'absolute',
-        top: 8,
-        right: 9,
-        width: 8,
-        height: 8,
-        borderRadius: 4,
-        backgroundColor: '#D94A4A',
-    },
+    // todo
+    // notificationButton: {
+    //     width: 44,
+    //     height: 44,
+    //     borderRadius: 22,
+    //     backgroundColor: COLORS.peach,
+    //     alignItems: 'center',
+    //     justifyContent: 'center',
+    //     position: 'relative',
+    // },
+    // notificationDot: {
+    //     position: 'absolute',
+    //     top: 8,
+    //     right: 9,
+    //     width: 8,
+    //     height: 8,
+    //     borderRadius: 4,
+    //     backgroundColor: '#D94A4A',
+    // },
 
     // Empty Diary Card
     emptyDiaryContent: {
