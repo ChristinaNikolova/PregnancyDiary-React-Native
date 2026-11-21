@@ -20,7 +20,6 @@ const initialValues = {
     rePass: "",
 };
 
-// TODO validation + error messages - client
 export default function RegisterScreen() {
     const { userAuth } = useAuthContext();
 

@@ -65,9 +65,9 @@ const styles = StyleSheet.create({
     },
     input: {
         flex: 1,
+        paddingVertical: 0,
         fontFamily: TYPOGRAPHY.fontFamily.regular,
         fontSize: TYPOGRAPHY.fontSize.sm,
         color: COLORS.text,
-        paddingVertical: 0,
     },
 });

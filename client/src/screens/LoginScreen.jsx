@@ -17,23 +17,24 @@ const initialValues = {
     password: "",
 };
 
-// TODO validation + error messages - client
 export default function LoginScreen() {
     const { userAuth } = useAuthContext();
 
     const { execute, loading, serverError } = useFetch();
 
-    const { fieldHandler, submitHandler } = useForm(
+    const { fieldHandler, submitHandler, errors } = useForm(
         handleLogin,
+        "login",
         initialValues,
     );
 
     async function handleLogin(data) {
         try {
+            const { email, password } = data;
             const result = await execute(
                 `${API_PATHS.AUTH}/login`,
                 httpMethods.POST,
-                data
+                { email, password }
             );
             userAuth(result);
         } catch (err) {
@@ -47,15 +48,16 @@ export default function LoginScreen() {
                 title="Login"
                 subTitle="Welcome back! Your journey continues here."
             />
-            {serverError ? (
+            {serverError ?
                 <ServerError error={serverError} />
-            ) : null}
+                : null}
             <View style={styles.form}>
                 <FormInput
                     fieldName="email"
                     placeholder="Email"
                     fieldHandler={fieldHandler}
                     iconName="mail-outline"
+                    error={errors.email}
                     autoCapitalize="none"
                     keyboardType="email-address"
                 />
@@ -64,6 +66,7 @@ export default function LoginScreen() {
                     placeholder="Password"
                     fieldHandler={fieldHandler}
                     iconName="lock-closed-outline"
+                    error={errors.password}
                     isPassword
                 />
                 <View style={styles.button}>
@@ -80,8 +83,6 @@ export default function LoginScreen() {
         </FormWrapper >
     );
 }
-
-// todo reuse theme + gap/spacing
 
 const styles = StyleSheet.create({
     form: {
