@@ -10,7 +10,6 @@ import { COLORS, SPACING, TYPOGRAPHY } from "../theme";
 const Stack = createStackNavigator();
 
 // TODO reuse Routes contanst
-// todo other guareded paths
 export default function RootNavigator() {
     const { isAuthenticated, isLoaded } = useAuthContext();
 
@@ -34,36 +33,38 @@ export default function RootNavigator() {
                         headerShown: false,
                     }}
                 /> :
-                <Stack.Screen
-                    name="Main"
-                    component={TabsNavigator}
-                    options={{ headerShown: false }}
-                />
+                <>
+                    <Stack.Screen
+                        name="Main"
+                        component={TabsNavigator}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="CreateDiary"
+                        component={CreateDiaryScreen}
+                    />
+                    <Stack.Screen
+                        name="ArticleDetails"
+                        component={ArticleDetailsScreen}
+                        options={{
+                            headerTintColor: COLORS.text,
+                            headerTitle: "",
+                            headerStyle: {
+                                backgroundColor: COLORS.background,
+                                height: 120,
+                            },
+                            headerBackTitle: false,
+                            headerLeftContainerStyle: {
+                                paddingLeft: SPACING.lg,
+                            },
+                            headerRightContainerStyle: {
+                                paddingRight: SPACING.lg,
+                            },
+                            headerRight: () => <ArticleDetailsHeader />
+                        }}
+                    />
+                </>
             }
-            <Stack.Screen
-                name="CreateDiary"
-                component={CreateDiaryScreen}
-            />
-            <Stack.Screen
-                name="ArticleDetails"
-                component={ArticleDetailsScreen}
-                options={{
-                    headerTintColor: COLORS.text,
-                    headerTitle: "",
-                    headerStyle: {
-                        backgroundColor: COLORS.background,
-                        height: 120,
-                    },
-                    headerBackTitle: false,
-                    headerLeftContainerStyle: {
-                        paddingLeft: SPACING.lg,
-                    },
-                    headerRightContainerStyle: {
-                        paddingRight: SPACING.lg,
-                    },
-                    headerRight: () => <ArticleDetailsHeader />
-                }}
-            />
         </Stack.Navigator>
     );
 }
