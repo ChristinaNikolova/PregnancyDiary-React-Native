@@ -1,5 +1,5 @@
 import { StyleSheet, View } from "react-native";
-import FormWrapper from "../components/shared/FormWrapper";
+import FormWrapper from "../components/form/FormWrapper";
 import HeaderContainer from "../components/auth/HeaderContainer";
 import FooterContainer from "../components/auth/FooterContainer";
 import PrimaryButton from "../components/shared/PrimaryButton";
