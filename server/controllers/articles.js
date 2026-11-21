@@ -9,9 +9,10 @@ const {
 } = require("../services/articles");
 const { mapErrors } = require("../utils/parser");
 
-router.get("/lastThree", async (req, res) => {
+// TODO hasUser
+router.get("/", hasUser(), async (req, res) => {
   try {
-    const articles = await getLastThree();
+    const articles = await all();
     res.json(articles);
   } catch (error) {
     const message = mapErrors(error);
@@ -19,10 +20,9 @@ router.get("/lastThree", async (req, res) => {
   }
 });
 
-// TODO hasUser
-router.get("/all", hasUser(), async (req, res) => {
+router.get("/lastThree", async (req, res) => {
   try {
-    const articles = await all();
+    const articles = await getLastThree();
     res.json(articles);
   } catch (error) {
     const message = mapErrors(error);

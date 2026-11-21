@@ -1,1 +1,0 @@
-export * as categoriesApi from "./categories.api"

@@ -1,18 +1,11 @@
-import { useState, useEffect } from "react";
-import { Alert, ScrollView, StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import PressableTag from "../shared/PressableTag";
-import { categoriesApi } from "../../api";
+import useFetch from "../../hooks/useFetch";
+import { API_PATHS } from "../../api/api";
 import { SPACING } from "../../theme";
 
 export default function ArticleCategories({ selectedId, handlePress }) {
-    const [categories, setCategories] = useState([]);
-
-    // TODO create custom hook
-    useEffect(() => {
-        categoriesApi.all()
-            .then(setCategories)
-            .catch((error) => Alert.alert("Error", error.message));
-    }, []);
+    const { values: categories } = useFetch(`${API_PATHS.CATEGORIES}`);
 
     return (
         <ScrollView
@@ -21,7 +14,7 @@ export default function ArticleCategories({ selectedId, handlePress }) {
             showsHorizontalScrollIndicator={false}
             contentContainerStyle={styles.container}
         >
-            {categories.map((c) =>
+            {(categories ?? []).map((c) =>
                 <PressableTag
                     key={c.id}
                     tagText={c.name}

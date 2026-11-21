@@ -21,10 +21,13 @@ export default function ArticlesList({ searchQuery = "", pressedTagId = "", isFa
         values: articles,
         execute,
         loading
-    } = useFetch(`${API_PATHS.ARTICLES}/all`);
+    } = useFetch(`${API_PATHS.ARTICLES}`);
 
     const fetchArticles = useCallback(async () => {
-        await execute(`${API_PATHS.ARTICLES}/all`, httpMethods.GET);
+        await execute(
+            `${API_PATHS.ARTICLES}`,
+            httpMethods.GET
+        );
     }, [execute]);
 
     const isFirstFocus = useRef(true);
