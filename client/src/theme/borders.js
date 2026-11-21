@@ -5,6 +5,7 @@ export const BORDERS = {
         lg: 12,
         xl: 16,
         xxl: 24,
+        huge: 32,
         round: 999,
     },
     width: {

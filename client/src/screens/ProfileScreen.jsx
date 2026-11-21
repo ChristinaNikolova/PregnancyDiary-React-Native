@@ -38,7 +38,7 @@ export default function ProfileScreen() {
         <ScrollView style={styles.container}>
             <View style={styles.userContainer}>
                 <Image
-                    source={require("../assets/images/welcome.png")}
+                    source={require("../assets/images/default_profile_image.png")}
                     style={styles.avatar}
                 />
                 <View style={styles.userInfo}>
@@ -80,9 +80,9 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: COLORS.background,
         paddingHorizontal: SPACING.lg,
         paddingTop: SPACING.xl,
+        backgroundColor: COLORS.background,
     },
     userContainer: {
         flexDirection: "row",
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     avatar: {
         width: 64,
         height: 64,
-        borderRadius: 32,
+        borderRadius: BORDERS.radius.huge,
     },
     userInfo: {
         flex: 1,
@@ -113,15 +113,15 @@ const styles = StyleSheet.create({
     },
     menu: {
         marginTop: SPACING.sm,
-        backgroundColor: COLORS.surface,
-        borderRadius: BORDERS.radius.xl,
         paddingHorizontal: SPACING.md,
+        borderRadius: BORDERS.radius.xl,
+        backgroundColor: COLORS.surface,
     },
     menuItem: {
-        minHeight: 58,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
+        minHeight: 58,
         borderBottomWidth: BORDERS.width.thin,
         borderBottomColor: COLORS.border,
     },

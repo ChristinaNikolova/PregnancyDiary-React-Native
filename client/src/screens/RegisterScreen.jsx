@@ -117,6 +117,7 @@ export default function RegisterScreen() {
 }
 
 // todo reuse theme + gap/spacing
+// todo check font families
 const styles = StyleSheet.create({
     form: {
         gap: SPACING.md,

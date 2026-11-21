@@ -9,7 +9,7 @@ export default function useFetch() {
     const [serverError, setServerError] = useState("");
     const controllers = useRef(new Set());
 
-    const { authToken } = useConfigToken();
+    const authToken = useConfigToken();
 
     const execute = useCallback(
         async (url, method = httpMethods.GET, data = null) => {
