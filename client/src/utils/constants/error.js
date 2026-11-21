@@ -1,5 +1,6 @@
 export const global = {
     REQUIRED_INPUT: "Input is required",
+    // todo do we need this?
     REQUIRED_MAX_LEN(name, max) {
         return `${name} should be at most ${max} characters`;
     },

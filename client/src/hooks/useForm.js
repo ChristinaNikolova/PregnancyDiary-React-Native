@@ -1,16 +1,15 @@
 import { useState } from "react";
-// import { validator } from "../utils/helpers/validator";
+import { validator } from "../utils/helpers/validator";
 // import { formHelpers } from "../utils/helpers/form";
 
 export default function useForm(
     callback,
-    //validatorName,
+    validatorName,
     initialValues,
 ) {
     const [values, setValues] = useState(initialValues);
     const [touched, setTouched] = useState({});
-    //const [errors, setErrors] = useState({});
-    //const [files, setFiles] = useState({});
+    const [errors, setErrors] = useState({});
 
     const fieldHandler = (fieldName) => {
         return {
@@ -21,14 +20,28 @@ export default function useForm(
     };
 
     const changeHandler = (fieldName, value) => {
-        setValues((state) => ({ ...state, [fieldName]: value }));
+        const newValues = {
+            ...values,
+            [fieldName]: value,
+        };
+
+        setValues(newValues);
+
+        if (Object.values(touched).some(Boolean)) {
+            setErrors(validator[validatorName](newValues, touched));
+        }
     };
 
     const validateHandler = (fieldName) => {
-        setTouched((state) => ({
-            ...state,
+        const newTouched = {
+            ...touched,
             [fieldName]: true,
-        }));
+        };
+
+        setTouched(newTouched);
+
+        const errors = validator[validatorName](values, newTouched);
+        setErrors(errors);
     };
 
     const submitHandler = async () => {
@@ -45,6 +58,7 @@ export default function useForm(
 
     return {
         values,
+        errors,
         submitHandler,
         fieldHandler,
     };
