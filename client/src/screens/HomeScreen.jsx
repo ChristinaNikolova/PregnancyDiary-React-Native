@@ -1,6 +1,6 @@
-
-import { ImageBackground, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import useAuthContext from '../contexts/auth/useAuthContext';
+import JumboStart from '../components/home/JumboStart';
 import ArticlesList from '../components/blog/ArticlesList';
 import ShortcutIcon from '../components/shared/ShortcutIcon';
 import Icon from '../components/shared/Icon';
@@ -67,29 +67,7 @@ export default function HomeScreen({ navigation }) {
                     <View style={styles.notificationDot} />
                 </View> */}
             </View>
-            <ImageBackground
-                source={require('../assets/images/welcome.png')}
-                style={styles.emptyDiaryCard}
-                imageStyle={styles.emptyDiaryImage}
-                resizeMode="cover"
-            >
-                <View style={styles.emptyDiaryContent}>
-                    <Text style={styles.emptyDiaryTitle}>
-                        Все още нямаш дневник
-                    </Text>
-
-                    <Text style={styles.emptyDiaryDescription}>
-                        Създай своя дневник на бременността и запази всички важни моменти на едно място.
-                    </Text>
-
-                    <View style={styles.createButton}>
-                        <Icon name="add" size={24} color={COLORS.white} />
-                        <Text style={styles.createButtonText}>
-                            Създай дневник
-                        </Text>
-                    </View>
-                </View>
-            </ImageBackground>
+            <JumboStart />
             <View style={styles.shortcutsContainer}>
                 {shortcuts.map((item) => (
                     <ShortcutIcon
@@ -163,50 +141,6 @@ const styles = StyleSheet.create({
     //     borderRadius: 4,
     //     backgroundColor: '#D94A4A',
     // },
-
-    // Empty Diary Card
-    emptyDiaryContent: {
-        width: '70%',
-        alignSelf: 'flex-end',
-        justifyContent: 'center',
-        paddingHorizontal: 18,
-        paddingVertical: 20,
-        backgroundColor: 'rgba(255, 248, 241, 0.30)',
-    },
-
-    emptyDiaryTitle: {
-        fontSize: 22,
-        fontWeight: '700',
-        color: '#49352F',
-        marginBottom: 12,
-        textAlign: 'center'
-    },
-
-    emptyDiaryDescription: {
-        fontSize: 15,
-        lineHeight: 22,
-        color: '#49352F',
-        fontWeight: '500',
-        marginBottom: 18,
-        textAlign: 'center',
-    },
-
-    createButton: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: '#B87578',
-        borderRadius: 30,
-        paddingVertical: 13,
-        paddingHorizontal: 10,
-    },
-
-    createButtonText: {
-        color: COLORS.white,
-        fontSize: 14,
-        fontWeight: '600',
-        marginLeft: 5,
-    },
     shortcutsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',

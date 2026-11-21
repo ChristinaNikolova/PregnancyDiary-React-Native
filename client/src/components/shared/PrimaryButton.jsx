@@ -40,6 +40,7 @@ const styles = StyleSheet.create({
     buttonText: {
         fontFamily: TYPOGRAPHY.fontFamily.medium,
         fontSize: TYPOGRAPHY.fontSize.md,
+        textTransform: "capitalize",
         color: COLORS.white,
     },
     disabledButton: {

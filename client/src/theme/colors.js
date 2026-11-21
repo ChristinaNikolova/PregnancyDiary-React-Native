@@ -11,4 +11,5 @@ export const COLORS = {
     white: "#FFFFFF",
     error: "#C65D5D",
     softError: "#FCECEC",
+    clearBackground: "rgba(255, 248, 241, 0.35)"
 };
