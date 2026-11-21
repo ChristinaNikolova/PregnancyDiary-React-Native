@@ -5,6 +5,7 @@ import ArticlesList from '../components/blog/ArticlesList';
 import ShortcutIcon from '../components/shared/ShortcutIcon';
 import Icon from '../components/shared/Icon';
 import { ROUTES } from '../navigation/routes';
+import { homeMessages, shortcutsTiles } from '../utils/constants/global';
 import { SIZES, SPACING, TYPOGRAPHY, COLORS } from '../theme';
 
 export default function HomeScreen({ navigation }) {
@@ -13,25 +14,25 @@ export default function HomeScreen({ navigation }) {
     const shortcuts = [
         {
             id: 'weeks',
-            title: 'Weeks',
+            title: shortcutsTiles.WEEKS,
             icon: 'calendar-outline',
             handlePress: () => navigation.navigate('Weeks'),
         },
         {
             id: 'memories',
-            title: 'Memories',
+            title: shortcutsTiles.MEMORIES,
             icon: 'book-outline',
             handlePress: () => navigation.navigate('Memories'),
         },
         {
             id: 'checklist',
-            title: 'Checklist',
+            title: shortcutsTiles.CHECKLIST,
             icon: 'checkbox-outline',
             handlePress: () => navigation.navigate('Checklist'),
         },
         {
             id: 'favourites',
-            title: 'Favourites',
+            title: shortcutsTiles.FAVOURITES,
             icon: 'heart-outline',
             handlePress: () => navigation.navigate(ROUTES.BLOG_TAB, {
                 screen: "Blog",
@@ -52,14 +53,14 @@ export default function HomeScreen({ navigation }) {
                 <View>
                     <View style={styles.greetingContainer}>
                         <Text style={styles.greeting}>
-                            Hello, {user.firstName}!
+                            {homeMessages.HELLO}{user.firstName}!
                         </Text>
                         <Icon
                             name="heart-outline"
                             size={SIZES.iconLarge}
                             color={COLORS.primary} />
                     </View>
-                    <Text style={styles.subtitle}>Welcome to PregnancyDiary!</Text>
+                    <Text style={styles.subtitle}>{homeMessages.WELCOME}</Text>
                 </View>
                 {/* TODO add notifications */}
                 {/* <View style={styles.notificationButton}>
@@ -81,7 +82,7 @@ export default function HomeScreen({ navigation }) {
             <>
                 <View style={styles.sectionHeader}>
                     <Text style={styles.sectionTitle}>
-                        Newest articles in our blog
+                        {homeMessages.LATEST_BLOG}
                     </Text>
                 </View>
                 <ArticlesList limit={3} scrollEnabled={false} />
