@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { hasUser } = require("../middlewares/guards");
 const { all } = require("../services/categories");
 const { mapErrors } = require("../utils/parser");
 
