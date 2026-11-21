@@ -17,6 +17,10 @@ export default function ProfileScreen({ navigation }) {
         });
     };
 
+    const handleMyProfilePress = () => {
+        navigation.navigate("UpdateMyProfile");
+    }
+
     const menuItems = [
         {
             id: "profile",
@@ -24,7 +28,7 @@ export default function ProfileScreen({ navigation }) {
             iconName: "person-outline",
             iconSize: SIZES.iconMedium,
             iconColor: COLORS.textSecondary,
-            onPress: () => { },
+            onPress: handleMyProfilePress,
         },
         {
             id: "favorites",

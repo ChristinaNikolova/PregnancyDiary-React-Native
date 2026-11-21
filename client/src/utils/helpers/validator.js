@@ -101,4 +101,47 @@ export const validator = {
 
         return errors;
     },
+
+    profile: (values, touched) => {
+        const errors = {};
+
+        if (touched.firstName && !values.firstName) {
+            errors["firstName"] = global.REQUIRED_INPUT;
+        }
+
+        if (
+            touched.firstName &&
+            values.firstName &&
+            (
+                values.firstName.length < authModel.NAME_MIN_LEN ||
+                values.firstName.length > authModel.NAME_MAX_LEN
+            )
+        ) {
+            errors["firstName"] = global.REQUIRED_MIN_MAX_LEN(
+                "Firstname",
+                authModel.NAME_MIN_LEN,
+                authModel.NAME_MAX_LEN
+            );
+        }
+
+        if (touched.lastName && !values.lastName) {
+            errors["lastName"] = global.REQUIRED_INPUT;
+        }
+
+        if (
+            touched.lastName &&
+            values.lastName &&
+            (
+                values.lastName.length < authModel.NAME_MIN_LEN ||
+                values.lastName.length > authModel.NAME_MAX_LEN
+            )
+        ) {
+            errors["lastName"] = global.REQUIRED_MIN_MAX_LEN(
+                "lastName",
+                authModel.NAME_MIN_LEN,
+                authModel.NAME_MAX_LEN
+            );
+        }
+        return errors;
+    },
 };

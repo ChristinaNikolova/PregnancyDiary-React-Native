@@ -3,6 +3,7 @@ import TabsNavigator from "./TabsNavigator";
 import AuthNavigator from "./AuthNavigator";
 import ArticleDetailsScreen from "../screens/ArticleDetailsScreen";
 import CreateDiaryScreen from "../screens/CreateDiaryScreen";
+import UpdateMyProfileScreen from "../screens/UpdateMyProfileScreen";
 import ArticleDetailsHeader from "../components/blog/ArticleDetailsHeader";
 import useAuthContext from "../contexts/auth/useAuthContext";
 import { COLORS, SPACING, TYPOGRAPHY } from "../theme";
@@ -42,6 +43,10 @@ export default function RootNavigator() {
                     <Stack.Screen
                         name="CreateDiary"
                         component={CreateDiaryScreen}
+                    />
+                    <Stack.Screen
+                        name="UpdateMyProfile"
+                        component={UpdateMyProfileScreen}
                     />
                     <Stack.Screen
                         name="ArticleDetails"
