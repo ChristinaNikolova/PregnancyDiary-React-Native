@@ -20,7 +20,7 @@ router.get("/lastThree", async (req, res) => {
 });
 
 // TODO hasUser
-router.get("/all", async (req, res) => {
+router.get("/all", hasUser(), async (req, res) => {
   try {
     const articles = await all();
     res.json(articles);

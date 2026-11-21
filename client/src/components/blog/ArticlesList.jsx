@@ -1,34 +1,69 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import { StyleSheet, FlatList, Alert, RefreshControl } from "react-native";
 import ArticleCard from "./ArticleCard";
 import EmptyState from "../shared/EmptyState";
 import useAuthContext from "../../contexts/auth/useAuthContext";
-import { articlesApi } from "../../api";
-import { errorMessagesNoItems } from "../../utils/constants/global";
+import useFetch from "../../hooks/useFetch";
+import { errorMessagesNoItems, httpMethods } from "../../utils/constants/global";
+import { API_PATHS } from "../../api/api";
 import { SPACING } from "../../theme";
 
 // TODO: RefreshCotroll
 // TODO: Extrach shared logic (fresh)
 // TODO Loading State
+// todo add alert, loading comonents
 export default function ArticlesList({ searchQuery = "", pressedTagId = "", isFavourite = false }) {
     const [articles, setArticles] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
 
     const { user } = useAuthContext();
+    const { execute, loading } = useFetch();
 
-    useEffect(() => {
-        articlesApi.all()
-            .then(setArticles)
-            .catch((error) => Alert.alert("Error", error.message));
-    }, []);
+    useFocusEffect(
+        useCallback(() => {
+            let isActive = true;
 
-    const handleRefresh = () => {
+            const fetchArticles = async () => {
+                try {
+                    const result = await execute(
+                        `${API_PATHS.ARTICLES}/all`,
+                        httpMethods.GET
+                    );
+
+                    if (isActive) {
+                        setArticles(result);
+                    }
+                } catch (error) {
+                    if (isActive) {
+                        Alert.alert("Error", error.message);
+                    }
+                }
+            };
+
+            fetchArticles();
+
+            return () => {
+                isActive = false;
+            };
+        }, [execute])
+    );
+
+    const handleRefresh = async () => {
         setRefreshing(true);
-        articlesApi.all()
-            .then(setArticles)
-            .catch((error) => Alert.alert("Error", error.message))
-            .finally(() => setRefreshing(false));
-    }
+
+        try {
+            const result = await execute(
+                `${API_PATHS.ARTICLES}/all`,
+                httpMethods.GET
+            );
+            setArticles(result);
+        } catch (error) {
+            Alert.alert("Error", error.message);
+        } finally {
+            setRefreshing(false);
+        }
+    };
 
     const filteredArticles = useMemo(() => {
         return articles.filter((a) => {

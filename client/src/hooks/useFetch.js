@@ -23,7 +23,7 @@ export default function useFetch() {
                 const response = await api.request({
                     url,
                     method,
-                    data,
+                    ...(data != null && { data }),
                     signal: controller.signal,
                     headers: authToken
                         ? { "X-Authorization": `Bearer ${authToken}` }
