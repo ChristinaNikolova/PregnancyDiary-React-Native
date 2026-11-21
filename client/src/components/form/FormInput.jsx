@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
-import Icon from "./Icon";
-import ClientError from "./ClientError";
+import Icon from "../shared/Icon";
+import ClientError from "../shared/ClientError";
 import FormInputPasswordIcon from "./FormInputPasswordIcon";
 import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 

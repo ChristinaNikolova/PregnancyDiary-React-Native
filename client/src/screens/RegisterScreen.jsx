@@ -3,7 +3,7 @@ import FormWrapper from "../components/shared/FormWrapper";
 import HeaderContainer from "../components/auth/HeaderContainer";
 import FooterContainer from "../components/auth/FooterContainer";
 import PrimaryButton from "../components/shared/PrimaryButton";
-import FormInput from "../components/shared/FormInput";
+import FormInput from "../components/form/FormInput";
 import ServerError from "../components/shared/ServerError";
 import useForm from "../hooks/useForm";
 import useFetch from "../hooks/useFetch";

@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet } from "react-native";
-import Icon from "./Icon";
+import Icon from "../shared/Icon";
 import { hitSlop } from "../../utils/constants/global";
 import { COLORS, SIZES } from "../../theme";
 
