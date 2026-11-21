@@ -1,15 +1,20 @@
-const Article = require("../models/Article");
-const {
-  Types: { ObjectId },
-} = require("mongoose");
-const { articleListByCategoryViewModel } = require("../utils/mapper/article");
+const User = require("../models/User");
 
-async function allFavArticles(userId) {
-  return (await Article.find({}))
-    .filter((a) => a.likes.includes(new ObjectId(userId)))
-    .map(articleListByCategoryViewModel);
+async function update(userId, firstName, lastName, picture) {
+  const user = await getById(userId);
+  user.firstName = firstName;
+  user.lastName = lastName;
+  if (picture !== undefined) {
+    user.picture = picture;
+  }
+  await user.save();
+  return user;
+}
+
+async function getById(id) {
+  return await User.findById(id);
 }
 
 module.exports = {
-  allFavArticles,
+  update,
 };

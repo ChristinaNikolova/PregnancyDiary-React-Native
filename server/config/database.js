@@ -8,6 +8,7 @@ require("../models/Diary");
 require("../models/Moment");
 require("../models/User");
 require("../models/Week");
+require("../models/Picture");
 
 module.exports = async () => {
   try {

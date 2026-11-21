@@ -1,4 +1,8 @@
-const { Schema, model } = require("mongoose");
+const {
+  Schema,
+  model,
+  Types: { ObjectId },
+} = require("mongoose");
 const { user } = require("../utils/constants/model");
 
 const userSchema = new Schema({
@@ -34,6 +38,11 @@ const userSchema = new Schema({
   hashedPassword: {
     type: String,
     required: true,
+  },
+  picture: {
+    type: ObjectId,
+    ref: "Picture",
+    default: null,
   },
 });
 
