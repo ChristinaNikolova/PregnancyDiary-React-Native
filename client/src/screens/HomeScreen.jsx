@@ -1,4 +1,5 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from "react-native-safe-area-context";
 import useAuthContext from '../contexts/auth/useAuthContext';
 import JumboStart from '../components/home/JumboStart';
 import ArticlesList from '../components/blog/ArticlesList';
@@ -44,54 +45,63 @@ export default function HomeScreen({ navigation }) {
     ];
 
     return (
-        <ScrollView
-            style={styles.container}
-            contentContainerStyle={styles.contentContainer}
-            showsVerticalScrollIndicator={false}
+        <SafeAreaView
+            style={styles.safeArea}
+            edges={["top", "left", "right"]}
         >
-            <View style={styles.header}>
-                <View>
-                    <View style={styles.greetingContainer}>
-                        <Text style={styles.greeting}>
-                            {homeMessages.HELLO}{user.firstName}!
-                        </Text>
-                        <Icon
-                            name="heart-outline"
-                            size={SIZES.iconLarge}
-                            color={COLORS.primary} />
+            <ScrollView
+                style={styles.container}
+                contentContainerStyle={styles.contentContainer}
+                showsVerticalScrollIndicator={false}
+            >
+                <View style={styles.header}>
+                    <View>
+                        <View style={styles.greetingContainer}>
+                            <Text style={styles.greeting}>
+                                {homeMessages.HELLO}{user.firstName}!
+                            </Text>
+                            <Icon
+                                name="heart-outline"
+                                size={SIZES.iconLarge}
+                                color={COLORS.primary} />
+                        </View>
+                        <Text style={styles.subtitle}>{homeMessages.WELCOME}</Text>
                     </View>
-                    <Text style={styles.subtitle}>{homeMessages.WELCOME}</Text>
-                </View>
-                {/* TODO add notifications */}
-                {/* <View style={styles.notificationButton}>
+                    {/* TODO add notifications */}
+                    {/* <View style={styles.notificationButton}>
                     <Icon name="notifications-outline" size={26} color={COLORS.brown} />
                     <View style={styles.notificationDot} />
                 </View> */}
-            </View>
-            <JumboStart />
-            <View style={styles.shortcutsContainer}>
-                {shortcuts.map((item) => (
-                    <ShortcutIcon
-                        key={item.id}
-                        title={item.title}
-                        iconName={item.icon}
-                        handlePress={item.handlePress}
-                    />
-                ))}
-            </View>
-            <>
-                <View style={styles.sectionHeader}>
-                    <Text style={styles.sectionTitle}>
-                        {homeMessages.LATEST_BLOG}
-                    </Text>
                 </View>
-                <ArticlesList limit={3} scrollEnabled={false} />
-            </>
-        </ScrollView>
+                <JumboStart />
+                <View style={styles.shortcutsContainer}>
+                    {shortcuts.map((item) => (
+                        <ShortcutIcon
+                            key={item.id}
+                            title={item.title}
+                            iconName={item.icon}
+                            handlePress={item.handlePress}
+                        />
+                    ))}
+                </View>
+                <>
+                    <View style={styles.sectionHeader}>
+                        <Text style={styles.sectionTitle}>
+                            {homeMessages.LATEST_BLOG}
+                        </Text>
+                    </View>
+                    <ArticlesList limit={3} scrollEnabled={false} />
+                </>
+            </ScrollView>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
+    safeArea: {
+        flex: 1,
+        backgroundColor: COLORS.background,
+    },
     container: {
         flex: 1,
         backgroundColor: COLORS.background,

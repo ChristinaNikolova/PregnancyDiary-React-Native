@@ -1,4 +1,6 @@
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
+import { StatusBar } from 'expo-status-bar';
 import {
   useFonts,
   Poppins_400Regular,
@@ -6,7 +8,6 @@ import {
   Poppins_600SemiBold,
   Poppins_700Bold,
 } from "@expo-google-fonts/poppins";
-import { StatusBar } from 'expo-status-bar';
 import RootNavigator from './navigation/RootNavigator';
 import AuthProvider from './contexts/auth/AuthProvider';
 
@@ -26,10 +27,12 @@ export default function App() {
   return (
     <>
       <AuthProvider>
-        <StatusBar style="auto" />
-        <NavigationContainer>
-          <RootNavigator />
-        </NavigationContainer>
+        <SafeAreaProvider>
+          <StatusBar style="auto" />
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
+        </SafeAreaProvider>
       </AuthProvider>
     </>
   );
