@@ -2,6 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import TabsNavigator from "./TabsNavigator";
 import AuthNavigator from "./AuthNavigator";
 import ArticleDetailsScreen from "../screens/ArticleDetailsScreen";
+import CreateDiaryScreen from "../screens/CreateDiaryScreen";
 import ArticleDetailsHeader from "../components/blog/ArticleDetailsHeader";
 import useAuthContext from "../contexts/auth/useAuthContext";
 import { COLORS, SPACING, TYPOGRAPHY } from "../theme";
@@ -39,6 +40,10 @@ export default function RootNavigator() {
                     options={{ headerShown: false }}
                 />
             }
+            <Stack.Screen
+                name="CreateDiary"
+                component={CreateDiaryScreen}
+            />
             <Stack.Screen
                 name="ArticleDetails"
                 component={ArticleDetailsScreen}

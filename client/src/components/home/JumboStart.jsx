@@ -1,9 +1,16 @@
 import { ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { useNavigation } from "@react-navigation/native";
 import PrimaryButton from '../shared/PrimaryButton';
 import { COLORS, SPACING, TYPOGRAPHY } from '../../theme';
 
 // todo constants
 export default function JumboStart() {
+    const navigation = useNavigation();
+
+    const handlePress = () => {
+        navigation.navigate("CreateDiary")
+    }
+
     return (
         <ImageBackground
             source={require('../../assets/images/welcome.png')}
@@ -16,7 +23,10 @@ export default function JumboStart() {
                 <Text style={styles.description}>
                     Create your pregnancy diary and keep all your precious moments in one place.
                 </Text>
-                <PrimaryButton buttonText="Create Diary" />
+                <PrimaryButton
+                    buttonText="Create Diary"
+                    handlePress={handlePress}
+                />
             </View>
         </ImageBackground>
     );
