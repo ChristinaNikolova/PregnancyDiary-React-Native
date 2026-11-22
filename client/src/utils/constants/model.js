@@ -7,7 +7,7 @@ export const auth = {
 
 export const diary = {
     TITLE_MIN_LEN: 5,
-    TITLE_MAX_LEN: 100,
+    TITLE_MAX_LEN: 20,
     DESC_MIN_LEN: 10,
     DESC_MAX_LEN: 1000,
 };
