@@ -3,7 +3,7 @@ import Icon from "../shared/Icon";
 import { hitSlop } from "../../utils/constants/global";
 import { COLORS, SIZES } from "../../theme";
 
-export default function FormInputPasswordIcon({ showPassword, handlePress }) {
+export default function FormPasswordIconInput({ showPassword, handlePress }) {
     return (
         <Pressable
             onPress={handlePress}

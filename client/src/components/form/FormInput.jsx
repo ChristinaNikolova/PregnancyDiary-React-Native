@@ -2,7 +2,7 @@ import { useState } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 import Icon from "../shared/Icon";
 import ClientError from "../shared/ClientError";
-import FormInputPasswordIcon from "./FormInputPasswordIcon";
+import FormPasswordIconInput from "./FormPasswordIconInput";
 import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function FormInput({
@@ -42,7 +42,7 @@ export default function FormInput({
                     submitBehavior="submit"
                 />
                 {isPassword && (
-                    <FormInputPasswordIcon
+                    <FormPasswordIconInput
                         showPassword={showPassword}
                         handlePress={handleShowPasswordPress}
                     />
