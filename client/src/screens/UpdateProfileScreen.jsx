@@ -16,7 +16,6 @@ import { apiPaths } from "../utils/constants/api";
 import { BORDERS, COLORS, SPACING } from "../theme";
 
 // todo fix headers navigatosr + back button
-// todo bd pictures ald delete?
 export default function UpdateProfileScreen() {
     const [profilePicture, setProfilePicture] = useState(null);
     const navigation = useNavigation();
@@ -39,12 +38,12 @@ export default function UpdateProfileScreen() {
         errors,
         disabledForm
     } = useForm(
-        handleUpdateProfile,
+        handleUpdate,
         "profile",
         initialValues,
     );
 
-    async function handleUpdateProfile(data) {
+    async function handleUpdate(data) {
         try {
             const { firstName, lastName } = data;
             const updateNamesResult = await execute(
@@ -139,8 +138,6 @@ export default function UpdateProfileScreen() {
     );
 }
 
-// todo check stykes
-// todo change und remove picture after picture is uploaded
 const styles = StyleSheet.create({
     container: {
         flex: 1,
