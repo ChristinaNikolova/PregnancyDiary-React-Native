@@ -3,6 +3,7 @@ import FormWrapper from "../components/form/FormWrapper";
 import FormInput from "../components/form/FormInput";
 import FormDatePickerInput from "../components/form/FormDatePickerInput";
 import FormHeaderContainer from "../components/form/FormHeaderContainer";
+import PrimaryButton from "../components/shared/PrimaryButton";
 import useFetch from "../hooks/useFetch";
 import useForm from "../hooks/useForm";
 import { SPACING } from "../theme";
@@ -18,7 +19,7 @@ const initialValues = {
 export default function CreateDiaryScreen() {
     const { execute, loading, serverError } = useFetch();
 
-    const { fieldHandler, submitHandler, errors, disabledForm } = useForm(
+    const { values, fieldHandler, submitHandler, errors, disabledForm } = useForm(
         handleCreate,
         "diary",
         initialValues,
@@ -64,16 +65,24 @@ export default function CreateDiaryScreen() {
                     textAlignVertical="top"
                 />
                 <FormDatePickerInput
-                    fieldName="positiveTestDate"
+                    value={values.positiveTestDate}
                     placeholder="When did you get a positive test?"
-                    fieldHandler={fieldHandler}
                     error={errors.positiveTestDate}
+                    onChange={(value) => {
+                        fieldHandler("positiveTestDate").onChange(value);
+                        fieldHandler("positiveTestDate").onBlur();
+                    }}
+                    onBlur={fieldHandler("positiveTestDate").onBlur}
                 />
                 <FormDatePickerInput
-                    fieldName="dueDate"
+                    value={values.dueDate}
                     placeholder="Select your due date"
-                    fieldHandler={fieldHandler}
                     error={errors.dueDate}
+                    onChange={(value) => {
+                        fieldHandler("dueDate").onChange(value);
+                        fieldHandler("dueDate").onBlur();
+                    }}
+                    onBlur={fieldHandler("dueDate").onBlur}
                 />
                 <FormInput
                     fieldName="gender"
@@ -83,6 +92,13 @@ export default function CreateDiaryScreen() {
                     error={errors.gender}
                 />
             </View>
+            <View style={styles.button}>
+                <PrimaryButton
+                    buttonText="Create"
+                    disabled={disabledForm()}
+                    handlePress={submitHandler}
+                />
+            </View>
         </FormWrapper>
     );
 }
@@ -90,5 +106,8 @@ export default function CreateDiaryScreen() {
 const styles = StyleSheet.create({
     form: {
         gap: SPACING.md,
+    },
+    button: {
+        marginTop: SPACING.lg,
     },
 });
