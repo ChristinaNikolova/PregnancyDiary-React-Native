@@ -4,17 +4,18 @@ import { COLORS } from "../../theme";
 export default function ModalWrapper({
     isVisible,
     animationType,
+    overlayStyle,
     handleClose,
     children,
 }) {
     return (
         <Modal
-            visible={isVisible}
+            isVisible={isVisible}
             transparent
             animationType={animationType}
             onRequestClose={handleClose}
         >
-            <View style={styles.overlay}>
+            <View style={[styles.overlay, overlayStyle]}>
                 <Pressable
                     style={StyleSheet.absoluteFill}
                     onPress={handleClose}

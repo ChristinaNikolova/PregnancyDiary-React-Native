@@ -1,54 +1,46 @@
-import { Modal, Pressable, StyleSheet, View, Text } from "react-native";
+import { Pressable, StyleSheet, View, Text } from "react-native";
 import DatePicker from "./DatePicker";
+import ModalWrapper from "../shared/ModalWrapper";
 import { BORDERS, COLORS, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function IOSModal({
     isVisible,
     selectedDate,
     minimumDate,
-    maximumDate,
     handleChange,
     handleClose,
     handleConfirm
 }) {
     return (
-        <Modal
+        <ModalWrapper
             visible={isVisible}
-            transparent
             animationType="slide"
-            onRequestClose={handleClose}
+            overlayStyle={{ justifyContent: "flex-end" }}
+            handleClose={handleClose}
         >
-            <View style={styles.modalOverlay}>
-                <View style={styles.modalContent}>
-                    <View style={styles.modalHeader}>
-                        <Pressable
-                            onPress={handleClose}
-                        >
-                            <Text style={styles.action}>Cancel</Text>
-                        </Pressable>
-                        <Pressable onPress={handleConfirm}>
-                            <Text style={styles.action}>Done</Text>
-                        </Pressable>
-                    </View>
-                    <DatePicker
-                        value={selectedDate}
-                        display="spinner"
-                        minimumDate={minimumDate}
-                        maximumDate={maximumDate}
-                        handleChange={handleChange}
-                    />
+            <View style={styles.modalContent}>
+                <View style={styles.modalHeader}>
+                    <Pressable
+                        onPress={handleClose}
+                    >
+                        <Text style={styles.action}>Cancel</Text>
+                    </Pressable>
+                    <Pressable onPress={handleConfirm}>
+                        <Text style={styles.action}>Done</Text>
+                    </Pressable>
                 </View>
+                <DatePicker
+                    value={selectedDate}
+                    display="spinner"
+                    minimumDate={minimumDate}
+                    handleChange={handleChange}
+                />
             </View>
-        </Modal>
+        </ModalWrapper>
     );
 }
 
 const styles = StyleSheet.create({
-    modalOverlay: {
-        flex: 1,
-        justifyContent: "flex-end",
-        backgroundColor: COLORS.greyBackground,
-    },
     modalContent: {
         alignItems: "center",
         paddingBottom: SPACING.xl,
