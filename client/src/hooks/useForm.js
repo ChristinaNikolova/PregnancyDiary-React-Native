@@ -28,7 +28,7 @@ export default function useForm(
         };
         setValues(newValues);
 
-        if (Object.values(touched).some(Boolean)) {
+        if (touched[fieldName]) {
             setErrors(validator[validatorName](newValues, touched));
         }
     };
