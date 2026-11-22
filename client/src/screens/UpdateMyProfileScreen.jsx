@@ -1,4 +1,4 @@
-
+import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { ScrollView, View, Image, Pressable, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
 import PrimaryButton from "../components/shared/PrimaryButton";
@@ -9,12 +9,20 @@ import ServerError from "../components/shared/ServerError";
 import useFetch from "../hooks/useFetch";
 import useAuthContext from "../contexts/auth/useAuthContext";
 import useForm from "../hooks/useForm";
+import usePhotoPicker from "../hooks/usePhotoPicker";
 import { API_PATHS } from "../api/api";
 import { httpMethods } from "../utils/constants/global";
 import { BORDERS, COLORS, SPACING, TYPOGRAPHY } from "../theme";
 
+// todo rename!!!
 export default function UpdateMyProfileScreen() {
+    const [profilePicture, setProfilePicture] = useState(null);
     const navigation = useNavigation();
+
+    const { showPickerOptions } = usePhotoPicker({
+        onChange: setProfilePicture,
+    });
+
     const { user, updateUser } = useAuthContext();
     const initialValues = {
         firstName: user.firstName,
@@ -64,11 +72,18 @@ export default function UpdateMyProfileScreen() {
                 <View style={styles.profilePictureSection}>
                     <View style={styles.profilePictureContainer}>
                         <Image
-                            source={require("../assets/images/default_profile_image.png")}
+                            source={
+                                profilePicture
+                                    ? { uri: profilePicture }
+                                    : require("../assets/images/default_profile_image.png")
+                            }
                             style={styles.profilePicture}
                         />
-                        <Pressable style={styles.editPictureButton}>
-                            <Icon name="camera" />
+                        <Pressable
+                            style={styles.editPictureButton}
+                            onPress={showPickerOptions}
+                        >
+                            <Icon name="camera" color={COLORS.white} />
                         </Pressable>
                     </View>
                     <View style={styles.pictureActions}>
