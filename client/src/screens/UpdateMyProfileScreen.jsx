@@ -44,7 +44,6 @@ export default function UpdateMyProfileScreen() {
         initialValues,
     );
 
-    // todo add location for test
     async function handleUpdateProfile(data) {
         try {
             const { firstName, lastName } = data;
@@ -54,6 +53,25 @@ export default function UpdateMyProfileScreen() {
                 { firstName, lastName }
             );
             updateUser(result);
+
+            if (profilePicture) {
+                const formData = new FormData();
+
+                formData.append("picture", {
+                    uri: profilePicture,
+                    name: "profile-picture.jpg",
+                    type: "image/jpeg",
+                });
+
+                const updatedUser = await execute(
+                    `${API_PATHS.USERS}/picture`,
+                    httpMethods.PUT,
+                    formData
+                );
+
+                updateUser(updatedUser);
+            }
+
             navigation.goBack();
         } catch (err) {
             console.error(err.response?.data || err.message);

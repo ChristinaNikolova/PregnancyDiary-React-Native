@@ -12,9 +12,6 @@ export const API_PATHS = {
 
 const api = axios.create({
     baseURL: BASE_URL,
-    headers: {
-        'Content-Type': 'application/json',
-    },
 });
 
 export default api;
