@@ -16,6 +16,7 @@ export default function FormWrapper({ children }) {
                     contentContainerStyle={styles.scrollContent}
                     showsVerticalScrollIndicator={false}
                     keyboardShouldPersistTaps="handled"
+                    automaticallyAdjustKeyboardInsets
                 >
                     <View style={styles.container}>
                         {children}
@@ -36,11 +37,8 @@ const styles = StyleSheet.create({
     },
     scrollContent: {
         flexGrow: 1,
-        justifyContent: "center",
     },
     container: {
-        flex: 1,
-        justifyContent: "center",
         paddingHorizontal: SPACING.xl,
         paddingVertical: SPACING.xxxl,
     },
