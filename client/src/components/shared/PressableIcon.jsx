@@ -3,7 +3,7 @@ import Icon from "./Icon";
 import { triggerHaptic } from "../../utils/native-helpers/haptics";
 import { EFFECTS } from "../../theme";
 
-export default function PressableIcon({ iconName, handlePress }) {
+export default function PressableIcon({ iconName, iconColor, handlePress }) {
     const handleHapticsPress = () => {
         triggerHaptic();
         handlePress?.();
@@ -18,7 +18,7 @@ export default function PressableIcon({ iconName, handlePress }) {
                 },
             ]}
             onPress={handleHapticsPress}>
-            <Icon name={iconName} />
+            <Icon name={iconName} color={iconColor} />
         </Pressable>
     );
 }

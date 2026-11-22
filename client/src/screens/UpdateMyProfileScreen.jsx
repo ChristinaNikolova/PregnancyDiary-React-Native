@@ -1,18 +1,19 @@
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { ScrollView, View, Image, Pressable, StyleSheet, KeyboardAvoidingView, Platform } from "react-native";
+import { View, Image, StyleSheet, } from "react-native";
 import PrimaryButton from "../components/shared/PrimaryButton";
-import Icon from "../components/shared/Icon";
+import FormWrapper from "../components/form/FormWrapper";
 import FormInput from "../components/form/FormInput";
 import PressableTag from "../components/shared/PressableTag";
 import ServerError from "../components/shared/ServerError";
+import PressableIcon from "../components/shared/PressableIcon";
 import useFetch from "../hooks/useFetch";
 import useAuthContext from "../contexts/auth/useAuthContext";
 import useForm from "../hooks/useForm";
 import usePhotoPicker from "../hooks/usePhotoPicker";
 import { API_PATHS } from "../api/api";
 import { httpMethods } from "../utils/constants/global";
-import { BORDERS, COLORS, SPACING, TYPOGRAPHY } from "../theme";
+import { BORDERS, COLORS, SPACING } from "../theme";
 
 // todo rename!!!
 export default function UpdateMyProfileScreen() {
@@ -59,16 +60,8 @@ export default function UpdateMyProfileScreen() {
     }
 
     return (
-        <KeyboardAvoidingView
-            style={styles.keyboardView}
-            behavior={Platform.OS === "ios" ? "padding" : undefined}
-        >
-            <ScrollView
-                style={styles.container}
-                contentContainerStyle={styles.contentContainer}
-                showsVerticalScrollIndicator={false}
-                keyboardShouldPersistTaps="handled"
-            >
+        <FormWrapper>
+            <View style={styles.container}>
                 <View style={styles.profilePictureSection}>
                     <View style={styles.profilePictureContainer}>
                         <Image
@@ -79,23 +72,26 @@ export default function UpdateMyProfileScreen() {
                             }
                             style={styles.profilePicture}
                         />
-                        <Pressable
-                            style={styles.editPictureButton}
-                            onPress={showPickerOptions}
-                        >
-                            <Icon name="camera" color={COLORS.white} />
-                        </Pressable>
+                        <View style={styles.editPictureButton}>
+                            <PressableIcon
+                                iconName="camera"
+                                iconColor={COLORS.white}
+                                handlePress={showPickerOptions}
+                            />
+                        </View>
                     </View>
-                    <View style={styles.pictureActions}>
-                        <PressableTag
-                            tagText="Change picture"
-                            handlePress={null}
-                        />
-                        <PressableTag
-                            tagText="Delete picture"
-                            handlePress={null}
-                        />
-                    </View>
+                    {profilePicture && (
+                        <View style={styles.pictureActions}>
+                            <PressableTag
+                                tagText="Change picture"
+                                handlePress={showPickerOptions}
+                            />
+                            <PressableTag
+                                tagText="Delete picture"
+                                handlePress={() => setProfilePicture(null)}
+                            />
+                        </View>
+                    )}
                 </View>
                 {serverError ?
                     <ServerError error={serverError} />
@@ -109,7 +105,6 @@ export default function UpdateMyProfileScreen() {
                         error={errors.firstName}
                         autoCapitalize="words"
                     />
-
                     <FormInput
                         fieldName="lastName"
                         placeholder="Last name"
@@ -124,25 +119,19 @@ export default function UpdateMyProfileScreen() {
                     disabled={disabledForm()}
                     handlePress={submitHandler}
                 />
-            </ScrollView>
-        </KeyboardAvoidingView>
+            </View>
+        </FormWrapper>
     );
 }
 
 // todo check stykes
 // todo change und remove picture after picture is uploaded
 const styles = StyleSheet.create({
-    keyboardView: {
-        flex: 1,
-    },
     container: {
         flex: 1,
-        backgroundColor: COLORS.background,
-    },
-    contentContainer: {
+        gap: SPACING.xl,
         padding: SPACING.lg,
         paddingBottom: SPACING.xxxl,
-        gap: SPACING.xl,
     },
     profilePictureSection: {
         alignItems: "center",
@@ -154,7 +143,7 @@ const styles = StyleSheet.create({
     profilePicture: {
         width: 120,
         height: 120,
-        borderRadius: BORDERS.radius.full,
+        borderRadius: BORDERS.radius.huge,
         backgroundColor: COLORS.border,
     },
     editPictureButton: {
@@ -163,24 +152,14 @@ const styles = StyleSheet.create({
         bottom: 0,
         width: 36,
         height: 36,
-        borderRadius: BORDERS.radius.full,
-        backgroundColor: COLORS.primary,
         alignItems: "center",
         justifyContent: "center",
+        borderRadius: BORDERS.radius.huge,
+        backgroundColor: COLORS.primary,
     },
     pictureActions: {
         flexDirection: "row",
         gap: SPACING.xl,
-    },
-    pictureAction: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: SPACING.xs,
-    },
-    pictureActionText: {
-        fontFamily: TYPOGRAPHY.fontFamily.medium,
-        fontSize: TYPOGRAPHY.fontSize.xs,
-        color: COLORS.text,
     },
     formSection: {
         gap: SPACING.md,
