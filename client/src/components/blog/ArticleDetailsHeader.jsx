@@ -3,7 +3,7 @@ import PressableIcon from "../shared/PressableIcon";
 import { triggerShare } from "../../utils/native-helpers/share";
 import useFetch from "../../hooks/useFetch";
 import { httpMethods } from "../../utils/constants/global";
-import { API_PATHS } from "../../api/api";
+import { apiPaths } from "../../utils/constants/api";
 import { SPACING } from "../../theme";
 
 // TODO add correct url after deploy
@@ -22,7 +22,7 @@ export default function ArticleDetailsHeader({ id, title, isFavourite = false, h
     const handleLike = async () => {
         try {
             const result = await execute(
-                `${API_PATHS.ARTICLES}/${id}`,
+                `${apiPaths.ARTICLES}/${id}`,
                 httpMethods.POST,
                 {},
             );

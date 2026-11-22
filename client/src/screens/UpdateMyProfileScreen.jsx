@@ -11,8 +11,8 @@ import useFetch from "../hooks/useFetch";
 import useAuthContext from "../contexts/auth/useAuthContext";
 import useForm from "../hooks/useForm";
 import usePhotoPicker from "../hooks/usePhotoPicker";
-import { API_PATHS } from "../api/api";
 import { httpMethods } from "../utils/constants/global";
+import { apiPaths } from "../utils/constants/api";
 import { BORDERS, COLORS, SPACING } from "../theme";
 
 // todo rename!!!
@@ -48,7 +48,7 @@ export default function UpdateMyProfileScreen() {
         try {
             const { firstName, lastName } = data;
             const result = await execute(
-                `${API_PATHS.USERS}`,
+                `${apiPaths.USERS}`,
                 httpMethods.PUT,
                 { firstName, lastName }
             );
@@ -64,7 +64,7 @@ export default function UpdateMyProfileScreen() {
                 });
 
                 const updatedUser = await execute(
-                    `${API_PATHS.USERS}/picture`,
+                    `${apiPaths.USERS}/picture`,
                     httpMethods.PUT,
                     formData
                 );

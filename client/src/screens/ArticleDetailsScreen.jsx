@@ -6,8 +6,8 @@ import ArticleDetailsHeader from "../components/blog/ArticleDetailsHeader";
 import useAuthContext from "../contexts/auth/useAuthContext";
 import useFetch from "../hooks/useFetch";
 import { ROUTES } from "../navigation/routes";
-import { API_PATHS } from "../api/api";
 import { httpMethods } from "../utils/constants/global";
+import { apiPaths } from "../utils/constants/api";
 import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
 
 // TODO ScrollView
@@ -29,7 +29,7 @@ export default function ArticleDetails({ navigation, route }) {
         setValues: setArticle,
         execute,
         loading
-    } = useFetch(`${API_PATHS.ARTICLES}/${articleId}`);
+    } = useFetch(`${apiPaths.ARTICLES}/${articleId}`);
 
     useEffect(() => {
         navigation.setOptions({
@@ -49,7 +49,7 @@ export default function ArticleDetails({ navigation, route }) {
 
         try {
             await execute(
-                `${API_PATHS.ARTICLES}/${articleId}`,
+                `${apiPaths.ARTICLES}/${articleId}`,
                 httpMethods.GET
             );
         } catch (error) {

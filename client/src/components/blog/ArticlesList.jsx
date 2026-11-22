@@ -6,7 +6,7 @@ import EmptyState from "../shared/EmptyState";
 import useAuthContext from "../../contexts/auth/useAuthContext";
 import useFetch from "../../hooks/useFetch";
 import { errorMessagesNoItems, httpMethods } from "../../utils/constants/global";
-import { API_PATHS } from "../../api/api";
+import { apiPaths } from "../../utils/constants/api";
 import { SPACING } from "../../theme";
 
 // TODO: RefreshCotroll
@@ -24,8 +24,8 @@ export default function ArticlesList({
     const isFirstFocus = useRef(true);
 
     const url = limit
-        ? `${API_PATHS.ARTICLES}?limit=${limit}`
-        : API_PATHS.ARTICLES;
+        ? `${apiPaths.ARTICLES}?limit=${limit}`
+        : apiPaths.ARTICLES;
 
     const { values: articles, execute, loading } = useFetch(url);
     const { user } = useAuthContext();

@@ -8,7 +8,7 @@ import ServerError from "../components/shared/ServerError";
 import useForm from "../hooks/useForm";
 import useFetch from "../hooks/useFetch";
 import useAuthContext from "../contexts/auth/useAuthContext";
-import { API_PATHS } from "../api/api";
+import { apiPaths } from "../utils/constants/api";
 import { httpMethods } from "../utils/constants/global";
 import { SPACING } from "../theme";
 
@@ -32,7 +32,7 @@ export default function LoginScreen() {
         try {
             const { email, password } = data;
             const result = await execute(
-                `${API_PATHS.AUTH}/login`,
+                `${apiPaths.AUTH}/login`,
                 httpMethods.POST,
                 { email, password }
             );

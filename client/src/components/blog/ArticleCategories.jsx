@@ -1,11 +1,11 @@
 import { ScrollView, StyleSheet } from "react-native";
 import PressableTag from "../shared/PressableTag";
 import useFetch from "../../hooks/useFetch";
-import { API_PATHS } from "../../api/api";
+import { apiPaths } from "../../utils/constants/api";
 import { SPACING } from "../../theme";
 
 export default function ArticleCategories({ selectedId, handlePress }) {
-    const { values: categories } = useFetch(`${API_PATHS.CATEGORIES}`);
+    const { values: categories } = useFetch(`${apiPaths.CATEGORIES}`);
 
     return (
         <ScrollView
