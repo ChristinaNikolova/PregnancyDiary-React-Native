@@ -4,9 +4,14 @@ import FormInput from "../components/form/FormInput";
 import FormDatePickerInput from "../components/form/FormDatePickerInput";
 import FormHeaderContainer from "../components/form/FormHeaderContainer";
 import PrimaryButton from "../components/shared/PrimaryButton";
+import ServerError from "../components/shared/ServerError";
 import useFetch from "../hooks/useFetch";
 import useForm from "../hooks/useForm";
 import { SPACING } from "../theme";
+import FormSelectInput from "../components/form/FormSelectInput";
+import { apiPaths } from "../utils/constants/api";
+import { ROUTES } from "../navigation/routes";
+import { httpMethods } from "../utils/constants/global";
 
 const initialValues = {
     title: "",
@@ -15,7 +20,7 @@ const initialValues = {
     gender: "",
 };
 
-export default function CreateDiaryScreen() {
+export default function CreateDiaryScreen({ navigation }) {
     const { execute, loading, serverError } = useFetch();
 
     const { values, fieldHandler, submitHandler, errors, disabledForm } = useForm(
@@ -35,14 +40,14 @@ export default function CreateDiaryScreen() {
 
     async function handleCreate(data) {
         try {
-            console.log('data', data)
-            //const { firstName, lastName, email, password } = data;
-            // const result = await execute(
-            //     `${apiPaths.AUTH}/register`,
-            //     httpMethods.POST,
-            //     { firstName, lastName, email, password }
-            // );
-            // userAuth(result);
+            const { title, description, dueDate, gender } = data;
+            await execute(
+                apiPaths.DIARIES,
+                httpMethods.POST,
+                { title, description, dueDate, gender }
+            );
+            // todo navigate to details
+            navigation.navigate(ROUTES.MAIN);
         } catch (err) {
             console.error(err.response?.data || err.message);
         }
@@ -55,6 +60,9 @@ export default function CreateDiaryScreen() {
                 title="Create your diary"
                 subTitle=" Let's start your pregnancy journey together."
             />
+            {serverError ?
+                <ServerError error={serverError} />
+                : null}
             <View style={styles.form}>
                 <FormInput
                     fieldName="title"
@@ -79,12 +87,17 @@ export default function CreateDiaryScreen() {
                     onChange={(value) => handleDateChange("dueDate", value)}
                     onBlur={() => handleDateBlur("dueDate")}
                 />
-                <FormInput
+                <FormSelectInput
                     fieldName="gender"
                     placeholder="Baby's gender"
                     fieldHandler={fieldHandler}
-                    iconName="person-outline"
+                    iconName="transgender-outline"
                     error={errors.gender}
+                    options={[
+                        { label: "Boy", value: "boy" },
+                        { label: "Girl", value: "girl" },
+                        { label: "I don't know yet", value: "i don't know yet" },
+                    ]}
                 />
             </View>
             <View style={styles.button}>

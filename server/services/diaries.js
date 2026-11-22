@@ -21,8 +21,8 @@ async function create(
   gender,
   userId
 ) {
-  const isDueDateValid = isDueDateValid(dueDate);
-  if (!isDueDateValid) {
+  const isDateValid = isDueDateValid(dueDate);
+  if (!isDateValid) {
     throw new Error(errors.INVALID_DATE);
   }
   const weeks = await getWeeks();
@@ -83,8 +83,8 @@ async function update(
   dueDate,
   gender
 ) {
-  const isDueDateValid = isDueDateValid(dueDate);
-  if (!isDueDateValid) {
+  const isDateValid = isDueDateValid(dueDate);
+  if (!isDateValid) {
     throw new Error(errors.INVALID_DATE);
   }
   const diary = await getById(id);

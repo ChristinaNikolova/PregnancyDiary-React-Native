@@ -16,6 +16,8 @@ export default function HomeScreen({ navigation }) {
 
     const { values: diary, loading } = useFetch(`${apiPaths.DIARIES}/active`);
 
+    const hasDiary = diary && Object.keys(diary).length > 0;
+
     const shortcuts = [
         {
             id: 'weeks',
@@ -72,12 +74,12 @@ export default function HomeScreen({ navigation }) {
                         <Text style={styles.subtitle}>{homeMessages.WELCOME}</Text>
                     </View>
                 </View>
-                {diary ?
+                {hasDiary ?
                     <Text>My Diary</Text>
                     : <JumboStart />
                 }
                 {
-                    diary && <View style={styles.shortcutsContainer}>
+                    hasDiary && <View style={styles.shortcutsContainer}>
                         {shortcuts.map((item) => (
                             <ShortcutIcon
                                 key={item.id}

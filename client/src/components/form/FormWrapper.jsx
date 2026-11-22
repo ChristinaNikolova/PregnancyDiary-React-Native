@@ -37,6 +37,7 @@ const styles = StyleSheet.create({
     },
     scrollContent: {
         flexGrow: 1,
+        justifyContent: "center",
     },
     container: {
         paddingHorizontal: SPACING.xl,
