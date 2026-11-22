@@ -20,6 +20,10 @@ async function uploadImage(buffer, folder) {
     });
 }
 
-module.exports = {
-    uploadImage,
-};
+async function deleteImage(publicId) {
+    return await cloudinary.uploader.destroy(publicId, {
+        resource_type: "image",
+    });
+}
+
+module.exports = { uploadImage, deleteImage };

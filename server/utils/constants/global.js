@@ -20,6 +20,7 @@ const errors = {
     return `Password should be between ${min} and ${max} characters long`;
   },
   NO_PICTURE: "Please select a picture",
+  PICTURE_DELETE: "Error deleting old profile picture:",
   NAME_TAKEN: "Name is already taken",
   TITEL_TAKEN: "Title is already taken",
   EMAIL_TAKEN: "Email is already taken",
