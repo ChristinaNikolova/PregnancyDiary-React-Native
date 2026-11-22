@@ -19,6 +19,7 @@ const errors = {
   PASSWORD(min, max) {
     return `Password should be between ${min} and ${max} characters long`;
   },
+  NO_PICTURE: "Please select a picture",
   NAME_TAKEN: "Name is already taken",
   TITEL_TAKEN: "Title is already taken",
   EMAIL_TAKEN: "Email is already taken",
