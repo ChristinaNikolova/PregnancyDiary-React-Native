@@ -7,7 +7,7 @@ const {
 } = require("mongoose");
 const { getTrimesterName, isDueDateValid } = require("../utils/parser");
 const {
-  diaryListViewModel,
+  diaryViewModel,
   diaryDetailsViewModel,
 } = require("../utils/mapper/diary");
 const { errors } = require("../utils/constants/global");
@@ -40,8 +40,16 @@ async function create(
 
 async function all(userId) {
   return (await Diary.find({ creator: new ObjectId(userId) })).map(
-    diaryListViewModel
+    diaryViewModel
   );
+}
+
+async function getActive(userId) {
+  const diary = await Diary.findOne({
+    creator: new ObjectId(userId),
+    isActive: true,
+  });
+  return diary ? diaryViewModel(diary) : null;
 }
 
 async function deleteById(id) {
@@ -110,6 +118,7 @@ async function getWeeks() {
 
 module.exports = {
   create,
+  getActive,
   all,
   deleteById,
   getById,

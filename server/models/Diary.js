@@ -41,6 +41,10 @@ const diarySchema = new Schema({
     required: [true, "Gender is required"],
     enum: ["boy", "girl", "i don't know yet", "surprice"],
   },
+  isActive: {
+    type: Boolean,
+    default: true,
+  },
   isBabyBorn: {
     type: Boolean,
     default: false,

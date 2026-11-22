@@ -5,12 +5,16 @@ import JumboStart from '../components/home/JumboStart';
 import ArticlesList from '../components/blog/ArticlesList';
 import ShortcutIcon from '../components/shared/ShortcutIcon';
 import Icon from '../components/shared/Icon';
-import { ROUTES } from '../navigation/routes';
+import useFetch from '../hooks/useFetch';
 import { homeMessages, shortcutsTiles } from '../utils/constants/global';
+import { ROUTES } from '../navigation/routes';
+import { apiPaths } from '../utils/constants/api';
 import { SIZES, SPACING, TYPOGRAPHY, COLORS } from '../theme';
 
 export default function HomeScreen({ navigation }) {
     const { user } = useAuthContext();
+
+    const { values: diary, loading } = useFetch(`${apiPaths.DIARIES}/active`);
 
     const shortcuts = [
         {
@@ -67,23 +71,23 @@ export default function HomeScreen({ navigation }) {
                         </View>
                         <Text style={styles.subtitle}>{homeMessages.WELCOME}</Text>
                     </View>
-                    {/* TODO add notifications */}
-                    {/* <View style={styles.notificationButton}>
-                    <Icon name="notifications-outline" size={26} color={COLORS.brown} />
-                    <View style={styles.notificationDot} />
-                </View> */}
                 </View>
-                <JumboStart />
-                <View style={styles.shortcutsContainer}>
-                    {shortcuts.map((item) => (
-                        <ShortcutIcon
-                            key={item.id}
-                            title={item.title}
-                            iconName={item.icon}
-                            handlePress={item.handlePress}
-                        />
-                    ))}
-                </View>
+                {diary ?
+                    <Text>My Diary</Text>
+                    : <JumboStart />
+                }
+                {
+                    diary && <View style={styles.shortcutsContainer}>
+                        {shortcuts.map((item) => (
+                            <ShortcutIcon
+                                key={item.id}
+                                title={item.title}
+                                iconName={item.icon}
+                                handlePress={item.handlePress}
+                            />
+                        ))}
+                    </View>
+                }
                 <>
                     <View style={styles.sectionHeader}>
                         <Text style={styles.sectionTitle}>
@@ -133,25 +137,6 @@ const styles = StyleSheet.create({
         fontSize: TYPOGRAPHY.fontSize.sm,
         color: COLORS.textSecondary,
     },
-    // todo
-    // notificationButton: {
-    //     width: 44,
-    //     height: 44,
-    //     borderRadius: 22,
-    //     backgroundColor: COLORS.peach,
-    //     alignItems: 'center',
-    //     justifyContent: 'center',
-    //     position: 'relative',
-    // },
-    // notificationDot: {
-    //     position: 'absolute',
-    //     top: 8,
-    //     right: 9,
-    //     width: 8,
-    //     height: 8,
-    //     borderRadius: 4,
-    //     backgroundColor: '#D94A4A',
-    // },
     shortcutsContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -162,6 +147,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
+        marginTop: SPACING.xxxl,
         marginBottom: SPACING.lg,
     },
     sectionTitle: {

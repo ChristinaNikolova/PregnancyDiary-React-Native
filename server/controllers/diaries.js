@@ -6,6 +6,7 @@ const {
   deleteById,
   getById,
   update,
+  getActive,
 } = require("../services/diaries");
 const { mapErrors } = require("../utils/parser");
 
@@ -31,6 +32,17 @@ router.get("/", hasUser(), async (req, res) => {
     const userId = req.user._id;
     const diaries = await all(userId);
     res.json(diaries);
+  } catch (error) {
+    const message = mapErrors(error);
+    res.status(400).json({ message });
+  }
+});
+
+router.get("/active", hasUser(), async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const diary = await getActive(userId);
+    res.json(diary);
   } catch (error) {
     const message = mapErrors(error);
     res.status(400).json({ message });
