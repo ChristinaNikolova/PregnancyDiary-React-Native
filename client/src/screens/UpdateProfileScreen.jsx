@@ -87,7 +87,9 @@ export default function UpdateProfileScreen() {
                             source={
                                 profilePicture
                                     ? { uri: profilePicture }
-                                    : require("../assets/images/default_profile_image.png")
+                                    : user.picture?.url
+                                        ? { uri: user.picture.url }
+                                        : require("../assets/images/default_profile_image.png")
                             }
                             style={styles.profilePicture}
                         />
