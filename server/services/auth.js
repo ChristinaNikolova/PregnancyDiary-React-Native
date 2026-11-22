@@ -29,6 +29,7 @@ async function login(email, password) {
   if (!match) {
     throw new Error(errors.LOGIN);
   }
+  await user.populate("picture");
   return createToken(user);
 }
 
@@ -45,12 +46,14 @@ function createToken(user) {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
+    picture: user.picture
   };
   return {
     _id: user._id,
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
+    picture: user.picture,
     accessToken: jwt.sign(payload, important.SECRET),
   };
 }

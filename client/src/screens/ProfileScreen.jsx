@@ -52,7 +52,11 @@ export default function ProfileScreen({ navigation }) {
         <ScrollView style={styles.container}>
             <View style={styles.userContainer}>
                 <Image
-                    source={require("../assets/images/default_profile_image.png")}
+                    source={
+                        user.picture?.url
+                            ? { uri: user.picture.url }
+                            : require("../assets/images/default_profile_image.png")
+                    }
                     style={styles.avatar}
                 />
                 <View style={styles.userInfo}>

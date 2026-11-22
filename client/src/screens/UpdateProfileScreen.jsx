@@ -16,6 +16,7 @@ import { apiPaths } from "../utils/constants/api";
 import { BORDERS, COLORS, SPACING } from "../theme";
 
 // todo fix headers navigatosr + back button
+// todo bd pictures ald delete?
 export default function UpdateProfileScreen() {
     const [profilePicture, setProfilePicture] = useState(null);
     const navigation = useNavigation();
@@ -46,12 +47,12 @@ export default function UpdateProfileScreen() {
     async function handleUpdateProfile(data) {
         try {
             const { firstName, lastName } = data;
-            const result = await execute(
+            const updateNamesResult = await execute(
                 `${apiPaths.USERS}`,
                 httpMethods.PUT,
                 { firstName, lastName }
             );
-            updateUser(result);
+            updateUser(updateNamesResult);
 
             if (profilePicture) {
                 const formData = new FormData();
@@ -62,13 +63,12 @@ export default function UpdateProfileScreen() {
                     type: "image/jpeg",
                 });
 
-                const updatedUser = await execute(
+                const updatedPictureResult = await execute(
                     `${apiPaths.USERS}/picture`,
                     httpMethods.PUT,
                     formData
                 );
-
-                updateUser(updatedUser);
+                updateUser(updatedPictureResult);
             }
 
             navigation.goBack();

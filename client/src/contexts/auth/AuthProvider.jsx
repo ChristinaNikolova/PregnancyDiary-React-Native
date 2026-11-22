@@ -8,21 +8,30 @@ export default function AuthProvider({ children }) {
     const [email, setEmail, emailLoaded] = usePersistedState("email", "");
     const [firstName, setFirstName, firstNameLoaded] = usePersistedState("firstName", "");
     const [lastName, setLastName, lastNameLoaded] = usePersistedState("lastName", "");
+    const [picture, setPicture, pictureLoaded] = usePersistedState("picture", null);
     const [id, setId, idLoaded] = usePersistedState("userId", "");
 
-    const isLoaded = authTokenLoaded && emailLoaded && firstNameLoaded && lastNameLoaded && idLoaded;
+    const isLoaded =
+        authTokenLoaded &&
+        emailLoaded &&
+        firstNameLoaded &&
+        lastNameLoaded &&
+        pictureLoaded &&
+        idLoaded;
 
     const userAuth = (authData) => {
         setAuthToken(authData ? authData.accessToken : "");
         setEmail(authData ? authData.email : "");
         setFirstName(authData ? authData.firstName : "");
         setLastName(authData ? authData.lastName : "");
+        setPicture(authData ? authData.picture ?? null : null);
         setId(authData ? authData._id : "");
     };
 
     const updateUser = (user) => {
         setFirstName(user.firstName);
         setLastName(user.lastName);
+        setPicture(user.picture ?? null);
     };
 
     const logout = async () => {
@@ -52,6 +61,7 @@ export default function AuthProvider({ children }) {
                     email: email,
                     firstName: firstName,
                     lastName: lastName,
+                    picture: picture,
                 },
             }}
         >
