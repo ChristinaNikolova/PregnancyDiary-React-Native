@@ -2,8 +2,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 
 export default function DatePicker({
     value,
-    minimumDate,
-    maximumDate,
+    minimumDate = new Date(),
     display = "default",
     handleChange
 }) {
@@ -14,7 +13,6 @@ export default function DatePicker({
             display={display}
             onChange={handleChange}
             minimumDate={minimumDate}
-            maximumDate={maximumDate}
         />
     );
 }

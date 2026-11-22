@@ -8,13 +8,10 @@ import IOSModal from "./IOSModal";
 import { formatDate, parseDate } from "../../utils/helpers/date";
 import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
-// todo check date after date
 export default function FormDatePickerInput({
     value,
     placeholder,
     error,
-    minimumDate,
-    maximumDate,
     onChange,
     onBlur,
 }) {
@@ -73,8 +70,6 @@ export default function FormDatePickerInput({
                 isVisible &&
                 <DatePicker
                     selectedDate={selectedDate}
-                    minimumDate={minimumDate}
-                    maximumDate={maximumDate}
                     handleChange={handleChange}
                 />
             }
@@ -83,8 +78,6 @@ export default function FormDatePickerInput({
                 <IOSModal
                     isVisible={isVisible}
                     selectedDate={selectedDate}
-                    minimumDate={minimumDate}
-                    maximumDate={maximumDate}
                     handleChange={handleChange}
                     handleClose={handleClose}
                     handleConfirm={handleConfirm}
