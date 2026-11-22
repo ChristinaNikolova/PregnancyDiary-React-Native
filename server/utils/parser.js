@@ -23,18 +23,16 @@ function formatCreatedAt(createdAt) {
   );
 }
 
-function compareDate(date1, date2) {
-  const positiveTestDate = parseDate(date1);
-  const dueDate = parseDate(date2);
-  return dueDate > positiveTestDate;
+function isDueDateValid(date) {
+  const dueDate = parseDate(date);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  return dueDate >= today;
 }
 
 function parseDate(date) {
-  const parts = date.split(".").map((p) => p.trim());
-  const year = parts[2];
-  const month = Number(parts[1]) - 1;
-  const day = Number(parts[0]) + 1;
-  return new Date(year, month, day);
+  const [year, month, day] = date.split("-").map(Number);
+  return new Date(year, month - 1, day);
 }
 
 const monthNames = [
@@ -64,7 +62,7 @@ function getTrimesterName(week) {
 module.exports = {
   mapErrors,
   formatCreatedAt,
-  compareDate,
   getTrimesterName,
   parseDate,
+  isDueDateValid,
 };

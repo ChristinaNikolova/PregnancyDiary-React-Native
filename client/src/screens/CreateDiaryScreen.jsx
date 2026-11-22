@@ -11,7 +11,6 @@ import { SPACING } from "../theme";
 const initialValues = {
     title: "",
     description: "",
-    positiveTestDate: "",
     dueDate: "",
     gender: "",
 };
@@ -72,13 +71,6 @@ export default function CreateDiaryScreen() {
                     error={errors.description}
                     multiline
                     textAlignVertical="top"
-                />
-                <FormDatePickerInput
-                    value={values.positiveTestDate}
-                    placeholder="When did you get a positive test?"
-                    error={errors.positiveTestDate}
-                    onChange={(value) => handleDateChange("positiveTestDate", value)}
-                    onBlur={() => handleDateBlur("positiveTestDate")}
                 />
                 <FormDatePickerInput
                     value={values.dueDate}

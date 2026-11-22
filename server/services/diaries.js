@@ -5,7 +5,7 @@ const Moment = require("../models/Moment");
 const {
   Types: { ObjectId },
 } = require("mongoose");
-const { compareDate, getTrimesterName } = require("../utils/parser");
+const { getTrimesterName, isDueDateValid } = require("../utils/parser");
 const {
   diaryListViewModel,
   diaryDetailsViewModel,
@@ -17,20 +17,18 @@ const { getById: getWeekById } = require("./weeks");
 async function create(
   title,
   description,
-  positiveTestDate,
   dueDate,
   gender,
   userId
 ) {
-  const validDates = compareDate(positiveTestDate, dueDate);
-  if (!validDates) {
+  const isDueDateValid = isDueDateValid(dueDate);
+  if (!isDueDateValid) {
     throw new Error(errors.INVALID_DATE);
   }
   const weeks = await getWeeks();
   const diary = new Diary({
     title,
     description,
-    positiveTestDate,
     dueDate,
     gender,
     creator: userId,
@@ -74,18 +72,16 @@ async function update(
   id,
   title,
   description,
-  positiveTestDate,
   dueDate,
   gender
 ) {
-  const validDates = compareDate(positiveTestDate, dueDate);
-  if (!validDates) {
+  const isDueDateValid = isDueDateValid(dueDate);
+  if (!isDueDateValid) {
     throw new Error(errors.INVALID_DATE);
   }
   const diary = await getById(id);
   diary.title = title;
   diary.description = description;
-  diary.positiveTestDate = positiveTestDate;
   diary.dueDate = dueDate;
   diary.gender = gender;
   await diary.save();

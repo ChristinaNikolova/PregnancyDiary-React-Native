@@ -31,15 +31,10 @@ const diarySchema = new Schema({
       `Description should be maximal ${diary.DESC_MAX_LEN} characters long`,
     ],
   },
-  positiveTestDate: {
-    type: String,
-    required: [true, "Date is required"],
-    match: [date.DATE_PATTERN, "Date date should be in format DD.MM.YYYY"],
-  },
   dueDate: {
     type: String,
     required: [true, "Date is required"],
-    match: [date.DATE_PATTERN, "Date should be in format DD.MM.YYYY"],
+    match: [date.DATE_PATTERN, "Date should be in format YYYY-MM-DD"],
   },
   gender: {
     type: String,

@@ -31,12 +31,11 @@ const errors = {
   TOKEN_INVALID: "Invalid authorization token",
   DATABASE: "Database error",
   DATABASE_CONNECTION: "Error connecting to database",
-  INVALID_DATE: "Due date should be after the positive test date",
+  INVALID_DATE: "Due date cannot be in the past",
 };
 
 const date = {
-  DATE_PATTERN:
-    /^(0[1-9]|[12][0-9]|3[01])[.](0[1-9]|1[012])[.](19|20)[0-9]{2}$/,
+  DATE_PATTERN: /^(19|20)[0-9]{2}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/,
 };
 
 module.exports = {

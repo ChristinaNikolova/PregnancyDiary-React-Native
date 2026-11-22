@@ -15,7 +15,6 @@ router.post("/", hasUser(), async (req, res) => {
     const diary = await create(
       req.body.title,
       req.body.description,
-      req.body.positiveTestDate,
       req.body.dueDate,
       req.body.gender,
       userId
@@ -67,7 +66,6 @@ router.put("/:id", hasUser(), async (req, res) => {
       id,
       req.body.title,
       req.body.description,
-      req.body.positiveTestDate,
       req.body.dueDate,
       req.body.gender
     );

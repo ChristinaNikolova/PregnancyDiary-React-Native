@@ -187,10 +187,6 @@ export const validator = {
             );
         }
 
-        if (touched.positiveTestDate && !values.positiveTestDate) {
-            errors["positiveTestDate"] = global.REQUIRED_INPUT;
-        }
-
         if (touched.dueDate && !values.dueDate) {
             errors["dueDate"] = global.REQUIRED_INPUT;
         }
