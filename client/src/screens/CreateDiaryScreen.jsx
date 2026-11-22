@@ -25,6 +25,15 @@ export default function CreateDiaryScreen() {
         initialValues,
     );
 
+    const handleDateChange = (fieldName, value) => {
+        fieldHandler(fieldName).onChange(value);
+        fieldHandler(fieldName).onBlur();
+    };
+
+    const handleDateBlur = (fieldName) => {
+        fieldHandler(fieldName).onBlur();
+    };
+
     async function handleCreate(data) {
         try {
             console.log('data', data)
@@ -68,21 +77,15 @@ export default function CreateDiaryScreen() {
                     value={values.positiveTestDate}
                     placeholder="When did you get a positive test?"
                     error={errors.positiveTestDate}
-                    onChange={(value) => {
-                        fieldHandler("positiveTestDate").onChange(value);
-                        fieldHandler("positiveTestDate").onBlur();
-                    }}
-                    onBlur={fieldHandler("positiveTestDate").onBlur}
+                    onChange={(value) => handleDateChange("positiveTestDate", value)}
+                    onBlur={() => handleDateBlur("positiveTestDate")}
                 />
                 <FormDatePickerInput
                     value={values.dueDate}
                     placeholder="Select your due date"
                     error={errors.dueDate}
-                    onChange={(value) => {
-                        fieldHandler("dueDate").onChange(value);
-                        fieldHandler("dueDate").onBlur();
-                    }}
-                    onBlur={fieldHandler("dueDate").onBlur}
+                    onChange={(value) => handleDateChange("dueDate", value)}
+                    onBlur={() => handleDateBlur("dueDate")}
                 />
                 <FormInput
                     fieldName="gender"
