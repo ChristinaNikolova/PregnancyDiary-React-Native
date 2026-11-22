@@ -1,11 +1,7 @@
 const Article = require("../models/Article");
 const {
-  Types: { ObjectId },
-} = require("mongoose");
-const {
   articleListViewModel,
   articleAdminViewModel,
-  articleListByCategoryViewModel,
   articleDetailsViewModel,
 } = require("../utils/mapper/article");
 const { errors } = require("../utils/constants/global");

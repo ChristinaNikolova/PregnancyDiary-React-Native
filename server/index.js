@@ -19,7 +19,7 @@ async function start() {
 
     app.listen(port, () => console.log(messages.REST_STARTED))
   } catch (err) {
-    console.error("Server startup failed:", error);
+    console.error("Server startup failed:", err);
     process.exit(1);
   }
 }
