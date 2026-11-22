@@ -22,6 +22,12 @@ export const shortcutsTiles = {
     FAVOURITES: "Favourites",
 };
 
+export const babyGenderOptions = [
+    { label: "Boy", value: "boy" },
+    { label: "Girl", value: "girl" },
+    { label: "I don't know yet", value: "i don't know yet" },
+];
+
 export const errorMessages = {
     "SECURE_STORE_GET": "Failed to load value from SecureStore",
     "SECURE_STORE_SET": "Failed to save value to SecureStore",

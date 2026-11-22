@@ -1,17 +1,17 @@
 import { StyleSheet, View } from "react-native";
 import FormWrapper from "../components/form/FormWrapper";
 import FormInput from "../components/form/FormInput";
+import FormSelectInput from "../components/form/FormSelectInput";
 import FormDatePickerInput from "../components/form/FormDatePickerInput";
 import FormHeaderContainer from "../components/form/FormHeaderContainer";
 import PrimaryButton from "../components/shared/PrimaryButton";
 import ServerError from "../components/shared/ServerError";
 import useFetch from "../hooks/useFetch";
 import useForm from "../hooks/useForm";
-import { SPACING } from "../theme";
-import FormSelectInput from "../components/form/FormSelectInput";
 import { apiPaths } from "../utils/constants/api";
 import { ROUTES } from "../navigation/routes";
-import { httpMethods } from "../utils/constants/global";
+import { babyGenderOptions, httpMethods } from "../utils/constants/global";
+import { SPACING } from "../theme";
 
 const initialValues = {
     title: "",
@@ -52,7 +52,6 @@ export default function CreateDiaryScreen({ navigation }) {
             console.error(err.response?.data || err.message);
         }
     }
-
     // todo constants
     return (
         <FormWrapper>
@@ -93,11 +92,7 @@ export default function CreateDiaryScreen({ navigation }) {
                     fieldHandler={fieldHandler}
                     iconName="transgender-outline"
                     error={errors.gender}
-                    options={[
-                        { label: "Boy", value: "boy" },
-                        { label: "Girl", value: "girl" },
-                        { label: "I don't know yet", value: "i don't know yet" },
-                    ]}
+                    options={babyGenderOptions}
                 />
             </View>
             <View style={styles.button}>
