@@ -34,6 +34,7 @@
         "expo-image-picker",
         {
           "photosPermission": "Allow PregnancyDiary to access your photos so you can select pictures to use in the app.",
+          "cameraPermission": "Allow PregnancyDiary to access your camera so you can take pictures for your profile.",
           "colors": {
             "cropToolbarColor": "#000000"
           },
