@@ -15,6 +15,7 @@ export default function useForm(
     const fieldHandler = (fieldName) => {
         return {
             value: values[fieldName],
+            onChange: (value) => changeHandler(fieldName, value),
             onChangeText: (value) => changeHandler(fieldName, value),
             onBlur: () => validateHandler(fieldName),
         };

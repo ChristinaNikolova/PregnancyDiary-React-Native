@@ -22,7 +22,12 @@ export default function FormInput({
 
     return (
         <>
-            <View style={styles.inputContainer}>
+            <View
+                style={[
+                    styles.inputContainer,
+                    props.multiline && styles.multilineContainer,
+                ]}
+            >
                 {iconName && (
                     <Icon
                         name={iconName}
@@ -39,7 +44,7 @@ export default function FormInput({
                     {...props}
                     autoCorrect={false}
                     spellCheck={false}
-                    submitBehavior="submit"
+                    submitBehavior={props.multiline ? "newline" : "submit"}
                 />
                 {isPassword && (
                     <FormPasswordIconInput
@@ -59,12 +64,17 @@ const styles = StyleSheet.create({
     inputContainer: {
         flexDirection: "row",
         alignItems: "center",
+        gap: SPACING.md,
         height: 50,
         paddingHorizontal: SPACING.lg,
         borderWidth: BORDERS.width.thin,
         borderColor: COLORS.border,
         borderRadius: BORDERS.radius.xxl,
-        gap: SPACING.md,
+    },
+    multilineContainer: {
+        alignItems: "flex-start",
+        height: 120,
+        paddingVertical: SPACING.md,
     },
     input: {
         flex: 1,

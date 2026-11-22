@@ -1,9 +1,11 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import FormWrapper from "../components/form/FormWrapper";
 import FormInput from "../components/form/FormInput";
-import { COLORS, SPACING, TYPOGRAPHY } from "../theme";
+import FormDatePickerInput from "../components/form/FormDatePickerInput";
+import FormHeaderContainer from "../components/form/FormHeaderContainer";
 import useFetch from "../hooks/useFetch";
 import useForm from "../hooks/useForm";
+import { SPACING } from "../theme";
 
 const initialValues = {
     title: "",
@@ -37,19 +39,17 @@ export default function CreateDiaryScreen() {
         }
     }
 
+    // todo constants
     return (
         <FormWrapper>
-            <View style={styles.header}>
-                <Text style={styles.title}>Create your diary</Text>
-                <Text style={styles.subtitle}>
-                    Let's start your pregnancy journey together.
-                </Text>
-            </View>
-
+            <FormHeaderContainer
+                title="Create your diary"
+                subTitle=" Let's start your pregnancy journey together."
+            />
             <View style={styles.form}>
                 <FormInput
                     fieldName="title"
-                    placeholder="Title"
+                    placeholder="Diary title"
                     fieldHandler={fieldHandler}
                     iconName="book-outline"
                     error={errors.title}
@@ -61,84 +61,34 @@ export default function CreateDiaryScreen() {
                     iconName="document-text-outline"
                     error={errors.description}
                     multiline
-                    numberOfLines={4}
                     textAlignVertical="top"
-                    style={styles.descriptionInput}
                 />
-
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>
-                        Important dates
-                    </Text>
-
-                    <FormInput
-                        fieldName="positiveTestDate"
-                        placeholder="Positive test date"
-                        fieldHandler={fieldHandler}
-                        iconName="calendar-outline"
-                        error={errors.positiveTestDate}
-                    />
-
-                    <FormInput
-                        fieldName="dueDate"
-                        placeholder="Expected due date"
-                        fieldHandler={fieldHandler}
-                        iconName="calendar-outline"
-                        error={errors.dueDate}
-                    />
-                </View>
-
-                <View style={styles.section}>
-                    <Text style={styles.sectionTitle}>
-                        Baby information
-                    </Text>
-
-                    <FormInput
-                        fieldName="gender"
-                        placeholder="Baby's gender"
-                        fieldHandler={fieldHandler}
-                        iconName="person-outline"
-                        error={errors.gender}
-                    />
-                </View>
+                <FormDatePickerInput
+                    fieldName="positiveTestDate"
+                    placeholder="When did you get a positive test?"
+                    fieldHandler={fieldHandler}
+                    error={errors.positiveTestDate}
+                />
+                <FormDatePickerInput
+                    fieldName="dueDate"
+                    placeholder="Select your due date"
+                    fieldHandler={fieldHandler}
+                    error={errors.dueDate}
+                />
+                <FormInput
+                    fieldName="gender"
+                    placeholder="Baby's gender"
+                    fieldHandler={fieldHandler}
+                    iconName="person-outline"
+                    error={errors.gender}
+                />
             </View>
         </FormWrapper>
     );
 }
 
 const styles = StyleSheet.create({
-    content: {
-        padding: SPACING.lg,
-        paddingBottom: SPACING.xxl,
-    },
-    header: {
-        marginBottom: SPACING.xl,
-        gap: SPACING.xs,
-    },
-    title: {
-        fontFamily: TYPOGRAPHY.fontFamily.semiBold,
-        fontSize: TYPOGRAPHY.fontSize.xxl,
-        color: COLORS.text,
-    },
-    subtitle: {
-        fontFamily: TYPOGRAPHY.fontFamily.regular,
-        fontSize: TYPOGRAPHY.fontSize.sm,
-        color: COLORS.textSecondary,
-    },
     form: {
         gap: SPACING.md,
-    },
-    section: {
-        marginTop: SPACING.md,
-        gap: SPACING.md,
-    },
-    sectionTitle: {
-        fontFamily: TYPOGRAPHY.fontFamily.semiBold,
-        fontSize: TYPOGRAPHY.fontSize.md,
-        color: COLORS.text,
-        marginBottom: SPACING.xs,
-    },
-    descriptionInput: {
-        minHeight: 110,
     },
 });
