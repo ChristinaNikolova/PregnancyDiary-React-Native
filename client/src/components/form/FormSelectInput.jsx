@@ -1,7 +1,9 @@
 
 import { useRef, useState } from "react";
-import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import Icon from "../shared/Icon";
+import ModalWrapper from "../shared/ModalWrapper";
+import FormInputOption from "./FormInputOption";
 import ClientError from "../shared/ClientError";
 import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
@@ -30,8 +32,8 @@ export default function FormSelectInput({
         });
     };
 
-    const handleSelect = (option) => {
-        onChange(option.value);
+    const handleSelect = (value) => {
+        onChange(value);
         onBlur();
         setIsVisible(false);
     };
@@ -53,55 +55,36 @@ export default function FormSelectInput({
                     size={SIZES.iconSmall}
                     color={COLORS.textSecondary}
                 />
-
                 <Text style={selectedOption ? styles.value : styles.placeholder}>
                     {selectedOption?.label || placeholder}
                 </Text>
-
                 <Icon
                     name="chevron-down-outline"
                     size={SIZES.iconSmall}
                     color={COLORS.textSecondary}
                 />
             </Pressable>
-
-            <Modal
-                visible={isVisible}
-                transparent
+            <ModalWrapper
+                isVisible={isVisible}
                 animationType="fade"
-                onRequestClose={handleClose}
+                handleClose={handleClose}
             >
-                <View style={styles.overlay}>
-                    <Pressable
-                        style={StyleSheet.absoluteFill}
-                        onPress={handleClose}
-                    />
-
-                    <View style={[styles.modalContent, { top: dropdownTop }]}>
-                        {options.map((option) => (
-                            <Pressable
-                                key={option.value}
-                                style={styles.option}
-                                onPress={() => handleSelect(option)}
-                            >
-                                <Text style={styles.optionText}>
-                                    {option.label}
-                                </Text>
-
-                                {value === option.value && (
-                                    <Icon
-                                        name="checkmark"
-                                        size={SIZES.iconSmall}
-                                        color={COLORS.primary}
-                                    />
-                                )}
-                            </Pressable>
-                        ))}
-                    </View>
+                <View style={[styles.content, { top: dropdownTop }]}>
+                    {options.map((option) =>
+                        <FormInputOption
+                            key={option.value}
+                            label={option.label}
+                            value={option.value}
+                            selectedValue={value}
+                            handleSelect={handleSelect}
+                        />
+                    )}
                 </View>
-            </Modal>
-
-            {error ? <ClientError error={error} /> : null}
+            </ModalWrapper>
+            {error
+                ? <ClientError error={error} />
+                : null
+            }
         </>
     );
 }
@@ -128,27 +111,12 @@ const styles = StyleSheet.create({
         fontSize: TYPOGRAPHY.fontSize.md,
         color: COLORS.text,
     },
-    overlay: {
-        flex: 1,
-        backgroundColor: COLORS.greyBackground,
-    },
-    modalContent: {
+    content: {
         position: "absolute",
         left: SPACING.xl,
         right: SPACING.xl,
         padding: SPACING.md,
         backgroundColor: COLORS.background,
         borderRadius: BORDERS.radius,
-    },
-    option: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: SPACING.lg,
-    },
-    optionText: {
-        fontFamily: TYPOGRAPHY.fontFamily.regular,
-        fontSize: TYPOGRAPHY.fontSize.md,
-        color: COLORS.text,
     },
 });
