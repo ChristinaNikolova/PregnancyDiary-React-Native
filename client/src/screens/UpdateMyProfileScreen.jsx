@@ -16,6 +16,7 @@ import { httpMethods } from "../utils/constants/global";
 import { BORDERS, COLORS, SPACING } from "../theme";
 
 // todo rename!!!
+// todo fix headers navigatosr + back button
 export default function UpdateMyProfileScreen() {
     const [profilePicture, setProfilePicture] = useState(null);
     const navigation = useNavigation();
@@ -59,6 +60,7 @@ export default function UpdateMyProfileScreen() {
         }
     }
 
+    // todo add loading while open gallery/camera
     return (
         <FormWrapper>
             <View style={styles.container}>
@@ -81,16 +83,10 @@ export default function UpdateMyProfileScreen() {
                         </View>
                     </View>
                     {profilePicture && (
-                        <View style={styles.pictureActions}>
-                            <PressableTag
-                                tagText="Change picture"
-                                handlePress={showPickerOptions}
-                            />
-                            <PressableTag
-                                tagText="Delete picture"
-                                handlePress={() => setProfilePicture(null)}
-                            />
-                        </View>
+                        <PressableTag
+                            tagText="Delete picture"
+                            handlePress={() => setProfilePicture(null)}
+                        />
                     )}
                 </View>
                 {serverError ?
@@ -143,7 +139,7 @@ const styles = StyleSheet.create({
     profilePicture: {
         width: 120,
         height: 120,
-        borderRadius: BORDERS.radius.huge,
+        borderRadius: BORDERS.radius.round,
         backgroundColor: COLORS.border,
     },
     editPictureButton: {
@@ -154,12 +150,8 @@ const styles = StyleSheet.create({
         height: 36,
         alignItems: "center",
         justifyContent: "center",
-        borderRadius: BORDERS.radius.huge,
+        borderRadius: BORDERS.radius.round,
         backgroundColor: COLORS.primary,
-    },
-    pictureActions: {
-        flexDirection: "row",
-        gap: SPACING.xl,
     },
     formSection: {
         gap: SPACING.md,
