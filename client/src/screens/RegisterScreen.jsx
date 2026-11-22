@@ -1,7 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import FormWrapper from "../components/form/FormWrapper";
-import HeaderContainer from "../components/auth/HeaderContainer";
-import FooterContainer from "../components/auth/FooterContainer";
+import FormHeaderContainer from "../components/form/FormHeaderContainer";
+import FormFooterContainer from "../components/form/FormFooterContainer";
 import PrimaryButton from "../components/shared/PrimaryButton";
 import FormInput from "../components/form/FormInput";
 import ServerError from "../components/shared/ServerError";
@@ -51,7 +51,7 @@ export default function RegisterScreen() {
 
     return (
         <FormWrapper>
-            <HeaderContainer
+            <FormHeaderContainer
                 title="Create account"
                 subTitle="Start your special journey with us."
             />
@@ -108,7 +108,7 @@ export default function RegisterScreen() {
                     />
                 </View>
             </View>
-            <FooterContainer
+            <FormFooterContainer
                 text="Already have an account?"
                 link="Login"
             />

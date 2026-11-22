@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Link } from '@react-navigation/native';
 import { COLORS, SPACING, TYPOGRAPHY } from "../../theme";
 
-export default function FooterContainer({ text, link }) {
+export default function FormFooterContainer({ text, link }) {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>{text}</Text>

@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import Icon from "../shared/Icon";
 import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
-export default function HeaderContainer({ title, subTitle }) {
+export default function FormHeaderContainer({ title, subTitle }) {
     return (
         <View style={styles.header}>
             <Icon
