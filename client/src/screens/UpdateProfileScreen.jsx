@@ -15,9 +15,8 @@ import { httpMethods } from "../utils/constants/global";
 import { apiPaths } from "../utils/constants/api";
 import { BORDERS, COLORS, SPACING } from "../theme";
 
-// todo rename!!!
 // todo fix headers navigatosr + back button
-export default function UpdateMyProfileScreen() {
+export default function UpdateProfileScreen() {
     const [profilePicture, setProfilePicture] = useState(null);
     const navigation = useNavigation();
 

@@ -18,7 +18,7 @@ export default function ProfileScreen({ navigation }) {
     };
 
     const handleMyProfilePress = () => {
-        navigation.navigate("UpdateMyProfile");
+        navigation.navigate("UpdateProfile");
     }
 
     const menuItems = [
