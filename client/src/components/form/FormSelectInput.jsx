@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import Icon from "../shared/Icon";
 import ClientError from "../shared/ClientError";
@@ -13,13 +13,22 @@ export default function FormSelectInput({
     error,
     options,
 }) {
+    const inputRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
+    const [dropdownTop, setDropdownTop] = useState(0);
 
     const { value, onChange, onBlur } = fieldHandler(fieldName);
 
     const selectedOption = options.find(
         (option) => option.value === value
     );
+
+    const handleOpen = () => {
+        inputRef.current?.measureInWindow((x, y, width, height) => {
+            setDropdownTop(y + height + SPACING.sm);
+            setIsVisible(true);
+        });
+    };
 
     const handleSelect = (option) => {
         onChange(option.value);
@@ -35,11 +44,12 @@ export default function FormSelectInput({
     return (
         <>
             <Pressable
+                ref={inputRef}
                 style={styles.inputContainer}
-                onPress={() => setIsVisible(true)}
+                onPress={handleOpen}
             >
                 <Icon
-                    name="transgender-outline"
+                    name={iconName}
                     size={SIZES.iconSmall}
                     color={COLORS.textSecondary}
                 />
@@ -61,11 +71,13 @@ export default function FormSelectInput({
                 animationType="fade"
                 onRequestClose={handleClose}
             >
-                <Pressable
-                    style={styles.overlay}
-                    onPress={handleClose}
-                >
-                    <View style={styles.modalContent}>
+                <View style={styles.overlay}>
+                    <Pressable
+                        style={StyleSheet.absoluteFill}
+                        onPress={handleClose}
+                    />
+
+                    <View style={[styles.modalContent, { top: dropdownTop }]}>
                         {options.map((option) => (
                             <Pressable
                                 key={option.value}
@@ -86,12 +98,10 @@ export default function FormSelectInput({
                             </Pressable>
                         ))}
                     </View>
-                </Pressable>
+                </View>
             </Modal>
-            {error ?
-                <ClientError error={error} />
-                : null
-            }
+
+            {error ? <ClientError error={error} /> : null}
         </>
     );
 }
@@ -120,11 +130,12 @@ const styles = StyleSheet.create({
     },
     overlay: {
         flex: 1,
-        justifyContent: "center",
-        padding: SPACING.xl,
         backgroundColor: COLORS.greyBackground,
     },
     modalContent: {
+        position: "absolute",
+        left: SPACING.xl,
+        right: SPACING.xl,
         padding: SPACING.md,
         backgroundColor: COLORS.background,
         borderRadius: BORDERS.radius,
