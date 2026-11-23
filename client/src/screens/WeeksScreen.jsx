@@ -3,11 +3,15 @@ import { Alert, FlatList, RefreshControl, StyleSheet, Text, View } from "react-n
 import WeekCard from "../components/WeekCard";
 import useFetch from "../hooks/useFetch";
 import { apiPaths } from "../utils/constants/api";
+import { getCurrentWeek, isUpcoming } from "../utils/helpers/pregnancy";
 import { COLORS, SPACING, TYPOGRAPHY } from "../theme";
 
 export default function WeeksScreen({ route }) {
+    const dueDate = route.params.dueDate;
     const diaryId = route.params.diaryId;
+
     const url = `${apiPaths.DIARIES}/${diaryId}/weeks`;
+    const currentWeek = getCurrentWeek(dueDate);
 
     const [refreshing, setRefreshing] = useState(false);
 
@@ -33,12 +37,16 @@ export default function WeeksScreen({ route }) {
             <FlatList
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}
                 data={weeks || []}
-                renderItem={({ item }) =>
-                    <WeekCard
-                        id={item.id}
-                        title={item.title}
-                    />
-                }
+                renderItem={({ item }) => {
+                    const status = isUpcoming(item.title, currentWeek);
+                    return (
+                        <WeekCard
+                            id={item.id}
+                            title={item.title}
+                            disabled={status}
+                        />
+                    );
+                }}
                 keyExtractor={(item) => item.id}
                 numColumns={3}
                 columnWrapperStyle={styles.row}

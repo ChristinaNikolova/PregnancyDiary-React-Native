@@ -29,6 +29,7 @@ export default function HomeScreen({ navigation }) {
                     screen: "Weeks",
                     params: {
                         diaryId: diary.id,
+                        dueDate: diary.dueDate,
                     },
                 }),
         },

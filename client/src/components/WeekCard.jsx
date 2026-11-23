@@ -6,7 +6,8 @@ import { COLORS, EFFECTS, SIZES, BORDERS, SPACING, TYPOGRAPHY } from "../theme";
 
 export default function WeekCard({
     id,
-    title
+    title,
+    disabled
 }) {
     const image = getWeekImage(title);
 
@@ -23,7 +24,10 @@ export default function WeekCard({
                 transform: [{ scale: EFFECTS.scale }],
             },
         ]}
-            onPress={handlePress}>
+            disabled={disabled}
+            onPress={handlePress}
+        >
+            {disabled && <View style={styles.disabledOverlay} />}
             <View style={styles.week}>
                 <Image
                     source={image}
@@ -53,6 +57,11 @@ const styles = StyleSheet.create({
         borderRadius: BORDERS.radius.huge,
         borderWidth: BORDERS.width.thin,
         borderColor: COLORS.border,
+    },
+    disabledOverlay: {
+        ...StyleSheet.absoluteFill,
+        zIndex: 1,
+        backgroundColor: COLORS.whiteBackground,
     },
     week: {
         width: "100%",
