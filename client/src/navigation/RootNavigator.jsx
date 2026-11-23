@@ -4,6 +4,7 @@ import AuthNavigator from "./AuthNavigator";
 import WeeksNavigator from "./WeeksNavigator";
 import ArticleDetailsScreen from "../screens/ArticleDetailsScreen";
 import CreateDiaryScreen from "../screens/CreateDiaryScreen";
+import BabyScreen from "../screens/BabyScreen";
 import UpdateProfileScreen from "../screens/UpdateProfileScreen";
 import ArticleDetailsHeader from "../components/blog/ArticleDetailsHeader";
 import useAuthContext from "../contexts/auth/useAuthContext";
@@ -29,7 +30,7 @@ export default function RootNavigator() {
         }}>
             {!isAuthenticated ?
                 <Stack.Screen
-                    name="Auth"
+                    name="AuthNavigator"
                     component={AuthNavigator}
                     options={{
                         headerShown: false,
@@ -53,6 +54,10 @@ export default function RootNavigator() {
                     <Stack.Screen
                         name="UpdateProfile"
                         component={UpdateProfileScreen}
+                    />
+                    <Stack.Screen
+                        name="Baby"
+                        component={BabyScreen}
                     />
                     <Stack.Screen
                         name="ArticleDetails"
