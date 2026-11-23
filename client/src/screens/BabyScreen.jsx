@@ -1,5 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import BabyOnTheWay from "../components/baby/BabyOnTheWay";
+import BabyProfile from "../components/baby/BabyProfile";
 import { COLORS } from "../theme";
 
 export default function BabyScreen({ route }) {
@@ -8,8 +9,8 @@ export default function BabyScreen({ route }) {
 
     return (
         <View style={styles.container}>
-            {isBabyBorn ?
-                <Text>Bbay is born</Text> :
+            {!isBabyBorn ?
+                <BabyProfile /> :
                 <BabyOnTheWay />
             }
         </View>

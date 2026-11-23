@@ -2,6 +2,7 @@ import { ImageBackground, StyleSheet, Text, View } from "react-native";
 import PrimaryButton from "../shared/PrimaryButton";
 import { COLORS, SPACING, TYPOGRAPHY } from "../../theme";
 
+// todo change db isBabyBorn prop
 export default function BabyOnTheWay({ handlePress }) {
     return (
         <View style={styles.container}>

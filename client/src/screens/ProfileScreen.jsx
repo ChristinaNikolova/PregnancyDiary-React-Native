@@ -1,8 +1,8 @@
-import { Image, Pressable, StyleSheet, View, Text, ScrollView } from "react-native";
-import Icon from "../components/shared/Icon";
+import { Image, StyleSheet, View, Text, ScrollView } from "react-native";
 import useAuthContext from "../contexts/auth/useAuthContext";
-import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
+import ProfileRow from "../components/ProfileRow";
 import { ROUTES } from "../navigation/routes";
+import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
 
 // todo notifications, setting.....
 export default function ProfileScreen({ navigation }) {
@@ -19,7 +19,7 @@ export default function ProfileScreen({ navigation }) {
 
     const handleMyProfilePress = () => {
         navigation.navigate("UpdateProfile");
-    }
+    };
 
     const menuItems = [
         {
@@ -32,7 +32,7 @@ export default function ProfileScreen({ navigation }) {
         },
         {
             id: "favorites",
-            title: "Favourrites articles",
+            title: "Favourite articles",
             iconName: "heart-outline",
             iconSize: SIZES.iconMedium,
             iconColor: COLORS.textSecondary,
@@ -68,27 +68,15 @@ export default function ProfileScreen({ navigation }) {
             </View>
             <View style={styles.menu}>
                 {menuItems.map((item) => (
-                    <Pressable
+                    <ProfileRow
                         key={item.id}
-                        style={styles.menuItem}
-                        onPress={item.onPress}
-                    >
-                        <View style={styles.menuItemView}>
-                            <Icon
-                                name={item.iconName}
-                                size={item.iconSize}
-                                color={item.iconColor}
-                            />
-                            <Text style={styles.menuText}>{item.title}</Text>
-                        </View>
-                        {item.title.toLocaleLowerCase() !== "logout" ? (
-                            <Icon
-                                name="chevron-forward"
-                                size={SIZES.iconSmall}
-                                color={COLORS.textSecondary}
-                            />
-                        ) : null}
-                    </Pressable>
+                        id={item.id}
+                        title={item.title}
+                        iconName={item.iconName}
+                        iconSize={item.iconSize}
+                        iconColor={item.iconColor}
+                        handlePress={item.onPress}
+                    />
                 ))}
             </View>
         </ScrollView>
@@ -134,23 +122,5 @@ const styles = StyleSheet.create({
         paddingHorizontal: SPACING.md,
         borderRadius: BORDERS.radius.xl,
         backgroundColor: COLORS.surface,
-    },
-    menuItem: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        minHeight: 58,
-        borderBottomWidth: BORDERS.width.thin,
-        borderBottomColor: COLORS.border,
-    },
-    menuItemView: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: SPACING.md,
-    },
-    menuText: {
-        fontFamily: TYPOGRAPHY.fontFamily.medium,
-        fontSize: TYPOGRAPHY.fontSize.sm,
-        color: COLORS.text,
     },
 });
