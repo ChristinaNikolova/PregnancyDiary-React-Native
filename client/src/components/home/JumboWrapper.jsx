@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         backgroundColor: COLORS.clearBackground,
     },
     title: {
-        marginBottom: SPACING.xxl,
+        marginBottom: SPACING.sm,
         fontFamily: TYPOGRAPHY.fontFamily.bold,
         fontSize: TYPOGRAPHY.fontSize.xxl,
         textAlign: 'center',

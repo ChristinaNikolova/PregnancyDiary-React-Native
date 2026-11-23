@@ -2,6 +2,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import useAuthContext from '../contexts/auth/useAuthContext';
 import JumboStart from '../components/home/JumboStart';
+import JumboDiary from '../components/home/JumboDiary';
 import ArticlesList from '../components/blog/ArticlesList';
 import ShortcutIcon from '../components/shared/ShortcutIcon';
 import Icon from '../components/shared/Icon';
@@ -75,7 +76,12 @@ export default function HomeScreen({ navigation }) {
                     </View>
                 </View>
                 {hasDiary ?
-                    <Text>My Diary</Text>
+                    <JumboDiary
+                        id={diary.id}
+                        title={diary.title}
+                        dueDate={diary.dueDate}
+                        gender={diary.gender}
+                    />
                     : <JumboStart />
                 }
                 {

@@ -9,6 +9,7 @@ const { getTrimesterName, isDueDateValid } = require("../utils/parser");
 const {
   diaryViewModel,
   diaryDetailsViewModel,
+  diaryHomeViewModel,
 } = require("../utils/mapper/diary");
 const { errors } = require("../utils/constants/global");
 const { subTitle, text, babySize, averageBabyWeight, averageBabyHeight } = require("../utils/constants/week");
@@ -49,7 +50,7 @@ async function getActive(userId) {
     creator: new ObjectId(userId),
     isActive: true,
   });
-  return diary ? diaryViewModel(diary) : null;
+  return diary ? diaryHomeViewModel(diary) : null;
 }
 
 async function deleteById(id) {

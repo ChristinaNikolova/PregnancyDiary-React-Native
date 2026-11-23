@@ -2,6 +2,15 @@ const { babyViewModel } = require("./baby");
 const { weekListViewModel } = require("./week");
 
 // todo cleanup
+function diaryHomeViewModel(diary) {
+  return {
+    id: diary._id,
+    title: diary.title,
+    dueDate: diary.dueDate,
+    gender: diary.gender,
+  };
+}
+
 function diaryViewModel(diary) {
   return {
     id: diary._id,
@@ -26,6 +35,7 @@ function diaryDetailsViewModel(diary) {
 }
 
 module.exports = {
+  diaryHomeViewModel,
   diaryViewModel,
   diaryDetailsViewModel,
 };
