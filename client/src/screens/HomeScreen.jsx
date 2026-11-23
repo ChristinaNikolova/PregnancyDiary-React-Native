@@ -21,9 +21,9 @@ export default function HomeScreen({ navigation }) {
 
     const shortcuts = [
         {
-            id: 'weeks',
+            id: "weeks",
             title: shortcutsTiles.WEEKS,
-            icon: 'calendar-outline',
+            icon: "calendar-outline",
             handlePress: () =>
                 navigation.navigate("WeeksNavigator", {
                     screen: "Weeks",
@@ -34,21 +34,25 @@ export default function HomeScreen({ navigation }) {
                 }),
         },
         {
-            id: 'memories',
+            id: "memories",
             title: shortcutsTiles.MEMORIES,
-            icon: 'book-outline',
-            handlePress: () => navigation.navigate('Memories'),
+            icon: "book-outline",
+            handlePress: () => navigation.navigate("Memories"),
         },
         {
-            id: 'baby',
+            id: "baby",
             title: shortcutsTiles.BABY,
-            icon: 'heart-outline',
-            handlePress: () => navigation.navigate('Baby'),
+            icon: "heart-outline",
+            handlePress: () =>
+                navigation.navigate("Baby", {
+                    diaryId: diary.id,
+                    isBabyBorn: diary.isBabyBorn,
+                }),
         },
         {
-            id: 'favourites',
+            id: "favourites",
             title: shortcutsTiles.FAVOURITES,
-            icon: 'list-outline',
+            icon: "list-outline",
             handlePress: () => navigation.navigate(ROUTES.BLOG_TAB, {
                 screen: "Blog",
                 params: {

@@ -8,6 +8,7 @@ function diaryHomeViewModel(diary) {
     title: diary.title,
     dueDate: diary.dueDate,
     gender: diary.gender,
+    isBabyBorn: diary.isBabyBorn,
   };
 }
 
