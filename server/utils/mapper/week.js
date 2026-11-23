@@ -1,6 +1,15 @@
 const { parseDate } = require("../parser");
 const { momentViewModel } = require("./moment");
 
+// todo cleanyp + better naming
+function weekViewModel(week) {
+  return {
+    id: week._id,
+    title: week.title,
+  };
+}
+
+
 function weekListViewModel(week) {
   return {
     id: week._id,
@@ -29,6 +38,7 @@ function weekDetailsViewModel(week) {
 }
 
 module.exports = {
+  weekViewModel,
   weekListViewModel,
   weekDetailsViewModel,
 };

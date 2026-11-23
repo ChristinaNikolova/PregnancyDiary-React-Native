@@ -24,7 +24,13 @@ export default function HomeScreen({ navigation }) {
             id: 'weeks',
             title: shortcutsTiles.WEEKS,
             icon: 'calendar-outline',
-            handlePress: () => navigation.navigate('Weeks'),
+            handlePress: () =>
+                navigation.navigate("WeeksNavigator", {
+                    screen: "Weeks",
+                    params: {
+                        diaryId: diary.id,
+                    },
+                }),
         },
         {
             id: 'memories',

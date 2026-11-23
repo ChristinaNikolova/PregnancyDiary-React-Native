@@ -11,6 +11,7 @@ const {
   diaryDetailsViewModel,
   diaryHomeViewModel,
 } = require("../utils/mapper/diary");
+const { weekViewModel } = require("../utils/mapper/week");
 const { errors } = require("../utils/constants/global");
 const { subTitle, text, babySize, averageBabyWeight, averageBabyHeight } = require("../utils/constants/week");
 const { getById: getWeekById } = require("./weeks");
@@ -77,6 +78,11 @@ async function getById(id, hasToMap = false) {
   return await Diary.findById(id);
 }
 
+async function getWeeksById(id) {
+  const diary = await Diary.findById(id).populate('weeks', "title");
+  return diary.weeks.map(weekViewModel);
+}
+
 async function update(
   id,
   title,
@@ -124,4 +130,5 @@ module.exports = {
   deleteById,
   getById,
   update,
+  getWeeksById
 };

@@ -1,6 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import TabsNavigator from "./TabsNavigator";
 import AuthNavigator from "./AuthNavigator";
+import WeeksNavigator from "./WeeksNavigator";
 import ArticleDetailsScreen from "../screens/ArticleDetailsScreen";
 import CreateDiaryScreen from "../screens/CreateDiaryScreen";
 import UpdateProfileScreen from "../screens/UpdateProfileScreen";
@@ -38,6 +39,11 @@ export default function RootNavigator() {
                     <Stack.Screen
                         name="Main"
                         component={TabsNavigator}
+                        options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                        name="WeeksNavigator"
+                        component={WeeksNavigator}
                         options={{ headerShown: false }}
                     />
                     <Stack.Screen
