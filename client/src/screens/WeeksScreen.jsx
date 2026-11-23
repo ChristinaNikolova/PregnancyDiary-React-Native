@@ -5,7 +5,6 @@ import useFetch from "../hooks/useFetch";
 import { apiPaths } from "../utils/constants/api";
 import { COLORS, SPACING, TYPOGRAPHY } from "../theme";
 
-// todo refresh control
 export default function WeeksScreen({ route }) {
     const diaryId = route.params.diaryId;
     const url = `${apiPaths.DIARIES}/${diaryId}/weeks`;
