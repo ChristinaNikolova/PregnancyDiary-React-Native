@@ -2,10 +2,9 @@ import { StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "../shared/Icon";
 import JumboWrapper from "./JumboWrapper";
-import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
+import { getGenderLabel } from "../../utils/helpers/gender";
+import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
-// todo add glovbal genders
-// todo extract helper for gender
 export default function JumboDiary({
     id,
     title,
@@ -13,12 +12,6 @@ export default function JumboDiary({
     gender,
 }) {
     const navigation = useNavigation();
-
-    const genderLabels = {
-        boy: "Boy",
-        girl: "Girl",
-        "i don't know yet": "Not known yet",
-    };
     // todo navigate to diary details
     const handlePress = () => {
         navigation.navigate("Diary");
@@ -52,7 +45,7 @@ export default function JumboDiary({
                     <View style={styles.infoTextContainer}>
                         <Text style={styles.infoLabel}>Baby's gender:</Text>
                         <Text style={styles.infoValue}>
-                            {genderLabels[gender]}
+                            {getGenderLabel(gender)}
                         </Text>
                     </View>
                 </View>
