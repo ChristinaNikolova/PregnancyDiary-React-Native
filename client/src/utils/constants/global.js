@@ -18,7 +18,7 @@ export const homeMessages = {
 export const shortcutsTiles = {
     WEEKS: "Weeks",
     MEMORIES: "Memories",
-    CHECKLIST: "Checklist",
+    BABY: "BABY",
     FAVOURITES: "Favourites",
 };
 

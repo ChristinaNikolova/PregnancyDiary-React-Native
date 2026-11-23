@@ -33,15 +33,15 @@ export default function HomeScreen({ navigation }) {
             handlePress: () => navigation.navigate('Memories'),
         },
         {
-            id: 'checklist',
-            title: shortcutsTiles.CHECKLIST,
-            icon: 'checkbox-outline',
-            handlePress: () => navigation.navigate('Checklist'),
+            id: 'baby',
+            title: shortcutsTiles.BABY,
+            icon: 'heart-outline',
+            handlePress: () => navigation.navigate('Baby'),
         },
         {
             id: 'favourites',
             title: shortcutsTiles.FAVOURITES,
-            icon: 'heart-outline',
+            icon: 'list-outline',
             handlePress: () => navigation.navigate(ROUTES.BLOG_TAB, {
                 screen: "Blog",
                 params: {
