@@ -1,8 +1,7 @@
-import { Pressable, View, Image, StyleSheet, Text } from "react-native";
-import Icon from "./shared/Icon";
+import { Pressable, View, Image, StyleSheet } from "react-native";
 import { getWeekImage } from "../utils/helpers/image";
 import { triggerHaptic } from "../utils/native-helpers/haptics";
-import { COLORS, EFFECTS, SIZES, BORDERS, SPACING, TYPOGRAPHY } from "../theme";
+import { COLORS, EFFECTS, BORDERS } from "../theme";
 
 export default function WeekCard({
     id,
@@ -35,16 +34,6 @@ export default function WeekCard({
                     resizeMode="cover"
                 />
             </View>
-            <View style={styles.info}>
-                <Icon
-                    name="calendar-outline"
-                    size={SIZES.iconMedium}
-                    color={COLORS.primary}
-                />
-                <Text style={styles.title} numberOfLines={1}>
-                    Week {title}
-                </Text>
-            </View>
         </Pressable>
     );
 }
@@ -71,19 +60,5 @@ const styles = StyleSheet.create({
     image: {
         width: "100%",
         height: "100%",
-    },
-    info: {
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: SPACING.xs,
-        minHeight: 48,
-        paddingHorizontal: SPACING.xs,
-    },
-    title: {
-        flexShrink: 1,
-        fontFamily: TYPOGRAPHY.fontFamily.semiBold,
-        fontSize: TYPOGRAPHY.fontSize.xs,
-        color: COLORS.text,
     },
 });
