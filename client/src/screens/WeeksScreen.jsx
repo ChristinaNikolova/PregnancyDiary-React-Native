@@ -1,5 +1,5 @@
-
-import { FlatList, StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { Alert, FlatList, RefreshControl, StyleSheet, Text, View } from "react-native";
 import WeekCard from "../components/WeekCard";
 import useFetch from "../hooks/useFetch";
 import { apiPaths } from "../utils/constants/api";
@@ -8,10 +8,23 @@ import { COLORS, SPACING, TYPOGRAPHY } from "../theme";
 // todo refresh control
 export default function WeeksScreen({ route }) {
     const diaryId = route.params.diaryId;
+    const url = `${apiPaths.DIARIES}/${diaryId}/weeks`;
 
-    const { values: weeks } = useFetch(
-        `${apiPaths.DIARIES}/${diaryId}/weeks`
-    );
+    const [refreshing, setRefreshing] = useState(false);
+
+    const { values: weeks, loading, execute } = useFetch(url);
+
+    const handleRefresh = async () => {
+        setRefreshing(true);
+
+        try {
+            await execute(url);
+        } catch (error) {
+            Alert.alert("Error", error.message);
+        } finally {
+            setRefreshing(false);
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -19,6 +32,7 @@ export default function WeeksScreen({ route }) {
                 Follow your baby's development week by week.
             </Text>
             <FlatList
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}
                 data={weeks || []}
                 renderItem={({ item }) =>
                     <WeekCard

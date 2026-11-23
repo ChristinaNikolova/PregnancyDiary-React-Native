@@ -34,8 +34,6 @@ export default function ArticlesList({
         await execute(url, httpMethods.GET);
     }, [execute, url]);
 
-
-
     useFocusEffect(
         useCallback(() => {
             if (isFirstFocus.current) {
