@@ -2,13 +2,15 @@ import { memo } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Image, Text, Pressable } from "react-native";
 import Icon from "../shared/Icon";
-import { BORDERS, COLORS, EFFECTS, SPACING, TYPOGRAPHY } from "../../theme";
+import { triggerHaptic } from "../../utils/native-helpers/haptics";
 import { ROUTES } from "../../navigation/routes";
+import { BORDERS, COLORS, EFFECTS, SPACING, TYPOGRAPHY } from "../../theme";
 
 function ArticleCard({ id, title, picture }) {
     const navigation = useNavigation();
 
     const handlePress = () => {
+        triggerHaptic();
         navigation.navigate(ROUTES.ARTICLE_DETAILS, { id })
     }
 
@@ -18,7 +20,7 @@ function ArticleCard({ id, title, picture }) {
                 styles.screen,
                 pressed && { opacity: EFFECTS.opacity },
             ]}
-            onPress={handlePress} >
+            onPress={handlePress}>
             <Image source={{ uri: picture }} style={styles.picture} />
             <Text style={styles.title}>{title}</Text>
             <Icon name="chevron-forward-outline" />

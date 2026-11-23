@@ -84,7 +84,7 @@ export default function ArticlesList({
         <FlatList
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}
             data={filteredArticles}
-            keyExtractor={(article) => article.id}
+            keyExtractor={(item) => item.id}
             contentContainerStyle={styles.screen}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
