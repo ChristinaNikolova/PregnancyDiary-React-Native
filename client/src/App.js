@@ -1,5 +1,6 @@
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { StatusBar } from 'expo-status-bar';
 import {
   useFonts,
@@ -25,7 +26,7 @@ export default function App() {
   }
 
   return (
-    <>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <AuthProvider>
         <SafeAreaProvider>
           <StatusBar style="auto" />
@@ -34,6 +35,6 @@ export default function App() {
           </NavigationContainer>
         </SafeAreaProvider>
       </AuthProvider>
-    </>
+    </GestureHandlerRootView>
   );
 }
