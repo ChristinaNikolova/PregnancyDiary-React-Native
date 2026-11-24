@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { GestureDetector, usePanGesture } from "react-native-gesture-handler";
+import { GestureDetector } from "react-native-gesture-handler";
 import { StyleSheet, ScrollView, Text, Image, View, Alert, RefreshControl } from "react-native";
 import Icon from "../components/shared/Icon";
 import PressableTag from "../components/shared/PressableTag";
 import ArticleDetailsHeader from "../components/blog/ArticleDetailsHeader";
 import useAuthContext from "../contexts/auth/useAuthContext";
 import useFetch from "../hooks/useFetch";
+import useSwipeNavigation from "../hooks/useSwipeNavigation";
 import { ROUTES } from "../navigation/routes";
 import { httpMethods } from "../utils/constants/global";
 import { apiPaths } from "../utils/constants/api";
@@ -18,6 +19,7 @@ export default function ArticleDetails({ navigation, route }) {
     const articleIds = route.params.articleIds;
 
     const [articleId, setArticleId] = useState(route.params.id);
+    const [isChangingArticle, setIsChangingArticle] = useState(false);
     const [refreshing, setRefreshing] = useState(false);
 
     const { user } = useAuthContext();
@@ -27,6 +29,20 @@ export default function ArticleDetails({ navigation, route }) {
         execute,
         loading
     } = useFetch(`${apiPaths.ARTICLES}/${articleId}`);
+
+    const handleArticleChange = (targetId) => {
+        if (isChangingArticle || !targetId) return;
+
+        setIsChangingArticle(true);
+        setArticleId(targetId);
+    };
+
+    const swipeGesture = useSwipeNavigation({
+        ids: articleIds,
+        currentId: articleId,
+        isChanging: isChangingArticle,
+        onChange: handleArticleChange,
+    });
 
     useEffect(() => {
         navigation.setOptions({
@@ -40,6 +56,13 @@ export default function ArticleDetails({ navigation, route }) {
             ),
         });
     }, [article, navigation, articleId, user?.id]);
+
+    // todo do we need it
+    useEffect(() => {
+        if (!loading) {
+            setIsChangingArticle(false);
+        }
+    }, [loading]);
 
     const handleRefresh = async () => {
         setRefreshing(true);
@@ -62,7 +85,7 @@ export default function ArticleDetails({ navigation, route }) {
             params: {
                 screen: ROUTES.BLOG,
                 params: {
-                    categoryId: article.categoryId,
+                    categoryId: article?.categoryId,
                 },
             },
         });
@@ -75,29 +98,6 @@ export default function ArticleDetails({ navigation, route }) {
             likesCount: updatedArticle.likes.length,
         }));
     };
-
-    const handleArticleChange = (targetId) => {
-        setArticleId(targetId);
-    };
-
-    const currentIndex = articleIds.indexOf(articleId);
-    const hasNext = currentIndex < articleIds.length - 1;
-    const hasPrevious = currentIndex > 0;
-
-    const swipeGesture = usePanGesture({
-        activeOffsetX: [-20, 20],
-        failOffsetY: [-15, 15],
-        runOnJS: true,
-        onDeactivate: (event) => {
-            if (event.canceled) return;
-
-            if (event.translationX < -80 && currentIndex < articleIds.length - 1) {
-                handleArticleChange(articleIds[currentIndex + 1]);
-            } else if (event.translationX > 80 && currentIndex > 0) {
-                handleArticleChange(articleIds[currentIndex - 1]);
-            }
-        },
-    });
 
     return (
         <GestureDetector gesture={swipeGesture}>
