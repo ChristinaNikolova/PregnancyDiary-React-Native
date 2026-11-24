@@ -4,6 +4,7 @@ import { StyleSheet, ScrollView, Text, Image, View, Alert, RefreshControl } from
 import Icon from "../components/shared/Icon";
 import PressableTag from "../components/shared/PressableTag";
 import ArticleDetailsHeader from "../components/blog/ArticleDetailsHeader";
+import SwipeHint from "../components/shared/SwipeHint";
 import useAuthContext from "../contexts/auth/useAuthContext";
 import useFetch from "../hooks/useFetch";
 import useSwipeNavigation from "../hooks/useSwipeNavigation";
@@ -99,6 +100,8 @@ export default function ArticleDetails({ navigation, route }) {
         }));
     };
 
+    const currentIndex = articleIds.indexOf(articleId);
+
     return (
         <GestureDetector gesture={swipeGesture}>
             <ScrollView
@@ -114,6 +117,11 @@ export default function ArticleDetails({ navigation, route }) {
                 <Image
                     source={{ uri: article?.picture }}
                     style={styles.picture}
+                />
+                <SwipeHint
+                    text="← Swipe to explore more articles →"
+                    current={currentIndex + 1}
+                    length={articleIds.length}
                 />
                 <View style={styles.content}>
                     <Text style={styles.title}>
