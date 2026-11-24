@@ -78,6 +78,8 @@ export default function ArticlesList({
         return <EmptyState text={errorMessagesNoItems.NO_ARTICLES} />
     }
 
+    const articleIds = filteredArticles.map((article) => article.id);
+
     return (
         <FlatList
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}
@@ -93,6 +95,7 @@ export default function ArticlesList({
                     id={item.id}
                     title={item.title}
                     picture={item.picture}
+                    articleIds={articleIds}
                 />
             }
         />

@@ -6,13 +6,21 @@ import { triggerHaptic } from "../../utils/native-helpers/haptics";
 import { ROUTES } from "../../navigation/routes";
 import { BORDERS, COLORS, EFFECTS, SPACING, TYPOGRAPHY } from "../../theme";
 
-function ArticleCard({ id, title, picture }) {
+function ArticleCard({
+    id,
+    title,
+    picture,
+    articleIds
+}) {
     const navigation = useNavigation();
 
     const handlePress = () => {
         triggerHaptic();
-        navigation.navigate(ROUTES.ARTICLE_DETAILS, { id })
-    }
+        navigation.navigate(ROUTES.ARTICLE_DETAILS, {
+            id,
+            articleIds,
+        });
+    };
 
     return (
         <Pressable

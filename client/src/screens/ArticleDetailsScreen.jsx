@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { GestureDetector, usePanGesture } from "react-native-gesture-handler";
 import { StyleSheet, ScrollView, Text, Image, View, Alert, RefreshControl } from "react-native";
 import Icon from "../components/shared/Icon";
 import PressableTag from "../components/shared/PressableTag";
@@ -10,17 +11,13 @@ import { httpMethods } from "../utils/constants/global";
 import { apiPaths } from "../utils/constants/api";
 import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
 
-// TODO ScrollView
 // TODO Share Button
 // TODO remove tabs navigation
-// TODO check all mockups!!!
-// TODO Extract css styles
 // TODO Rename styles
-
-// TODO CHECK generated Code!!!
-// Todo Extract Paragraph component
 export default function ArticleDetails({ navigation, route }) {
-    const articleId = route.params.id;
+    const articleIds = route.params.articleIds;
+
+    const [articleId, setArticleId] = useState(route.params.id);
     const [refreshing, setRefreshing] = useState(false);
 
     const { user } = useAuthContext();
@@ -79,51 +76,81 @@ export default function ArticleDetails({ navigation, route }) {
         }));
     };
 
+    const handleArticleChange = (targetId) => {
+        setArticleId(targetId);
+    };
+
+    const currentIndex = articleIds.indexOf(articleId);
+    const hasNext = currentIndex < articleIds.length - 1;
+    const hasPrevious = currentIndex > 0;
+
+    const swipeGesture = usePanGesture({
+        activeOffsetX: [-20, 20],
+        failOffsetY: [-15, 15],
+        runOnJS: true,
+        onDeactivate: (event) => {
+            if (event.canceled) return;
+
+            if (event.translationX < -80 && currentIndex < articleIds.length - 1) {
+                handleArticleChange(articleIds[currentIndex + 1]);
+            } else if (event.translationX > 80 && currentIndex > 0) {
+                handleArticleChange(articleIds[currentIndex - 1]);
+            }
+        },
+    });
+
     return (
-        <ScrollView
-            style={styles.screen}
-            showsVerticalScrollIndicator={false}
-            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />}
-        >
-            <Image
-                source={{ uri: article?.picture }}
-                style={styles.picture}
-            />
-            <View style={styles.content}>
-                <Text style={styles.title}>
-                    {article?.title}
-                </Text>
-                <View style={styles.metaContainer}>
-                    <PressableTag
-                        tagText={article?.category}
-                        handlePress={handlePress}
+        <GestureDetector gesture={swipeGesture}>
+            <ScrollView
+                style={styles.screen}
+                showsVerticalScrollIndicator={false}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={handleRefresh}
                     />
-                    <View style={styles.createdAt}>
-                        <Text style={styles.createdAtText}>
-                            {article?.createdAt}
-                        </Text>
-                    </View>
-                    <View style={styles.likesContainer}>
-                        <Icon
-                            name="heart"
-                            color={COLORS.primary}
-                            size={SIZES.iconMedium}
+                }
+            >
+                <Image
+                    source={{ uri: article?.picture }}
+                    style={styles.picture}
+                />
+                <View style={styles.content}>
+                    <Text style={styles.title}>
+                        {article?.title}
+                    </Text>
+                    <View style={styles.metaContainer}>
+                        <PressableTag
+                            tagText={article?.category}
+                            handlePress={handlePress}
                         />
-                        <Text style={styles.likesCount}>
-                            {article?.likesCount}
-                        </Text>
-                        <Text style={styles.likesLabel}>likes</Text>
+                        <View style={styles.createdAt}>
+                            <Text style={styles.createdAtText}>
+                                {article?.createdAt}
+                            </Text>
+                        </View>
+                        <View style={styles.likesContainer}>
+                            <Icon
+                                name="heart"
+                                color={COLORS.primary}
+                                size={SIZES.iconMedium}
+                            />
+                            <Text style={styles.likesCount}>
+                                {article?.likesCount}
+                            </Text>
+                            <Text style={styles.likesLabel}>likes</Text>
+                        </View>
+                    </View>
+                    <View style={styles.articleContent}>
+                        {article?.content?.map((paragraph, index) => (
+                            <Text key={index} style={styles.paragraph}>
+                                {paragraph}
+                            </Text>
+                        ))}
                     </View>
                 </View>
-                <View style={styles.articleContent}>
-                    {article?.content?.map((paragraph, index) => (
-                        <Text key={index} style={styles.paragraph}>
-                            {paragraph}
-                        </Text>
-                    ))}
-                </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </GestureDetector>
     );
 }
 
