@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import Icon from "./shared/Icon";
-import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
+import Icon from "../shared/Icon";
+import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function ProfileRow({
     id,

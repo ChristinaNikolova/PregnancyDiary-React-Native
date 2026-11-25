@@ -1,9 +1,10 @@
 import { StyleSheet, View } from "react-native";
-import PressableIcon from "./shared/PressableIcon";
-import { BORDERS, COLORS } from "../theme";
+import PressableIcon from "../shared/PressableIcon";
+import { BORDERS, COLORS } from "../../theme";
 
 export default function EditRoundButton({
     iconName,
+    iconSize,
     iconColor,
     handlePress
 }) {
@@ -11,6 +12,7 @@ export default function EditRoundButton({
         <View style={styles.button}>
             <PressableIcon
                 iconName={iconName}
+                iconSize={iconSize}
                 iconColor={iconColor}
                 handlePress={handlePress}
             />

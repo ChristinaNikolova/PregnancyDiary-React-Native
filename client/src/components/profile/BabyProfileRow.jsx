@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
-import Icon from "./shared/Icon";
-import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
+import Icon from "../shared/Icon";
+import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function BabyProfileRow({ iconName, label, value }) {
     return (
