@@ -10,7 +10,7 @@ export default function ModalWrapper({
 }) {
     return (
         <Modal
-            isVisible={isVisible}
+            visible={isVisible}
             transparent
             animationType={animationType}
             onRequestClose={handleClose}
