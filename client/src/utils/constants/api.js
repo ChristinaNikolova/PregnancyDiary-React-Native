@@ -5,5 +5,6 @@ export const apiPaths = {
     ARTICLES: `${BASE_URL}/articles`,
     CATEGORIES: `${BASE_URL}/categories`,
     DIARIES: `${BASE_URL}/diaries`,
+    BABIES: `${BASE_URL}/babies`,
     USERS: `${BASE_URL}/users`,
 };

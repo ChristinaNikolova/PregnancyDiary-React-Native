@@ -10,7 +10,7 @@ export default function BabyScreen({ route }) {
     return (
         <View style={styles.container}>
             {!isBabyBorn ?
-                <BabyProfile /> :
+                <BabyProfile diaryId={diaryId} /> :
                 <BabyOnTheWay />
             }
         </View>
