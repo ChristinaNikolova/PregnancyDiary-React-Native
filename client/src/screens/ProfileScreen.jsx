@@ -1,6 +1,6 @@
 import { Image, StyleSheet, View, Text, ScrollView } from "react-native";
+import ProfileRow from "../components/profile/ProfileRow";
 import useAuthContext from "../contexts/auth/useAuthContext";
-import ProfileRow from "../components/ProfileRow";
 import { ROUTES } from "../navigation/routes";
 import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
 
