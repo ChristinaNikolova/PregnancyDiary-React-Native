@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { View, Image, StyleSheet, } from "react-native";
+import { View, StyleSheet, } from "react-native";
 import PrimaryButton from "../components/shared/PrimaryButton";
 import FormWrapper from "../components/form/FormWrapper";
 import FormInput from "../components/form/FormInput";
 import PressableTag from "../components/shared/PressableTag";
 import ServerError from "../components/shared/ServerError";
-import EditRoundButton from "../components/profile/EditRoundButton";
+import ProfilePicture from "../components/profile/ProfilePicture";
 import useFetch from "../hooks/useFetch";
 import useAuthContext from "../contexts/auth/useAuthContext";
 import useForm from "../hooks/useForm";
@@ -82,24 +82,19 @@ export default function UpdateProfileScreen() {
     return (
         <FormWrapper>
             <View style={styles.container}>
-                <View style={styles.pictureSection}>
-                    <View style={styles.pictureContainer}>
-                        <Image
-                            source={
-                                profilePicture
-                                    ? { uri: profilePicture }
-                                    : user.picture?.url
-                                        ? { uri: user.picture.url }
-                                        : require("../assets/images/default_profile_image.png")
-                            }
-                            style={styles.picture}
-                        />
-                        <EditRoundButton
-                            iconName="camera"
-                            iconColor={COLORS.white}
-                            handlePress={handlePress}
-                        />
-                    </View>
+                <View style={styles.picture}>
+                    <ProfilePicture
+                        image={
+                            profilePicture
+                                ? { uri: profilePicture }
+                                : user.picture?.url
+                                    ? { uri: user.picture.url }
+                                    : require("../assets/images/default_profile_image.png")
+                        }
+                        iconName="camera"
+                        iconColor={COLORS.white}
+                        handlePress={handlePress}
+                    />
                     {profilePicture && (
                         <PressableTag
                             tagText="Delete picture"
@@ -145,11 +140,10 @@ const styles = StyleSheet.create({
         padding: SPACING.lg,
         paddingBottom: SPACING.xxxl,
     },
-    pictureSection: {
+    picture: {
         alignItems: "center",
         gap: SPACING.md,
     },
-
     form: {
         gap: SPACING.md,
     },
