@@ -1,16 +1,44 @@
-
-import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { useState } from "react";
+import { Alert, RefreshControl, ScrollView, StyleSheet, Text, View } from "react-native";
 import ProfilePicture from "../profile/ProfilePicture";
 import BabyProfileRow from "../profile/BabyProfileRow";
 import useFetch from "../../hooks/useFetch";
 import { apiPaths } from "../../utils/constants/api";
+import { httpMethods } from "../../utils/constants/global";
 import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function BabyProfile({ diaryId }) {
-    const { values: baby, loading } = useFetch(`${apiPaths.BABIES}/${diaryId}`);
+    const [refreshing, setRefreshing] = useState(false);
+
+    const url = `${apiPaths.BABIES}/${diaryId}`;
+    const { values: baby, execute, loading } = useFetch(url);
+
+    const handleRefresh = async () => {
+        setRefreshing(true);
+
+        try {
+            await execute(
+                url,
+                httpMethods.GET
+            );
+        } catch (error) {
+            Alert.alert("Error", error.message);
+        } finally {
+            setRefreshing(false);
+        }
+    };
 
     return (
-        <ScrollView style={styles.container}>
+        <ScrollView
+            style={styles.container}
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+                <RefreshControl
+                    refreshing={refreshing}
+                    onRefresh={handleRefresh}
+                />
+            }
+        >
             <View style={styles.profile}>
                 <ProfilePicture
                     image={require("../../assets/images/welcome.png")}
