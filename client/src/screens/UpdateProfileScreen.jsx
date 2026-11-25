@@ -6,7 +6,7 @@ import FormWrapper from "../components/form/FormWrapper";
 import FormInput from "../components/form/FormInput";
 import PressableTag from "../components/shared/PressableTag";
 import ServerError from "../components/shared/ServerError";
-import PressableIcon from "../components/shared/PressableIcon";
+import EditRoundButton from "../components/EditRoundButton";
 import useFetch from "../hooks/useFetch";
 import useAuthContext from "../contexts/auth/useAuthContext";
 import useForm from "../hooks/useForm";
@@ -76,12 +76,14 @@ export default function UpdateProfileScreen() {
         }
     }
 
+    const handlePress = showPickerOptions;
+
     // todo add loading while open gallery/camera
     return (
         <FormWrapper>
             <View style={styles.container}>
-                <View style={styles.profilePictureSection}>
-                    <View style={styles.profilePictureContainer}>
+                <View style={styles.pictureSection}>
+                    <View style={styles.pictureContainer}>
                         <Image
                             source={
                                 profilePicture
@@ -90,15 +92,13 @@ export default function UpdateProfileScreen() {
                                         ? { uri: user.picture.url }
                                         : require("../assets/images/default_profile_image.png")
                             }
-                            style={styles.profilePicture}
+                            style={styles.picture}
                         />
-                        <View style={styles.editPictureButton}>
-                            <PressableIcon
-                                iconName="camera"
-                                iconColor={COLORS.white}
-                                handlePress={showPickerOptions}
-                            />
-                        </View>
+                        <EditRoundButton
+                            iconName="camera"
+                            iconColor={COLORS.white}
+                            handlePress={handlePress}
+                        />
                     </View>
                     {profilePicture && (
                         <PressableTag
@@ -110,7 +110,7 @@ export default function UpdateProfileScreen() {
                 {serverError ?
                     <ServerError error={serverError} />
                     : null}
-                <View style={styles.formSection}>
+                <View style={styles.form}>
                     <FormInput
                         fieldName="firstName"
                         placeholder="First name"
@@ -145,31 +145,20 @@ const styles = StyleSheet.create({
         padding: SPACING.lg,
         paddingBottom: SPACING.xxxl,
     },
-    profilePictureSection: {
+    pictureSection: {
         alignItems: "center",
         gap: SPACING.md,
     },
-    profilePictureContainer: {
+    pictureContainer: {
         position: "relative",
     },
-    profilePicture: {
+    picture: {
         width: 120,
         height: 120,
         borderRadius: BORDERS.radius.round,
         backgroundColor: COLORS.border,
     },
-    editPictureButton: {
-        position: "absolute",
-        right: 0,
-        bottom: 0,
-        width: 36,
-        height: 36,
-        alignItems: "center",
-        justifyContent: "center",
-        borderRadius: BORDERS.radius.round,
-        backgroundColor: COLORS.primary,
-    },
-    formSection: {
+    form: {
         gap: SPACING.md,
     },
 });
