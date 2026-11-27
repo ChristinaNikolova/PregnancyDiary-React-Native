@@ -11,6 +11,7 @@ import {
 } from "@expo-google-fonts/poppins";
 import RootNavigator from './navigation/RootNavigator';
 import AuthProvider from './contexts/auth/AuthProvider';
+import ThemeProdiver from './contexts/theme/ThemeProvider';
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -27,14 +28,16 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <AuthProvider>
-        <SafeAreaProvider>
-          <StatusBar style="auto" />
-          <NavigationContainer>
-            <RootNavigator />
-          </NavigationContainer>
-        </SafeAreaProvider>
-      </AuthProvider>
+      <ThemeProdiver>
+        <AuthProvider>
+          <SafeAreaProvider>
+            <StatusBar style="auto" />
+            <NavigationContainer>
+              <RootNavigator />
+            </NavigationContainer>
+          </SafeAreaProvider>
+        </AuthProvider>
+      </ThemeProdiver>
     </GestureHandlerRootView>
   );
 }
