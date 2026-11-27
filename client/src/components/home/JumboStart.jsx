@@ -1,11 +1,13 @@
 import { StyleSheet, Text } from 'react-native';
 import { useNavigation } from "@react-navigation/native";
 import JumboWrapper from './JumboWrapper';
-import { COLORS, SPACING, TYPOGRAPHY } from '../../theme';
+import useThemeContext from '../../contexts/theme/useThemeContext';
+import { SPACING, TYPOGRAPHY } from '../../theme';
 
 // todo constants
 export default function JumboStart() {
     const navigation = useNavigation();
+    const { theme } = useThemeContext();
 
     const handlePress = () => {
         navigation.navigate("CreateDiary")
@@ -17,7 +19,7 @@ export default function JumboStart() {
             buttonText="Create Diary"
             handlePress={handlePress}
         >
-            <Text style={styles.description}>
+            <Text style={[styles.description, { color: theme.colors.text }]}>
                 Create your pregnancy diary and keep all your precious moments in one place.
             </Text>
         </JumboWrapper>
@@ -31,6 +33,5 @@ const styles = StyleSheet.create({
         fontFamily: TYPOGRAPHY.fontFamily.medium,
         fontSize: TYPOGRAPHY.fontSize.md,
         textAlign: 'center',
-        color: COLORS.text,
     },
 });
