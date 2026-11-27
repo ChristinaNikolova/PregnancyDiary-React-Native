@@ -3,13 +3,14 @@ import { useState } from "react";
 import { Platform, Pressable, StyleSheet, Text } from "react-native";
 import Icon from "../shared/Icon";
 import ClientError from "../shared/ClientError";
-import DatePicker from "./DatePicker";
+import DateTimePickerContainer from "./DateTimePickerContainer";
 import IOSModal from "./IOSModal";
 import { formatDate, parseDate } from "../../utils/helpers/date";
 import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function FormDatePickerInput({
     value,
+    mode,
     placeholder,
     error,
     onChange,
@@ -68,7 +69,8 @@ export default function FormDatePickerInput({
             </Pressable>
             {Platform.OS === "android" &&
                 isVisible &&
-                <DatePicker
+                <DateTimePickerContainer
+                    mode={mode}
                     selectedDate={selectedDate}
                     handleChange={handleChange}
                 />
@@ -77,6 +79,7 @@ export default function FormDatePickerInput({
                 isVisible &&
                 <IOSModal
                     isVisible={isVisible}
+                    mode={mode}
                     selectedDate={selectedDate}
                     handleChange={handleChange}
                     handleClose={handleClose}

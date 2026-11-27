@@ -27,6 +27,7 @@ export default function BabyFormScreen() {
     const initialValues = {
         name: baby?.name,
         birthDate: baby?.birthDate,
+        birthTime: baby?.birthTime,
         gender: baby?.gender,
         height: baby?.height,
         weight: baby?.weight,
@@ -43,7 +44,7 @@ export default function BabyFormScreen() {
         submitHandler,
         errors,
         disabledForm,
-    } = useForm(handleUpdate, "baby", initialValues);
+    } = useForm(handleCreate, "baby", initialValues);
 
     const handleDateChange = (fieldName, value) => {
         fieldHandler(fieldName).onChange(value);
@@ -54,7 +55,7 @@ export default function BabyFormScreen() {
         fieldHandler(fieldName).onBlur();
     };
 
-    async function handleUpdate(data) {
+    async function handleCreate(data) {
         try {
             // todo add back button
             console.log(data)
@@ -133,15 +134,9 @@ export default function BabyFormScreen() {
                     onBlur={() => handleDateBlur("birthDate")}
                 />
                 <FormDatePickerInput
-                    value={values.birthDate}
-                    placeholder="Select date of the birth"
-                    error={errors.birthDate}
-                    onChange={(value) => handleDateChange("birthDate", value)}
-                    onBlur={() => handleDateBlur("birthDate")}
-                />
-                <FormDatePickerInput
                     value={values.birthTime}
                     placeholder="Select time of the birth"
+                    mode="time"
                     error={errors.birthTime}
                     onChange={(value) => handleDateChange("birthTime", value)}
                     onBlur={() => handleDateBlur("birthTime")}
@@ -171,7 +166,6 @@ export default function BabyFormScreen() {
                     keyboardType="numeric"
                 />
             </View>
-
             <View style={styles.button}>
                 <PrimaryButton
                     buttonText="Save"

@@ -1,11 +1,12 @@
 import { Pressable, StyleSheet, View, Text } from "react-native";
-import DatePicker from "./DatePicker";
+import DateTimePickerContainer from "./DateTimePickerContainer";
 import ModalWrapper from "../shared/ModalWrapper";
 import { BORDERS, COLORS, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function IOSModal({
     isVisible,
     selectedDate,
+    mode,
     minimumDate,
     handleChange,
     handleClose,
@@ -29,8 +30,9 @@ export default function IOSModal({
                         <Text style={styles.action}>Done</Text>
                     </Pressable>
                 </View>
-                <DatePicker
+                <DateTimePickerContainer
                     value={selectedDate}
+                    mode={mode}
                     display="spinner"
                     minimumDate={minimumDate}
                     handleChange={handleChange}
