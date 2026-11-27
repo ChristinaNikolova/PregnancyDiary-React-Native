@@ -95,8 +95,12 @@ export default function BabyFormScreen() {
     return (
         <FormWrapper>
             <FormHeaderContainer
-                title="Create account"
-                subTitle="Start your special journey with us."
+                title={!baby ? "Create Baby Profile" : "Update Baby Profile"}
+                subTitle={
+                    !baby
+                        ? "Add your little one's details to your diary."
+                        : "Keep your baby's details up to date."
+                }
             />
             {serverError ?
                 <ServerError error={serverError} />

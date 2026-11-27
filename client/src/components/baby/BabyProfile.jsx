@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { Alert, RefreshControl, ScrollView, StyleSheet, Text, View } from "react-native";
 import ProfilePicture from "../profile/ProfilePicture";
 import BabyProfileRow from "../profile/BabyProfileRow";
@@ -9,8 +10,10 @@ import { httpMethods } from "../../utils/constants/global";
 import { BORDERS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function BabyProfile({ babyId }) {
-    const [refreshing, setRefreshing] = useState(false);
     const { theme } = useThemeContext();
+
+    const [refreshing, setRefreshing] = useState(false);
+    const navigation = useNavigation();
 
     const url = `${apiPaths.BABIES}/${babyId}`;
     const { values: baby, execute, loading } = useFetch(url);
@@ -47,7 +50,7 @@ export default function BabyProfile({ babyId }) {
                     iconName="pencil"
                     iconColor={theme.colors.white}
                     iconSize={SIZES.iconSmall}
-                    handlePress={null}
+                    handlePress={() => navigation.navigate("BabyForm", { baby })}
                 />
                 <Text style={[styles.name, { color: theme.colors.text }]}>{baby?.name}</Text>
             </View>
