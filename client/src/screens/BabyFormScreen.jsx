@@ -20,7 +20,7 @@ import FormDatePickerInput from "../components/form/FormDatePickerInput";
 export default function BabyFormScreen() {
     const navigation = useNavigation();
     const route = useRoute();
-    const { baby } = route.params;
+    const { baby } = route.params ?? {};
 
     const { execute, loading, serverError } = useFetch();
 
@@ -129,6 +129,7 @@ export default function BabyFormScreen() {
                 <FormDatePickerInput
                     value={values.birthDate}
                     placeholder="Select date of birth"
+                    maximumDate={new Date()}
                     error={errors.birthDate}
                     onChange={(value) => handleDateChange("birthDate", value)}
                     onBlur={() => handleDateBlur("birthDate")}

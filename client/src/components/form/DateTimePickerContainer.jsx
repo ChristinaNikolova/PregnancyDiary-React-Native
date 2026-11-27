@@ -4,6 +4,7 @@ export default function DateTimePickerContainer({
     value,
     mode = "date",
     minimumDate,
+    maximumDate,
     display = "default",
     is24Hour = true,
     handleChange,
@@ -16,6 +17,7 @@ export default function DateTimePickerContainer({
             display={display}
             onChange={handleChange}
             minimumDate={minimumDate}
+            maximumDate={maximumDate}
         />
     );
 }

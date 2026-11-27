@@ -1,16 +1,18 @@
-
 import { useState } from "react";
 import { Platform, Pressable, StyleSheet, Text } from "react-native";
 import Icon from "../shared/Icon";
 import ClientError from "../shared/ClientError";
 import DateTimePickerContainer from "./DateTimePickerContainer";
 import IOSModal from "./IOSModal";
+import useThemeContext from "../../contexts/theme/useThemeContext";
 import { formatDate, parseDate } from "../../utils/helpers/date";
-import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
+import { BORDERS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function FormDatePickerInput({
     value,
     mode,
+    minimumDate,
+    maximumDate,
     placeholder,
     error,
     onChange,
@@ -18,6 +20,7 @@ export default function FormDatePickerInput({
 }) {
     const [isVisible, setIsVisible] = useState(false);
     const [selectedDate, setSelectedDate] = useState(new Date());
+    const { theme } = useThemeContext();
 
     const handleOpen = () => {
         setSelectedDate(parseDate(value));
@@ -55,13 +58,29 @@ export default function FormDatePickerInput({
 
     return (
         <>
-            <Pressable style={styles.inputContainer} onPress={handleOpen}>
+            <Pressable
+                style={[
+                    styles.inputContainer,
+                    { borderColor: theme.colors.border },
+                ]}
+                onPress={handleOpen}
+            >
                 <Icon
                     name="calendar-outline"
                     size={SIZES.iconSmall}
-                    color={COLORS.textSecondary}
+                    color={theme.colors.textSecondary}
                 />
-                <Text style={value ? styles.value : styles.placeholder}>
+
+                <Text
+                    style={[
+                        value ? styles.value : styles.placeholder,
+                        {
+                            color: value
+                                ? theme.colors.text
+                                : theme.colors.textSecondary,
+                        },
+                    ]}
+                >
                     {value
                         ? new Date(`${value}T00:00:00`).toLocaleDateString("de-DE")
                         : placeholder}
@@ -71,6 +90,8 @@ export default function FormDatePickerInput({
                 isVisible &&
                 <DateTimePickerContainer
                     mode={mode}
+                    minimumDate={minimumDate}
+                    maximumDate={maximumDate}
                     selectedDate={selectedDate}
                     handleChange={handleChange}
                 />
@@ -80,6 +101,8 @@ export default function FormDatePickerInput({
                 <IOSModal
                     isVisible={isVisible}
                     mode={mode}
+                    minimumDate={minimumDate}
+                    maximumDate={maximumDate}
                     selectedDate={selectedDate}
                     handleChange={handleChange}
                     handleClose={handleClose}
@@ -102,19 +125,16 @@ const styles = StyleSheet.create({
         height: 50,
         paddingHorizontal: SPACING.lg,
         borderWidth: BORDERS.width.thin,
-        borderColor: COLORS.border,
         borderRadius: BORDERS.radius.xxl,
     },
     value: {
         flex: 1,
         fontFamily: TYPOGRAPHY.fontFamily.regular,
         fontSize: TYPOGRAPHY.fontSize.sm,
-        color: COLORS.text,
     },
     placeholder: {
         flex: 1,
         fontFamily: TYPOGRAPHY.fontFamily.regular,
         fontSize: TYPOGRAPHY.fontSize.sm,
-        color: COLORS.textSecondary,
     },
 });

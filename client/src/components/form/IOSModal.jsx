@@ -8,6 +8,7 @@ export default function IOSModal({
     selectedDate,
     mode,
     minimumDate,
+    maximumDate,
     handleChange,
     handleClose,
     handleConfirm
@@ -35,6 +36,7 @@ export default function IOSModal({
                     mode={mode}
                     display="spinner"
                     minimumDate={minimumDate}
+                    maximumDate={maximumDate}
                     handleChange={handleChange}
                 />
             </View>

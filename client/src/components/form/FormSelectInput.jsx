@@ -5,7 +5,8 @@ import Icon from "../shared/Icon";
 import ModalWrapper from "../shared/ModalWrapper";
 import FormInputOption from "./FormInputOption";
 import ClientError from "../shared/ClientError";
-import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
+import useThemeContext from "../../contexts/theme/useThemeContext";
+import { BORDERS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function FormSelectInput({
     fieldName,
@@ -18,6 +19,7 @@ export default function FormSelectInput({
     const inputRef = useRef(null);
     const [isVisible, setIsVisible] = useState(false);
     const [dropdownTop, setDropdownTop] = useState(0);
+    const { theme } = useThemeContext();
 
     const { value, onChange, onBlur } = fieldHandler(fieldName);
 
@@ -47,21 +49,31 @@ export default function FormSelectInput({
         <>
             <Pressable
                 ref={inputRef}
-                style={styles.inputContainer}
+                style={[styles.inputContainer, { borderColor: theme.colors.border }]}
                 onPress={handleOpen}
             >
                 <Icon
                     name={iconName}
                     size={SIZES.iconSmall}
-                    color={COLORS.textSecondary}
+                    color={theme.colors.textSecondary}
                 />
-                <Text style={selectedOption ? styles.value : styles.placeholder}>
+
+                <Text
+                    style={[
+                        selectedOption ? styles.value : styles.placeholder,
+                        {
+                            color: selectedOption
+                                ? theme.colors.text
+                                : theme.colors.textSecondary,
+                        },
+                    ]}
+                >
                     {selectedOption?.label || placeholder}
                 </Text>
                 <Icon
                     name="chevron-down-outline"
                     size={SIZES.iconSmall}
-                    color={COLORS.textSecondary}
+                    color={theme.colors.textSecondary}
                 />
             </Pressable>
             <ModalWrapper
@@ -69,8 +81,17 @@ export default function FormSelectInput({
                 animationType="fade"
                 handleClose={handleClose}
             >
-                <View style={[styles.content, { top: dropdownTop }]}>
-                    {options.map((option) =>
+                <View
+                    style={[
+                        styles.content,
+                        {
+                            top: dropdownTop,
+                            backgroundColor: theme.colors.surface,
+                            borderColor: theme.colors.border,
+                        },
+                    ]}
+                >
+                    {options.map((option) => (
                         <FormInputOption
                             key={option.value}
                             label={option.label}
@@ -78,7 +99,7 @@ export default function FormSelectInput({
                             selectedValue={value}
                             handleSelect={handleSelect}
                         />
-                    )}
+                    ))}
                 </View>
             </ModalWrapper>
             {error
@@ -96,27 +117,24 @@ const styles = StyleSheet.create({
         gap: SPACING.md,
         padding: SPACING.lg,
         borderWidth: BORDERS.width.thin,
-        borderColor: COLORS.border,
         borderRadius: BORDERS.radius.xxl,
     },
     placeholder: {
         flex: 1,
         fontFamily: TYPOGRAPHY.fontFamily.regular,
         fontSize: TYPOGRAPHY.fontSize.sm,
-        color: COLORS.textSecondary,
     },
     value: {
         flex: 1,
         fontFamily: TYPOGRAPHY.fontFamily.regular,
         fontSize: TYPOGRAPHY.fontSize.md,
-        color: COLORS.text,
     },
     content: {
         position: "absolute",
         left: SPACING.xl,
         right: SPACING.xl,
         padding: SPACING.md,
-        backgroundColor: COLORS.background,
+        borderWidth: BORDERS.width.thin,
         borderRadius: BORDERS.radius,
     },
 });

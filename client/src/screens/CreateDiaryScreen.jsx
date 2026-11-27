@@ -82,6 +82,7 @@ export default function CreateDiaryScreen({ navigation }) {
                 <FormDatePickerInput
                     value={values.dueDate}
                     placeholder="Select your due date"
+                    minimumDate={new Date()}
                     error={errors.dueDate}
                     onChange={(value) => handleDateChange("dueDate", value)}
                     onBlur={() => handleDateBlur("dueDate")}
