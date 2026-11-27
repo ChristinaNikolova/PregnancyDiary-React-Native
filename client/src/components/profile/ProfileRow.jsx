@@ -1,7 +1,8 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Icon from "../shared/Icon";
 import SwitchContainer from "../SwitchContainer";
-import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
+import useThemeContext from "../../contexts/theme/useThemeContext";
+import { BORDERS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function ProfileRow({
     id,
@@ -13,9 +14,11 @@ export default function ProfileRow({
     switchValue = false,
     handlePress,
 }) {
+    const { theme } = useThemeContext();
+
     return (
         <Pressable
-            style={styles.item}
+            style={[styles.item, { borderBottomColor: theme.colors.border, }]}
             onPress={handlePress}
         >
             <View style={styles.itemView}>
@@ -24,7 +27,7 @@ export default function ProfileRow({
                     size={iconSize}
                     color={iconColor}
                 />
-                <Text style={styles.text}>{title}</Text>
+                <Text style={[styles.text, { color: theme.colors.text }]}>{title}</Text>
             </View>
             {isSwitch ? (
                 <SwitchContainer
@@ -35,7 +38,7 @@ export default function ProfileRow({
                 <Icon
                     name="chevron-forward"
                     size={SIZES.iconSmall}
-                    color={COLORS.textSecondary}
+                    color={theme.colors.textSecondary}
                 />
             ) : null}
         </Pressable>
@@ -49,7 +52,6 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         minHeight: 58,
         borderBottomWidth: BORDERS.width.thin,
-        borderBottomColor: COLORS.border,
     },
     itemView: {
         flexDirection: "row",
@@ -59,6 +61,5 @@ const styles = StyleSheet.create({
     text: {
         fontFamily: TYPOGRAPHY.fontFamily.medium,
         fontSize: TYPOGRAPHY.fontSize.sm,
-        color: COLORS.text,
     },
 });

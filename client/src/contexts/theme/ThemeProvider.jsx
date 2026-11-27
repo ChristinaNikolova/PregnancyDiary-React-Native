@@ -1,12 +1,17 @@
+
 import { useMemo, useState, useEffect } from "react";
 import { useColorScheme } from "react-native";
 import { setBackgroundColorAsync } from "expo-system-ui";
 import { DefaultTheme, DarkTheme } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ThemeContext } from "./ThemeContext.js";
-
+// todo add constants
+// todo use if dev mode to show errors
 export default function ThemeProvider({ children }) {
-    const colorScheme = useColorScheme();
     const [manualDarkMode, setManualDarkMode] = useState(null);
+    const [isThemeLoaded, setIsThemeLoaded] = useState(false);
+
+    const colorScheme = useColorScheme();
     const isDarkMode = manualDarkMode ?? colorScheme === "dark";
 
     const lightTheme = useMemo(() => ({
@@ -28,7 +33,7 @@ export default function ThemeProvider({ children }) {
             softError: "#FCECEC",
             clearBackground: "rgba(255, 248, 241, 0.35)",
             whiteBackground: "rgba(250, 245, 239, 0.65)",
-            greyBackground: "rgba(0,0,0,0.35)",
+            greyBackground: "rgba(0, 0, 0, 0.35)",
         },
     }), []);
 
@@ -56,21 +61,62 @@ export default function ThemeProvider({ children }) {
     }), []);
 
     useEffect(() => {
-        setBackgroundColorAsync(isDarkMode ? darkTheme.colors.background : lightTheme.colors.background);
-    }, [isDarkMode]);
+        const loadTheme = async () => {
+            try {
+                const savedTheme = await AsyncStorage.getItem("darkMode");
 
-    const toggleTheme = () => {
-        setManualDarkMode((prevMode) => !prevMode);
+                if (savedTheme !== null) {
+                    const parsedTheme = JSON.parse(savedTheme);
+
+                    if (typeof parsedTheme === "boolean") {
+                        setManualDarkMode(parsedTheme);
+                    }
+                }
+            } catch (error) {
+                console.error("Failed to load theme:", error);
+            } finally {
+                setIsThemeLoaded(true);
+            }
+        };
+
+        loadTheme();
+    }, []);
+
+    useEffect(() => {
+        if (!isThemeLoaded) {
+            return;
+        }
+
+        setBackgroundColorAsync(
+            isDarkMode
+                ? darkTheme.colors.background
+                : lightTheme.colors.background
+        );
+    }, [isThemeLoaded, isDarkMode, darkTheme, lightTheme]);
+
+    const toggleTheme = async () => {
+        const newMode = !isDarkMode;
+        setManualDarkMode(newMode);
+
+        try {
+            await AsyncStorage.setItem("darkMode", JSON.stringify(newMode));
+        } catch (error) {
+            console.error("Failed to save theme:", error);
+        }
     };
 
-    const contextValue = {
-        toggleTheme,
-        isDarkMode,
-        theme: isDarkMode ? darkTheme : lightTheme,
-    };
+    if (!isThemeLoaded) {
+        return null;
+    }
 
     return (
-        <ThemeContext.Provider value={contextValue}>
+        <ThemeContext.Provider
+            value={{
+                toggleTheme,
+                isDarkMode,
+                theme: isDarkMode ? darkTheme : lightTheme,
+            }}
+        >
             {children}
         </ThemeContext.Provider>
     );
