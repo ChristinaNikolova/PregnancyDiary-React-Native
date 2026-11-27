@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import Icon from "../shared/Icon";
+import SwitchContainer from "../SwitchContainer";
 import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function ProfileRow({
@@ -8,6 +9,8 @@ export default function ProfileRow({
     iconName,
     iconSize,
     iconColor,
+    isSwitch = false,
+    switchValue = false,
     handlePress,
 }) {
     return (
@@ -23,13 +26,18 @@ export default function ProfileRow({
                 />
                 <Text style={styles.text}>{title}</Text>
             </View>
-            {id !== "logout" && (
+            {isSwitch ? (
+                <SwitchContainer
+                    switchValue={switchValue}
+                    onPress={handlePress}
+                />
+            ) : id !== "logout" ? (
                 <Icon
                     name="chevron-forward"
                     size={SIZES.iconSmall}
                     color={COLORS.textSecondary}
                 />
-            )}
+            ) : null}
         </Pressable>
     );
 }

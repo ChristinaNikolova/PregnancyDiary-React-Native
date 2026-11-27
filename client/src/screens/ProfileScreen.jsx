@@ -1,12 +1,14 @@
 import { Image, StyleSheet, View, Text, ScrollView } from "react-native";
 import ProfileRow from "../components/profile/ProfileRow";
 import useAuthContext from "../contexts/auth/useAuthContext";
+import { useThemeContext } from "../contexts/theme/useThemeContext";
 import { ROUTES } from "../navigation/routes";
 import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
 
-// todo notifications, setting.....
+// todo notifications
 export default function ProfileScreen({ navigation }) {
     const { user, logout } = useAuthContext();
+    const { isDarkMode, toggleTheme } = useThemeContext();
 
     const handleFavouritesPress = () => {
         navigation.navigate(ROUTES.BLOG_TAB, {
@@ -37,6 +39,16 @@ export default function ProfileScreen({ navigation }) {
             iconSize: SIZES.iconMedium,
             iconColor: COLORS.textSecondary,
             onPress: handleFavouritesPress,
+        },
+        {
+            id: "theme",
+            title: "Dark theme",
+            iconName: "moon-outline",
+            iconSize: SIZES.iconMedium,
+            iconColor: COLORS.textSecondary,
+            isSwitch: true,
+            switchValue: isDarkMode,
+            onPress: toggleTheme,
         },
         {
             id: "logout",
@@ -75,6 +87,8 @@ export default function ProfileScreen({ navigation }) {
                         iconName={item.iconName}
                         iconSize={item.iconSize}
                         iconColor={item.iconColor}
+                        isSwitch={item.isSwitch}
+                        switchValue={item.switchValue}
                         handlePress={item.onPress}
                     />
                 ))}
