@@ -21,7 +21,6 @@ async function create(
     height,
     weight,
   });
-
   const result = await baby.save();
   const diary = await Diary.findById(diaryId);
   diary.baby = result._id;

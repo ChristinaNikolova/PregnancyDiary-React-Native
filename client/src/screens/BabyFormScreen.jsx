@@ -20,6 +20,7 @@ import FormDatePickerInput from "../components/form/FormDatePickerInput";
 export default function BabyFormScreen() {
     const navigation = useNavigation();
     const route = useRoute();
+    const diaryId = route.params.diaryId;
     const { baby } = route.params ?? {};
 
     const { execute, loading, serverError } = useFetch();
@@ -58,14 +59,15 @@ export default function BabyFormScreen() {
     async function handleCreate(data) {
         try {
             // todo add back button
-            console.log(data)
-            // const updatedBaby = await execute(
-            //     `${apiPaths.BABIES}/${baby.id}`,
-            //     httpMethods.PUT,
-            //     data
-            // );
+            const { name, birthDate, birthTime, gender, weight, height } = data;
 
-            if (babyPicture) {
+            const createBaby = await execute(
+                `${apiPaths.BABIES}`,
+                httpMethods.POST,
+                { diaryId, name, birthDate, birthTime, gender, weight, height }
+            );
+
+            if (createBaby && babyPicture) {
                 const formData = new FormData();
 
                 formData.append("picture", {
@@ -74,7 +76,7 @@ export default function BabyFormScreen() {
                     type: "image/jpeg",
                 });
 
-                const updatedPictureResult = await execute(
+                await execute(
                     `${apiPaths.BABIES}/picture`,
                     httpMethods.PUT,
                     formData

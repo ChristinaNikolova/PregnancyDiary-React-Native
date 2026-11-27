@@ -5,7 +5,7 @@ import ClientError from "../shared/ClientError";
 import DateTimePickerContainer from "./DateTimePickerContainer";
 import IOSModal from "./IOSModal";
 import useThemeContext from "../../contexts/theme/useThemeContext";
-import { formatDate, parseDate } from "../../utils/helpers/date";
+import { formatDate, parseDate, formatTime, parseTime } from "../../utils/helpers/date";
 import { BORDERS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function FormDatePickerInput({
@@ -23,7 +23,9 @@ export default function FormDatePickerInput({
     const { theme } = useThemeContext();
 
     const handleOpen = () => {
-        setSelectedDate(parseDate(value));
+        setSelectedDate(
+            mode === "time" ? parseTime(value) : parseDate(value)
+        );
         setIsVisible(true);
     };
 
@@ -42,7 +44,7 @@ export default function FormDatePickerInput({
         if (!date) return;
 
         if (Platform.OS === "android") {
-            onChange(formatDate(date));
+            onChange(mode === "time" ? formatTime(date) : formatDate(date));
             onBlur?.();
             setIsVisible(false);
         } else {
@@ -51,7 +53,7 @@ export default function FormDatePickerInput({
     };
 
     const handleConfirm = () => {
-        onChange(formatDate(selectedDate));
+        onChange(mode === "time" ? formatTime(selectedDate) : formatDate(selectedDate));
         onBlur?.();
         setIsVisible(false);
     };
@@ -82,7 +84,9 @@ export default function FormDatePickerInput({
                     ]}
                 >
                     {value
-                        ? new Date(`${value}T00:00:00`).toLocaleDateString("de-DE")
+                        ? mode === "time"
+                            ? value
+                            : new Date(`${value}T00:00:00`).toLocaleDateString("de-DE")
                         : placeholder}
                 </Text>
             </Pressable>
