@@ -3,12 +3,14 @@ import { Alert, RefreshControl, ScrollView, StyleSheet, Text, View } from "react
 import ProfilePicture from "../profile/ProfilePicture";
 import BabyProfileRow from "../profile/BabyProfileRow";
 import useFetch from "../../hooks/useFetch";
+import useThemeContext from "../../contexts/theme/useThemeContext";
 import { apiPaths } from "../../utils/constants/api";
 import { httpMethods } from "../../utils/constants/global";
-import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
+import { BORDERS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function BabyProfile({ diaryId }) {
     const [refreshing, setRefreshing] = useState(false);
+    const { theme } = useThemeContext();
 
     const url = `${apiPaths.BABIES}/${diaryId}`;
     const { values: baby, execute, loading } = useFetch(url);
@@ -43,39 +45,39 @@ export default function BabyProfile({ diaryId }) {
                 <ProfilePicture
                     image={require("../../assets/images/welcome.png")}
                     iconName="pencil"
-                    iconColor={COLORS.white}
+                    iconColor={theme.colors.white}
                     iconSize={SIZES.iconSmall}
                     handlePress={null}
                 />
-                <Text style={styles.name}>{baby?.name}</Text>
+                <Text style={[styles.name, { color: theme.colors.text }]}>{baby?.name}</Text>
             </View>
-            <View style={styles.details}>
+            <View style={[styles.details, { borderColor: theme.colors.border, backgroundColor: theme.colors.surface }]}>
                 <BabyProfileRow
                     iconName="calendar-outline"
                     label="Date of birth"
                     value={baby?.birthDate}
                 />
-                <View style={styles.separator} />
+                <View style={[styles.separator, { backgroundColor: theme.colors.border }]} />
                 <BabyProfileRow
                     iconName="time-outline"
                     label="Time of birth"
                     value={baby?.birthTime}
                 />
-                <View style={styles.separator} />
+                <View style={[styles.separator, { backgroundColor: theme.colors.border }]} />
                 <BabyProfileRow
                     iconName="transgender-outline"
                     label="Gender"
                     value={baby?.gender}
                 />
-                <View style={styles.separator} />
+                <View style={[styles.separator, { backgroundColor: theme.colors.border }]} />
                 <BabyProfileRow
                     iconName="resize-outline"
                     label="Height"
                     value={`${baby?.height} cm`}
                 />
-                <View style={styles.separator} />
+                <View style={[styles.separator, { backgroundColor: theme.colors.border }]} />
                 <BabyProfileRow
-                    iconName="scale"
+                    iconName="scale-outline"
                     label="Weight"
                     value={`${baby?.weight} kg`}
                 />
@@ -96,17 +98,13 @@ const styles = StyleSheet.create({
     name: {
         fontFamily: TYPOGRAPHY.fontFamily.bold,
         fontSize: TYPOGRAPHY.fontSize.xl,
-        color: COLORS.text,
     },
     details: {
         paddingHorizontal: SPACING.md,
         borderRadius: BORDERS.radius.xl,
         borderWidth: BORDERS.width.thin,
-        borderColor: COLORS.border,
-        backgroundColor: COLORS.surface,
     },
     separator: {
         height: BORDERS.width.thin,
-        backgroundColor: COLORS.border,
     },
 });

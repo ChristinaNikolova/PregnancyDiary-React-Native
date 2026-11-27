@@ -9,9 +9,9 @@ export default function BabyScreen({ route }) {
 
     return (
         <View style={styles.container}>
-            {!isBabyBorn ?
+            {isBabyBorn ?
                 <BabyProfile diaryId={diaryId} /> :
-                <BabyOnTheWay />
+                <BabyOnTheWay diaryId={diaryId} />
             }
         </View>
     );

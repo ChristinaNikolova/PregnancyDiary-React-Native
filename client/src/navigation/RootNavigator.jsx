@@ -5,6 +5,7 @@ import WeeksNavigator from "./WeeksNavigator";
 import ArticleDetailsScreen from "../screens/ArticleDetailsScreen";
 import CreateDiaryScreen from "../screens/CreateDiaryScreen";
 import BabyScreen from "../screens/BabyScreen";
+import BabyFormScreen from "../screens/BabyFormScreen";
 import UpdateProfileScreen from "../screens/UpdateProfileScreen";
 import ArticleDetailsHeader from "../components/blog/ArticleDetailsHeader";
 import useAuthContext from "../contexts/auth/useAuthContext";
@@ -13,6 +14,7 @@ import { COLORS, SPACING, TYPOGRAPHY } from "../theme";
 const Stack = createStackNavigator();
 
 // TODO reuse Routes contanst
+// todo extract navigators for baby, week, diary?
 export default function RootNavigator() {
     const { isAuthenticated, isLoaded } = useAuthContext();
 
@@ -58,6 +60,13 @@ export default function RootNavigator() {
                     <Stack.Screen
                         name="Baby"
                         component={BabyScreen}
+                    />
+                    <Stack.Screen
+                        name="BabyForm"
+                        component={BabyFormScreen}
+                        options={{
+                            headerShown: false,
+                        }}
                     />
                     <Stack.Screen
                         name="ArticleDetails"
