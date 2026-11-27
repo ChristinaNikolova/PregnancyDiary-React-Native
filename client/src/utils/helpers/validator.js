@@ -245,6 +245,18 @@ export const validator = {
             errors["weight"] = baby.WEIGHT;
         }
 
+        if (touched.birthTime && !values.birthTime) {
+            errors["birthTime"] = global.REQUIRED_INPUT;
+        }
+
+        if (touched.birthDate && !values.birthDate) {
+            errors["birthDate"] = global.REQUIRED_INPUT;
+        }
+
+        if (touched.gender && !values.gender) {
+            errors["gender"] = global.REQUIRED_INPUT;
+        }
+
         return errors;
     },
 };
