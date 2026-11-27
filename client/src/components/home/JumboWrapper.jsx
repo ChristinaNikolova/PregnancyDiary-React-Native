@@ -1,6 +1,7 @@
 import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import PrimaryButton from '../shared/PrimaryButton';
-import { COLORS, SPACING, TYPOGRAPHY } from '../../theme';
+import useThemeContext from '../../contexts/theme/useThemeContext';
+import { SPACING, TYPOGRAPHY } from '../../theme';
 
 export default function JumboWrapper({
     title,
@@ -8,13 +9,19 @@ export default function JumboWrapper({
     handlePress,
     children
 }) {
+    const { theme, isDarkMode } = useThemeContext();
+
+    const backgroundImage = isDarkMode
+        ? require("../../assets/images/welcome-dark.png")
+        : require("../../assets/images/welcome.png");
+
     return (
         <ImageBackground
-            source={require('../../assets/images/welcome.png')}
+            source={backgroundImage}
             resizeMode="cover"
         >
-            <View style={styles.content}>
-                <Text style={styles.title}>{title}</Text>
+            <View style={[styles.content, { backgroundColor: theme.colors.clearBackground, }]}>
+                <Text style={[styles.title, { color: theme.colors.text }]}>{title}</Text>
                 {children}
                 <PrimaryButton
                     buttonText={buttonText}
@@ -32,13 +39,11 @@ const styles = StyleSheet.create({
         width: '70%',
         paddingHorizontal: SPACING.lg,
         paddingVertical: SPACING.xl,
-        backgroundColor: COLORS.clearBackground,
     },
     title: {
         marginBottom: SPACING.sm,
         fontFamily: TYPOGRAPHY.fontFamily.bold,
         fontSize: TYPOGRAPHY.fontSize.xxl,
         textAlign: 'center',
-        color: COLORS.text,
     },
 });

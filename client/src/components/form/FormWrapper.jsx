@@ -6,8 +6,8 @@ export default function FormWrapper({ children }) {
     const { isDarkMode } = useThemeContext();
 
     const backgroundImage = isDarkMode
-        ? require("../../assets/images/auth-background-dark.png")
-        : require("../../assets/images/auth-background.png");
+        ? require("../../assets/images/background-dark.png")
+        : require("../../assets/images/background.png");
 
 
     return (
