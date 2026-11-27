@@ -61,13 +61,13 @@ export default function BabyFormScreen() {
             // todo add back button
             const { name, birthDate, birthTime, gender, weight, height } = data;
 
-            const createBaby = await execute(
+            const baby = await execute(
                 `${apiPaths.BABIES}`,
                 httpMethods.POST,
                 { diaryId, name, birthDate, birthTime, gender, weight, height }
             );
 
-            if (createBaby && babyPicture) {
+            if (baby && babyPicture) {
                 const formData = new FormData();
 
                 formData.append("picture", {
@@ -77,13 +77,16 @@ export default function BabyFormScreen() {
                 });
 
                 await execute(
-                    `${apiPaths.BABIES}/picture`,
+                    `${apiPaths.BABIES}/${baby._id}/picture`,
                     httpMethods.PUT,
                     formData
                 );
             }
 
-            navigation.goBack();
+            navigation.navigate("Baby", {
+                diaryId,
+                isBabyBorn: true,
+            });
         } catch (err) {
             console.error(err.response?.data || err.message);
         }
