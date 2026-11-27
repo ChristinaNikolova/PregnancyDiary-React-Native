@@ -1,17 +1,19 @@
 import { StyleSheet, Switch, View } from "react-native";
-import { COLORS } from "../theme";
+import useThemeContext from "../contexts/theme/useThemeContext";
 
 export default function SwitchContainer({ switchValue, onPress }) {
+    const { theme } = useThemeContext();
+
     return (
         <View style={styles.container}>
             <Switch
                 value={switchValue}
                 onValueChange={onPress}
                 trackColor={{
-                    false: COLORS.border,
-                    true: COLORS.primary,
+                    false: theme.colors.border,
+                    true: theme.colors.primary,
                 }}
-                thumbColor={COLORS.white}
+                thumbColor={theme.colors.white}
             />
         </View>
     );

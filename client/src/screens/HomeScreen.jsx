@@ -1,19 +1,21 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
-import useAuthContext from '../contexts/auth/useAuthContext';
 import JumboStart from '../components/home/JumboStart';
 import JumboDiary from '../components/home/JumboDiary';
 import ArticlesList from '../components/blog/ArticlesList';
 import ShortcutIcon from '../components/shared/ShortcutIcon';
 import Icon from '../components/shared/Icon';
 import useFetch from '../hooks/useFetch';
+import useAuthContext from '../contexts/auth/useAuthContext';
+import useThemeContext from '../contexts/theme/useThemeContext';
 import { homeMessages, shortcutsTiles } from '../utils/constants/global';
 import { ROUTES } from '../navigation/routes';
 import { apiPaths } from '../utils/constants/api';
-import { SIZES, SPACING, TYPOGRAPHY, COLORS } from '../theme';
+import { SIZES, SPACING, TYPOGRAPHY } from '../theme';
 
 export default function HomeScreen({ navigation }) {
     const { user } = useAuthContext();
+    const { theme } = useThemeContext();
 
     const { values: diary, loading } = useFetch(`${apiPaths.DIARIES}/active`);
 
@@ -64,26 +66,26 @@ export default function HomeScreen({ navigation }) {
 
     return (
         <SafeAreaView
-            style={styles.safeArea}
+            style={[styles.safeArea, { backgroundColor: theme.colors.background }]}
             edges={["top", "left", "right"]}
         >
             <ScrollView
-                style={styles.container}
+                style={[styles.container, { backgroundColor: theme.colors.background, }]}
                 contentContainerStyle={styles.contentContainer}
                 showsVerticalScrollIndicator={false}
             >
                 <View style={styles.header}>
                     <View>
                         <View style={styles.greetingContainer}>
-                            <Text style={styles.greeting}>
+                            <Text style={[styles.greeting, { color: theme.colors.text }]}>
                                 {homeMessages.HELLO}{user.firstName}!
                             </Text>
                             <Icon
                                 name="heart-outline"
                                 size={SIZES.iconLarge}
-                                color={COLORS.primary} />
+                                color={theme.colors.primary} />
                         </View>
-                        <Text style={styles.subtitle}>{homeMessages.WELCOME}</Text>
+                        <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>{homeMessages.WELCOME}</Text>
                     </View>
                 </View>
                 {hasDiary ?
@@ -109,7 +111,7 @@ export default function HomeScreen({ navigation }) {
                 }
                 <>
                     <View style={styles.sectionHeader}>
-                        <Text style={styles.sectionTitle}>
+                        <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
                             {homeMessages.LATEST_BLOG}
                         </Text>
                     </View>
@@ -122,12 +124,10 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
     safeArea: {
-        flex: 1,
-        backgroundColor: COLORS.background,
+        flex: 1
     },
     container: {
         flex: 1,
-        backgroundColor: COLORS.background,
     },
     contentContainer: {
         paddingHorizontal: SPACING.xl,
@@ -147,14 +147,12 @@ const styles = StyleSheet.create({
     greeting: {
         marginRight: SPACING.md,
         fontFamily: TYPOGRAPHY.fontFamily.bold,
-        fontSize: TYPOGRAPHY.fontSize.title,
-        color: COLORS.text,
+        fontSize: TYPOGRAPHY.fontSize.title
     },
     subtitle: {
         marginTop: SPACING.xs,
         fontFamily: TYPOGRAPHY.fontFamily.semiBold,
         fontSize: TYPOGRAPHY.fontSize.sm,
-        color: COLORS.textSecondary,
     },
     shortcutsContainer: {
         flexDirection: 'row',
@@ -173,6 +171,5 @@ const styles = StyleSheet.create({
         fontFamily: TYPOGRAPHY.fontFamily.bold,
         fontSize: TYPOGRAPHY.fontSize.xl,
         textTransform: "uppercase",
-        color: COLORS.text,
     },
 });
