@@ -7,12 +7,16 @@ import { SPACING, TYPOGRAPHY } from "../../theme";
 // todo change db isBabyBorn prop
 export default function BabyOnTheWay({ diaryId }) {
     const navigation = useNavigation();
-    const { theme } = useThemeContext();
+    const { theme, isDarkMode } = useThemeContext();
+
+    const backgroundImage = isDarkMode
+        ? require("../../assets/images/baby-dark.png")
+        : require("../../assets/images/baby.png");
 
     return (
         <View style={[styles.container, { backgroundColor: theme.colors.background, }]}>
             <ImageBackground
-                source={require("../../assets/images/baby.png")}
+                source={backgroundImage}
                 style={styles.background}
                 imageStyle={styles.image}
                 resizeMode="cover"
