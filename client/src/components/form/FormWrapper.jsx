@@ -1,10 +1,18 @@
 import { ImageBackground, KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from "react-native";
+import useThemeContext from "../../contexts/theme/useThemeContext";
 import { SPACING } from "../../theme";
 
 export default function FormWrapper({ children }) {
+    const { isDarkMode } = useThemeContext();
+
+    const backgroundImage = isDarkMode
+        ? require("../../assets/images/auth-background-dark.png")
+        : require("../../assets/images/auth-background.png");
+
+
     return (
         <ImageBackground
-            source={require("../../assets/images/auth-background.png")}
+            source={backgroundImage}
             style={styles.background}
             resizeMode="cover"
         >

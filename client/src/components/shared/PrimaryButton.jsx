@@ -1,8 +1,11 @@
 import { Pressable, StyleSheet, Text } from "react-native";
-import { BORDERS, COLORS, EFFECTS, SPACING, TYPOGRAPHY } from "../../theme";
+import useThemeContext from "../../contexts/theme/useThemeContext";
 import { triggerHaptic } from "../../utils/native-helpers/haptics";
+import { BORDERS, EFFECTS, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function PrimaryButton({ buttonText, disabled = false, handlePress }) {
+    const { theme } = useThemeContext();
+
     const handleHapticsPress = () => {
         triggerHaptic();
         handlePress?.();
@@ -13,6 +16,7 @@ export default function PrimaryButton({ buttonText, disabled = false, handlePres
             disabled={disabled}
             style={({ pressed }) => [
                 styles.button,
+                { backgroundColor: theme.colors.primary },
                 pressed && !disabled && {
                     opacity: EFFECTS.opacity,
                     transform: [{ scale: EFFECTS.scale }],
@@ -21,7 +25,7 @@ export default function PrimaryButton({ buttonText, disabled = false, handlePres
             ]}
             onPress={handleHapticsPress}
         >
-            <Text style={styles.buttonText}>{buttonText}</Text>
+            <Text style={[styles.buttonText, { color: theme.colors.white, }]}>{buttonText}</Text>
         </Pressable>
     );
 }
@@ -32,7 +36,6 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         alignSelf: "center",
         width: "70%",
-        backgroundColor: COLORS.primary,
         paddingVertical: SPACING.lg,
         paddingHorizontal: SPACING.xxl,
         borderRadius: BORDERS.radius.round,
@@ -41,7 +44,6 @@ const styles = StyleSheet.create({
         fontFamily: TYPOGRAPHY.fontFamily.medium,
         fontSize: TYPOGRAPHY.fontSize.md,
         textTransform: "capitalize",
-        color: COLORS.white,
     },
     disabledButton: {
         opacity: EFFECTS.disabledOpacity,

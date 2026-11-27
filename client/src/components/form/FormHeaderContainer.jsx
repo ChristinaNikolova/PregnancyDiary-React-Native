@@ -1,17 +1,20 @@
 import { StyleSheet, Text, View } from "react-native";
 import Icon from "../shared/Icon";
-import { COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
+import useThemeContext from "../../contexts/theme/useThemeContext";
+import { SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function FormHeaderContainer({ title, subTitle }) {
+    const { theme } = useThemeContext();
+
     return (
         <View style={styles.header}>
             <Icon
                 name="heart-outline"
                 size={SIZES.iconHuge}
-                color={COLORS.primary}
+                color={theme.colors.primary}
             />
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.subtitle}>{subTitle}</Text>
+            <Text style={[styles.title, { color: theme.colors.text }]}>{title}</Text>
+            <Text style={[styles.subtitle, { color: theme.colors.textSecondary, }]}>{subTitle}</Text>
         </View>
     );
 }
@@ -26,14 +29,12 @@ const styles = StyleSheet.create({
         fontFamily: TYPOGRAPHY.fontFamily.semiBold,
         fontSize: TYPOGRAPHY.fontSize.xxl,
         lineHeight: TYPOGRAPHY.lineHeight.xxl,
-        color: COLORS.text,
         textAlign: "center",
     },
     subtitle: {
         fontFamily: TYPOGRAPHY.fontFamily.regular,
         fontSize: TYPOGRAPHY.fontSize.sm,
         lineHeight: TYPOGRAPHY.lineHeight.md,
-        color: COLORS.textSecondary,
         textAlign: "center",
     },
 });

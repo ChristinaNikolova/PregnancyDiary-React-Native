@@ -3,7 +3,8 @@ import { StyleSheet, TextInput, View } from "react-native";
 import Icon from "../shared/Icon";
 import ClientError from "../shared/ClientError";
 import FormPasswordIconInput from "./FormPasswordIconInput";
-import { BORDERS, COLORS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
+import useThemeContext from "../../contexts/theme/useThemeContext";
+import { BORDERS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function FormInput({
     fieldName,
@@ -15,6 +16,7 @@ export default function FormInput({
     ...props
 }) {
     const [showPassword, setShowPassword] = useState(false);
+    const { theme } = useThemeContext();
 
     const handleShowPasswordPress = () => {
         setShowPassword((prev) => !prev);
@@ -25,6 +27,7 @@ export default function FormInput({
             <View
                 style={[
                     styles.inputContainer,
+                    { borderColor: theme.colors.border },
                     props.multiline && styles.multilineContainer,
                 ]}
             >
@@ -32,13 +35,13 @@ export default function FormInput({
                     <Icon
                         name={iconName}
                         size={SIZES.iconSmall}
-                        color={COLORS.textSecondary}
+                        color={theme.colors.textSecondary}
                     />
                 )}
                 <TextInput
-                    style={styles.input}
+                    style={[styles.input, { color: theme.colors.text, }]}
                     placeholder={placeholder}
-                    placeholderTextColor={COLORS.textSecondary}
+                    placeholderTextColor={theme.colors.textSecondary}
                     secureTextEntry={isPassword && !showPassword}
                     {...fieldHandler(fieldName)}
                     {...props}
@@ -68,7 +71,6 @@ const styles = StyleSheet.create({
         height: 50,
         paddingHorizontal: SPACING.lg,
         borderWidth: BORDERS.width.thin,
-        borderColor: COLORS.border,
         borderRadius: BORDERS.radius.xxl,
     },
     multilineContainer: {
@@ -81,6 +83,5 @@ const styles = StyleSheet.create({
         paddingVertical: 0,
         fontFamily: TYPOGRAPHY.fontFamily.regular,
         fontSize: TYPOGRAPHY.fontSize.sm,
-        color: COLORS.text,
     },
 });
