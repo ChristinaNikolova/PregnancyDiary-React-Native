@@ -44,6 +44,7 @@ export default function FormInput({
                     placeholderTextColor={theme.colors.textSecondary}
                     secureTextEntry={isPassword && !showPassword}
                     {...fieldHandler(fieldName)}
+                    value={String(fieldHandler(fieldName).value ?? "")}
                     {...props}
                     autoCorrect={false}
                     spellCheck={false}

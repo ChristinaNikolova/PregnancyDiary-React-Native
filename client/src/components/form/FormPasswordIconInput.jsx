@@ -1,9 +1,12 @@
 import { Pressable, StyleSheet } from "react-native";
 import Icon from "../shared/Icon";
+import useThemeContext from "../../contexts/theme/useThemeContext";
 import { hitSlop } from "../../utils/constants/global";
-import { COLORS, SIZES } from "../../theme";
+import { SIZES } from "../../theme";
 
 export default function FormPasswordIconInput({ showPassword, handlePress }) {
+    const { theme } = useThemeContext();
+
     return (
         <Pressable
             onPress={handlePress}
@@ -13,7 +16,7 @@ export default function FormPasswordIconInput({ showPassword, handlePress }) {
             <Icon
                 name={showPassword ? "eye-off-outline" : "eye-outline"}
                 size={SIZES.iconMedium}
-                color={COLORS.textSecondary}
+                color={theme.colors.textSecondary}
             />
         </Pressable>
     );

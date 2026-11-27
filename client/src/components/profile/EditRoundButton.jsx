@@ -1,6 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import PressableIcon from "../shared/PressableIcon";
-import { BORDERS, COLORS } from "../../theme";
+import useThemeContext from "../../contexts/theme/useThemeContext";
+import { BORDERS } from "../../theme";
 
 export default function EditRoundButton({
     iconName,
@@ -8,8 +9,10 @@ export default function EditRoundButton({
     iconColor,
     handlePress
 }) {
+    const { theme } = useThemeContext();
+
     return (
-        <View style={styles.button}>
+        <View style={[styles.button, { backgroundColor: theme.colors.primary }]}>
             <PressableIcon
                 iconName={iconName}
                 iconSize={iconSize}
@@ -30,6 +33,5 @@ const styles = StyleSheet.create({
         width: 36,
         height: 36,
         borderRadius: BORDERS.radius.round,
-        backgroundColor: COLORS.primary,
     },
 });
