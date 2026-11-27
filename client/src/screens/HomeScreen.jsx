@@ -1,4 +1,6 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useCallback, useRef } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import JumboStart from '../components/home/JumboStart';
 import JumboDiary from '../components/home/JumboDiary';
@@ -8,16 +10,32 @@ import Icon from '../components/shared/Icon';
 import useFetch from '../hooks/useFetch';
 import useAuthContext from '../contexts/auth/useAuthContext';
 import useThemeContext from '../contexts/theme/useThemeContext';
-import { homeMessages, shortcutsTiles } from '../utils/constants/global';
+import { homeMessages, httpMethods, shortcutsTiles } from '../utils/constants/global';
 import { ROUTES } from '../navigation/routes';
 import { apiPaths } from '../utils/constants/api';
 import { SIZES, SPACING, TYPOGRAPHY } from '../theme';
 
 export default function HomeScreen({ navigation }) {
+    const isFirstFocus = useRef(true);
     const { user } = useAuthContext();
     const { theme } = useThemeContext();
 
-    const { values: diary, loading } = useFetch(`${apiPaths.DIARIES}/active`);
+    const url = `${apiPaths.DIARIES}/active`;
+    const { values: diary, loading, execute } = useFetch(url);
+
+    useFocusEffect(
+        useCallback(() => {
+            if (isFirstFocus.current) {
+                isFirstFocus.current = false;
+                return;
+            }
+
+            execute(url, httpMethods.GET)
+                .catch((error) =>
+                    Alert.alert("Error", error.message)
+                );
+        }, [execute])
+    );
 
     const hasDiary = diary && Object.keys(diary).length > 0;
 

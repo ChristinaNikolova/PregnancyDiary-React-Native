@@ -82,8 +82,8 @@ export default function BabyFormScreen() {
                     formData
                 );
             }
-
-            navigation.navigate("Baby", {
+            // todo fix back here
+            navigation.replace("Baby", {
                 diaryId,
                 isBabyBorn: true,
             });
