@@ -13,3 +13,8 @@ export const auth = {
     INVALID_EMAIL: "Invalid email",
     PASSWORDS_NOT_SAME: "Passwords don't match",
 };
+
+export const baby = {
+    WEIGHT: 'Weight should be a positive number',
+    HEIGHT: 'Height should be a positive number',
+};

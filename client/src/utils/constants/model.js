@@ -12,3 +12,10 @@ export const diary = {
     DESC_MAX_LEN: 1000,
 };
 
+export const baby = {
+    NAME_MIN_LEN: 1,
+    NAME_MAX_LEN: 100,
+    HEIGHT_MIN: 0,
+    WEIGHT_MIN: 0,
+};
+

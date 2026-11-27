@@ -1,7 +1,8 @@
-import { auth, global } from "../constants/error";
+import { auth, global, baby } from "../constants/error";
 import {
     auth as authModel,
     diary as diaryModel,
+    baby as babyModel,
 } from "../constants/model";
 
 export const validator = {
@@ -191,9 +192,57 @@ export const validator = {
             errors["dueDate"] = global.REQUIRED_INPUT;
         }
 
-        // todo check if needed
         if (touched.gender && !values.gender) {
             errors["gender"] = global.REQUIRED_INPUT;
+        }
+
+        return errors;
+    },
+
+    baby: (values, touched) => {
+        const errors = {};
+
+        if (touched.name && !values.name) {
+            errors["name"] = global.REQUIRED_INPUT;
+        }
+
+        if (
+            touched.name &&
+            values.name &&
+            (
+                values.name.length < babyModel.NAME_MIN_LEN ||
+                values.name.length > babyModel.NAME_MAX_LEN
+            )
+        ) {
+            errors["name"] = global.REQUIRED_MIN_MAX_LEN(
+                "Name",
+                babyModel.NAME_MIN_LEN,
+                babyModel.NAME_MAX_LEN
+            );
+        }
+
+        if (touched.height && !values.height) {
+            errors["height"] = global.REQUIRED_INPUT;
+        }
+
+        if (
+            touched.height &&
+            values.height &&
+            Number(values.height) <= babyModel.HEIGHT_MIN
+        ) {
+            errors["height"] = baby.HEIGHT;
+        }
+
+        if (touched.weight && !values.weight) {
+            errors["weight"] = global.REQUIRED_INPUT;
+        }
+
+        if (
+            touched.weight &&
+            values.weight &&
+            Number(values.weight) <= babyModel.WEIGHT_MIN
+        ) {
+            errors["weight"] = baby.WEIGHT;
         }
 
         return errors;

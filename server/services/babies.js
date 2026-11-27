@@ -1,5 +1,8 @@
 const Baby = require("../models/Baby");
+const Picture = require("../models/Picture");
 const Diary = require("../models/Diary");
+const { babyViewModel } = require("../utils/mapper/baby");
+const { errors } = require("../utils/constants/global");
 
 async function create(
   diaryId,
@@ -9,7 +12,6 @@ async function create(
   birthTime,
   height,
   weight,
-  picture
 ) {
   const baby = new Baby({
     name,
@@ -18,7 +20,6 @@ async function create(
     birthTime,
     height,
     weight,
-    picture,
   });
 
   const result = await baby.save();
@@ -27,6 +28,29 @@ async function create(
   diary.isBabyBorn = true;
   await diary.save();
   return result;
+}
+
+async function updatePicture(id, url, publicId) {
+  const baby = await getById(id);
+  await baby.populate("picture");
+  const oldPicture = baby.picture;
+  const picture = new Picture({
+    url,
+    publicId,
+  });
+  const result = await picture.save();
+  baby.picture = result._id;
+  await baby.save();
+  await baby.populate("picture");
+  if (oldPicture) {
+    try {
+      await deleteImage(oldPicture.publicId);
+      await Picture.findByIdAndDelete(oldPicture._id);
+    } catch (error) {
+      console.error(errors.NO_PICTURE, error);
+    }
+  }
+  return babyViewModel(baby);
 }
 
 async function getById(id) {
@@ -59,4 +83,5 @@ module.exports = {
   create,
   getById,
   update,
+  updatePicture,
 };

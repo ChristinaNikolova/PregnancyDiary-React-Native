@@ -2,7 +2,7 @@ const User = require("../models/User");
 const Picture = require("../models/Picture");
 const { userViewModel } = require("../utils/mapper/user");
 const { deleteImage } = require("../utils/helpers/cloudinary");
-const { global } = require("../../client/src/utils/constants/error");
+const { errors } = require("../utils/constants/global");
 
 async function update(userId, firstName, lastName) {
   const user = await getById(userId);
@@ -30,7 +30,7 @@ async function updatePicture(userId, url, publicId) {
       await deleteImage(oldPicture.publicId);
       await Picture.findByIdAndDelete(oldPicture._id);
     } catch (error) {
-      console.error(global, error);
+      console.error(errors.NO_PICTURE, error);
     }
   }
   return userViewModel(user);

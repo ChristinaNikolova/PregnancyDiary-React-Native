@@ -41,7 +41,6 @@ const babySchema = new Schema({
   },
   picture: {
     type: String,
-    required: [true, "Picture is required"],
   },
 });
 
