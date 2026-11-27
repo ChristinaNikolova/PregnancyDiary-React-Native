@@ -8,11 +8,11 @@ import { apiPaths } from "../../utils/constants/api";
 import { httpMethods } from "../../utils/constants/global";
 import { BORDERS, SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
-export default function BabyProfile({ diaryId }) {
+export default function BabyProfile({ babyId }) {
     const [refreshing, setRefreshing] = useState(false);
     const { theme } = useThemeContext();
 
-    const url = `${apiPaths.BABIES}/${diaryId}`;
+    const url = `${apiPaths.BABIES}/${babyId}`;
     const { values: baby, execute, loading } = useFetch(url);
 
     const handleRefresh = async () => {

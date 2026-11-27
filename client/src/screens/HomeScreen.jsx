@@ -14,7 +14,7 @@ import { homeMessages, httpMethods, shortcutsTiles } from '../utils/constants/gl
 import { ROUTES } from '../navigation/routes';
 import { apiPaths } from '../utils/constants/api';
 import { SIZES, SPACING, TYPOGRAPHY } from '../theme';
-
+// todo test usefocus!!!
 export default function HomeScreen({ navigation }) {
     const isFirstFocus = useRef(true);
     const { user } = useAuthContext();
@@ -66,6 +66,7 @@ export default function HomeScreen({ navigation }) {
             handlePress: () =>
                 navigation.navigate("Baby", {
                     diaryId: diary.id,
+                    babyId: diary.babyId,
                     isBabyBorn: diary.isBabyBorn,
                 }),
         },

@@ -50,7 +50,7 @@ async function getActive(userId) {
   const diary = await Diary.findOne({
     creator: new ObjectId(userId),
     isActive: true,
-  });
+  }).populate("baby");
   return diary ? diaryHomeViewModel(diary) : null;
 }
 
