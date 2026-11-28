@@ -97,18 +97,11 @@ export default function BabyFormScreen() {
             // todo fix back here
             const babyId = isEditMode ? baby.id : result._id;
 
-            if (isEditMode) {
-                navigation.popTo("Baby", {
-                    babyId,
-                    isBabyBorn: true,
-                });
-            } else {
-                navigation.replace("Baby", {
-                    diaryId,
-                    babyId,
-                    isBabyBorn: true,
-                });
-            }
+            navigation.popTo("Baby", {
+                diaryId,
+                babyId,
+                isBabyBorn: true,
+            });
         } catch (err) {
             console.error(err.response?.data || err.message);
         }
