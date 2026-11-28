@@ -178,7 +178,7 @@ export default function BabyFormScreen() {
                     fieldHandler={fieldHandler}
                     iconName="transgender-outline"
                     error={errors.gender}
-                    options={babyGenderOptions}
+                    options={babyGenderOptions.filter((o) => o.label !== "I don't know yet")}
                 />
                 <FormInput
                     fieldName="height"
