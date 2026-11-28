@@ -5,9 +5,7 @@ const { mapErrors } = require("../utils/parser");
 
 router.post("/", hasUser(), async (req, res) => {
   try {
-    const weekId = req.body.weekId;
     const moment = await create(
-      weekId,
       req.body.date,
       req.body.title,
       req.body.content
