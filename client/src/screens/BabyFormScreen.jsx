@@ -1,27 +1,29 @@
+import { useState } from "react";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import useFetch from "../hooks/useFetch";
+import useForm from "../hooks/useForm";
 import { View, StyleSheet } from "react-native";
 import FormWrapper from "../components/form/FormWrapper";
 import FormInput from "../components/form/FormInput";
 import PrimaryButton from "../components/shared/PrimaryButton";
-import useFetch from "../hooks/useFetch";
-import useForm from "../hooks/useForm";
-import { babyGenderOptions, httpMethods } from "../utils/constants/global";
-import { apiPaths } from "../utils/constants/api";
-import { COLORS, SPACING } from "../theme";
+import usePhotoPicker from "../hooks/usePhotoPicker";
+import FormSelectInput from "../components/form/FormSelectInput";
+import FormDatePickerInput from "../components/form/FormDatePickerInput";
 import FormHeaderContainer from "../components/form/FormHeaderContainer";
 import ServerError from "../components/shared/ServerError";
 import ProfilePicture from "../components/profile/ProfilePicture";
 import PressableTag from "../components/shared/PressableTag";
-import { useState } from "react";
-import usePhotoPicker from "../hooks/usePhotoPicker";
-import FormSelectInput from "../components/form/FormSelectInput";
-import FormDatePickerInput from "../components/form/FormDatePickerInput";
+import { babyGenderOptions, httpMethods } from "../utils/constants/global";
+import { apiPaths } from "../utils/constants/api";
+import { COLORS, SPACING } from "../theme";
 
 export default function BabyFormScreen() {
     const navigation = useNavigation();
     const route = useRoute();
-    const diaryId = route.params.diaryId;
-    const { baby } = route.params ?? {};
+    // in case of edit , no diayId
+    const diaryId = route.params?.diaryId;
+    const baby = route.params?.baby ?? {};
+    const isEditMode = !!baby?.id;
 
     const { execute, loading, serverError } = useFetch();
 
@@ -60,14 +62,25 @@ export default function BabyFormScreen() {
         try {
             // todo add back button
             const { name, birthDate, birthTime, gender, weight, height } = data;
+            const babyData = {
+                name,
+                birthDate,
+                birthTime,
+                gender,
+                weight,
+                height,
+            };
 
-            const baby = await execute(
-                `${apiPaths.BABIES}`,
-                httpMethods.POST,
-                { diaryId, name, birthDate, birthTime, gender, weight, height }
+            // todo check ... for create and edit
+            const result = await execute(
+                isEditMode
+                    ? `${apiPaths.BABIES}/${baby.id}`
+                    : apiPaths.BABIES,
+                isEditMode ? httpMethods.PUT : httpMethods.POST,
+                isEditMode ? { ...babyData } : { diaryId, ...babyData }
             );
 
-            if (baby && babyPicture) {
+            if (result && babyPicture) {
                 const formData = new FormData();
 
                 formData.append("picture", {
@@ -77,7 +90,7 @@ export default function BabyFormScreen() {
                 });
 
                 await execute(
-                    `${apiPaths.BABIES}/${baby._id}/picture`,
+                    `${apiPaths.BABIES}/${result._id}/picture`,
                     httpMethods.PUT,
                     formData
                 );
@@ -85,6 +98,7 @@ export default function BabyFormScreen() {
             // todo fix back here
             navigation.replace("Baby", {
                 diaryId,
+                babyId: result._id,
                 isBabyBorn: true,
             });
         } catch (err) {
@@ -95,9 +109,9 @@ export default function BabyFormScreen() {
     return (
         <FormWrapper>
             <FormHeaderContainer
-                title={!baby ? "Create Baby Profile" : "Update Baby Profile"}
+                title={!isEditMode ? "Create Baby Profile" : "Update Baby Profile"}
                 subTitle={
-                    !baby
+                    !isEditMode
                         ? "Add your little one's details to your diary."
                         : "Keep your baby's details up to date."
                 }
@@ -119,7 +133,6 @@ export default function BabyFormScreen() {
                         iconColor={COLORS.white}
                         handlePress={showPickerOptions}
                     />
-
                     {babyPicture && (
                         <PressableTag
                             tagText="Delete picture"
