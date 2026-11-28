@@ -30,7 +30,6 @@ function weekDetailsViewModel(week) {
     myBellySize: week.myBellySize,
     babyAverageWeight: week.babyAverageWeight,
     babyAverageHeight: week.babyAverageHeight,
-    mood: week.mood,
     moments: week.moments
       .map(momentViewModel)
       .sort((a, b) => parseDate(b.date) - parseDate(a.date)),

@@ -8,9 +8,8 @@ async function getById(id, hasToMap = false) {
   return await Week.findById(id);
 }
 
-async function update(id, mood, myWeight, myBellySize) {
+async function update(id, myWeight, myBellySize) {
   const week = await getById(id);
-  week.mood = mood;
   week.myWeight = myWeight;
   week.myBellySize = myBellySize;
   await week.save();

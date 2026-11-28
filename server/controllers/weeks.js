@@ -19,7 +19,6 @@ router.put("/:id", hasUser(), async (req, res) => {
     const id = req.params.id;
     const week = await update(
       id,
-      req.body.mood,
       req.body.myWeight,
       req.body.myBellySize,
     );
