@@ -1,5 +1,4 @@
 const { parseDate } = require("../parser");
-const { momentViewModel } = require("./moment");
 
 // todo cleanyp + better naming
 function weekViewModel(week) {
@@ -26,13 +25,11 @@ function weekDetailsViewModel(week) {
     subTitle: week.subTitle,
     trimester: week.trimester,
     text: week.text,
+    babySize: week.babySize,
     myWeight: week.myWeight,
     myBellySize: week.myBellySize,
     babyAverageWeight: week.babyAverageWeight,
     babyAverageHeight: week.babyAverageHeight,
-    moments: week.moments
-      .map(momentViewModel)
-      .sort((a, b) => parseDate(b.date) - parseDate(a.date)),
   };
 }
 

@@ -1,8 +1,4 @@
-const {
-  Schema,
-  model,
-  Types: { ObjectId },
-} = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 const weekSchema = new Schema({
   title: {
@@ -31,14 +27,11 @@ const weekSchema = new Schema({
   },
   babyAverageWeight: {
     type: Number,
+    default: 0,
   },
   babyAverageHeight: {
     type: Number,
-  },
-  moments: {
-    type: [ObjectId],
-    ref: "Moment",
-    default: [],
+    default: 0,
   },
 });
 

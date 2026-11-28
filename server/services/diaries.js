@@ -113,8 +113,8 @@ async function getWeeks() {
       subTitle: subTitle[weekTitle],
       text: text[weekTitle],
       babySize: babySize[weekTitle],
-      averageBabyWeight: averageBabyWeight[weekTitle],
-      averageBabyHeight: averageBabyHeight[weekTitle],
+      babyAverageWeight: averageBabyWeight[weekTitle],
+      babyAverageHeight: averageBabyHeight[weekTitle],
       trimester: getTrimesterName(weekNumber),
     });
     weeks.push(week);

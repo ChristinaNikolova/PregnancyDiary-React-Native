@@ -3,7 +3,7 @@ const { weekDetailsViewModel } = require("../utils/mapper/week");
 
 async function getById(id, hasToMap = false) {
   if (hasToMap) {
-    return weekDetailsViewModel(await Week.findById(id).populate("moments"));
+    return weekDetailsViewModel(await Week.findById(id));
   }
   return await Week.findById(id);
 }

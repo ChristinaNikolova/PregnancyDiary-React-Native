@@ -7,4 +7,5 @@ export const apiPaths = {
     DIARIES: `${BASE_URL}/diaries`,
     BABIES: `${BASE_URL}/babies`,
     USERS: `${BASE_URL}/users`,
+    WEEKS: `${BASE_URL}/weeks`,
 };

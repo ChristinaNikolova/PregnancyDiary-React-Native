@@ -1,5 +1,6 @@
-import { Pressable, View, Image, StyleSheet } from "react-native";
 import useThemeContext from "../contexts/theme/useThemeContext";
+import { useNavigation } from "@react-navigation/native";
+import { Pressable, View, Image, StyleSheet } from "react-native";
 import { getWeekImage } from "../utils/helpers/image";
 import { triggerHaptic } from "../utils/native-helpers/haptics";
 import { EFFECTS, BORDERS } from "../theme";
@@ -10,11 +11,13 @@ export default function WeekCard({
     disabled
 }) {
     const { theme } = useThemeContext();
+    const navigation = useNavigation();
+
     const image = getWeekImage(title);
 
     const handlePress = () => {
         triggerHaptic();
-        console.log('id', id)
+        navigation.navigate("WeekDetails", { id });
     }
 
     return (
