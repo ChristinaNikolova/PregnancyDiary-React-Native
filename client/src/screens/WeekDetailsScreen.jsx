@@ -2,17 +2,25 @@ import useFetch from "../hooks/useFetch";
 import useThemeContext from "../contexts/theme/useThemeContext";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import Icon from "../components/shared/Icon";
+import Tag from "../components/shared/Tag";
 import { apiPaths } from "../utils/constants/api";
+import { getWeekImage } from "../utils/helpers/image";
 import { BORDERS, SPACING, TYPOGRAPHY } from "../theme";
+import SwipeableMeasurements from "../components/week/SwipeableMeasurements";
 
 export default function WeekDetailsScreen({ route }) {
-    const id = route.params.id;
-
     const { theme } = useThemeContext();
+    const id = route.params.id;
 
     const url = `${apiPaths.WEEKS}/${id}`;
     const { values: week, loading } = useFetch(url);
 
+    const image = getWeekImage(week?.title);
+
+    const handleEdit = () => {
+        null;
+    }
+    // todo pull to refresh
     return (
         <ScrollView
             style={[styles.container, { backgroundColor: theme.colors.background }]}
@@ -21,21 +29,16 @@ export default function WeekDetailsScreen({ route }) {
         >
             <View style={styles.hero}>
                 <Image
-                    source={require("../assets/images/welcome.png")}
+                    source={image}
                     style={styles.image}
                 />
-
                 <View style={styles.weekInfo}>
                     <Text style={[styles.weekTitle, { color: theme.colors.text }]}>
                         Week {week?.title}
                     </Text>
-
-                    <Text style={[styles.trimester, {
-                        backgroundColor: theme.colors.secondary,
-                        color: theme.colors.text,
-                    }]}>
-                        {week?.trimester} trimester
-                    </Text>
+                    <Tag
+                        text={`${week?.trimester} trimester`}
+                    />
 
                     <Text style={[styles.babySize, { color: theme.colors.text }]}>
                         Your baby is the size of {week?.babySize}
@@ -69,7 +72,13 @@ export default function WeekDetailsScreen({ route }) {
                 </Text>
             </View>
 
-            <View style={[styles.section, {
+            <SwipeableMeasurements
+                weight={week?.myWeight}
+                bellySize={week?.myBellySize}
+                handleEdit={handleEdit}
+            />
+
+            {/* <View style={[styles.section, {
                 backgroundColor: theme.colors.surface,
                 borderColor: theme.colors.border,
             }]}>
@@ -77,7 +86,7 @@ export default function WeekDetailsScreen({ route }) {
                     <View style={[styles.iconContainer, {
                         backgroundColor: theme.colors.secondary,
                     }]}>
-                        <Icon name="person-outline" color={theme.colors.primary} size={24} />
+                        <Icon name="heart-outline" color={theme.colors.primary} size={24} />
                     </View>
 
                     <View style={styles.headerText}>
@@ -88,7 +97,6 @@ export default function WeekDetailsScreen({ route }) {
                             Your measurements for this week
                         </Text>
                     </View>
-                    <Icon name="chevron-down" color={theme.colors.primary} />
                 </View>
 
                 <View style={styles.dataRow}>
@@ -114,15 +122,13 @@ export default function WeekDetailsScreen({ route }) {
                 </View>
 
                 <Text style={[styles.footerText, { color: theme.colors.textSecondary }]}>
-                    Every little change matters ♡
+                    Every little change matters
                 </Text>
-            </View>
+            </View> */}
         </ScrollView>
     )
 }
-
-
-
+// todo swipe
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -139,7 +145,7 @@ const styles = StyleSheet.create({
         marginBottom: SPACING.xl,
     },
     image: {
-        width: "43%",
+        width: "40%",
         aspectRatio: 1,
         borderRadius: BORDERS.radius.xl,
     },
