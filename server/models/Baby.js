@@ -1,4 +1,7 @@
-const { Schema, model } = require("mongoose");
+const { Schema,
+  model,
+  Types: { ObjectId },
+} = require("mongoose");
 const { baby } = require("../utils/constants/model");
 const { date } = require("../utils/constants/global");
 
@@ -40,7 +43,9 @@ const babySchema = new Schema({
     min: [baby.WEIGHT_MIN, "Weight should be positive number"],
   },
   picture: {
-    type: String,
+    type: ObjectId,
+    ref: "Picture",
+    default: null,
   },
 });
 

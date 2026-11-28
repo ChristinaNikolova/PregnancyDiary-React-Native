@@ -50,7 +50,7 @@ router.put(
 router.get("/:id", hasUser(), async (req, res) => {
   try {
     const id = req.params.id;
-    const baby = await getById(id);
+    const baby = await getById(id, true);
     res.json(baby);
   } catch (error) {
     const message = mapErrors(error);
@@ -69,7 +69,6 @@ router.put("/:id", hasUser(), async (req, res) => {
       req.body.birthTime,
       req.body.height,
       req.body.weight,
-      req.body.picture
     );
     res.json(baby);
   } catch (error) {

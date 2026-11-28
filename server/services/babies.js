@@ -2,6 +2,7 @@ const Baby = require("../models/Baby");
 const Picture = require("../models/Picture");
 const Diary = require("../models/Diary");
 const { babyViewModel } = require("../utils/mapper/baby");
+const { deleteImage } = require("../utils/helpers/cloudinary");
 const { errors } = require("../utils/constants/global");
 
 async function create(
@@ -52,7 +53,12 @@ async function updatePicture(id, url, publicId) {
   return babyViewModel(baby);
 }
 
-async function getById(id) {
+async function getById(id, hasToMap = false) {
+  if (hasToMap) {
+    return babyViewModel(
+      await Baby.findById(id).populate("picture")
+    );
+  }
   return await Baby.findById(id);
 }
 
@@ -64,7 +70,6 @@ async function update(
   birthTime,
   height,
   weight,
-  picture
 ) {
   const baby = await getById(id);
   baby.name = name;
@@ -73,7 +78,6 @@ async function update(
   baby.birthTime = birthTime;
   baby.height = height;
   baby.weight = weight;
-  baby.picture = picture;
   await baby.save();
   return baby;
 }
