@@ -33,6 +33,10 @@ export default function BabyProfile({ babyId }) {
         }
     };
 
+    const babyImage = baby?.picture?.url
+        ? { uri: baby.picture.url }
+        : require("../../assets/images/welcome.png");
+
     return (
         <ScrollView
             style={styles.container}
@@ -46,11 +50,16 @@ export default function BabyProfile({ babyId }) {
         >
             <View style={styles.profile}>
                 <ProfilePicture
-                    image={require("../../assets/images/welcome.png")}
+                    image={babyImage}
                     iconName="pencil"
                     iconColor={theme.colors.white}
                     iconSize={SIZES.iconSmall}
-                    handlePress={() => navigation.navigate("BabyForm", { baby })}
+                    // handlePress={() => navigation.navigate("BabyForm", { baby })}
+                    handlePress={() => {
+                        console.log("Edit pressed", { baby, loading });
+                        navigation.navigate("BabyForm", { baby });
+                    }
+                    }
                 />
                 <Text style={[styles.name, { color: theme.colors.text }]}>{baby?.name}</Text>
             </View>
