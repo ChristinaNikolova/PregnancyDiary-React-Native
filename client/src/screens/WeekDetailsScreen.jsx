@@ -4,6 +4,7 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import Icon from "../components/shared/Icon";
 import Tag from "../components/shared/Tag";
 import SwipeableMeasurements from "../components/week/SwipeableMeasurements";
+import BabySingleMeasurement from "../components/week/BabySingleMeasurement";
 import { apiPaths } from "../utils/constants/api";
 import { getWeekImage } from "../utils/helpers/image";
 import { triggerHaptic } from "../utils/native-helpers/haptics";
@@ -16,12 +17,12 @@ export default function WeekDetailsScreen({ route }) {
     const url = `${apiPaths.WEEKS}/${id}`;
     const { values: week, loading } = useFetch(url);
 
-    const image = getWeekImage(week?.title);
-
     const handleEdit = () => {
         triggerHaptic();
         null;
     }
+
+    const image = getWeekImage(week?.title);
     // todo pull to refresh
     // todo constants
     return (
@@ -46,28 +47,23 @@ export default function WeekDetailsScreen({ route }) {
                         Your baby is the size of {week?.babySize}
                     </Text>
                     <View style={styles.measurements}>
-                        <View style={styles.measurement}>
-                            <Icon name="resize-outline" color={theme.colors.primary} />
-                            <Text style={[styles.measurementText, { color: theme.colors.text }]}>
-                                Around {week?.babyAverageHeight} cm
-                            </Text>
-                        </View>
-
-                        <View style={styles.measurement}>
-                            <Icon name="scale-outline" color={theme.colors.primary} />
-                            <Text style={[styles.measurementText, { color: theme.colors.text }]}>
-                                Around {week?.babyAverageWeight} g
-                            </Text>
-                        </View>
+                        <BabySingleMeasurement
+                            iconName="resize-outline"
+                            measurement={week?.babyAverageHeight}
+                            unit="cm"
+                        />
+                        <BabySingleMeasurement
+                            iconName="scale-outline"
+                            measurement={week?.babyAverageWeight}
+                            unit="g"
+                        />
                     </View>
                 </View>
             </View>
-
             <View style={styles.development}>
                 <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
                     Baby development
                 </Text>
-
                 <Text style={[styles.description, { color: theme.colors.textSecondary }]}>
                     {week?.text}
                 </Text>
@@ -114,7 +110,7 @@ const styles = StyleSheet.create({
     hero: {
         flexDirection: "row",
         alignItems: "center",
-        gap: SPACING.md,
+        gap: SPACING.lg,
         marginBottom: SPACING.xl,
     },
     image: {
@@ -135,10 +131,10 @@ const styles = StyleSheet.create({
     trimester: {
         paddingHorizontal: SPACING.md,
         paddingVertical: SPACING.xs,
-        borderRadius: BORDERS.radius.lg,
         fontFamily: TYPOGRAPHY.fontFamily.semiBold,
         fontSize: TYPOGRAPHY.fontSize.xs,
         overflow: "hidden",
+        borderRadius: BORDERS.radius.lg,
     },
     babySize: {
         fontFamily: TYPOGRAPHY.fontFamily.semiBold,
@@ -148,18 +144,9 @@ const styles = StyleSheet.create({
         gap: SPACING.md,
         marginTop: SPACING.sm,
     },
-    measurement: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap: SPACING.xs,
-    },
-    measurementText: {
-        fontFamily: TYPOGRAPHY.fontFamily.regular,
-        fontSize: TYPOGRAPHY.fontSize.sm,
-    },
     development: {
-        marginBottom: SPACING.xl,
         gap: SPACING.md,
+        marginBottom: SPACING.xl,
     },
     sectionTitle: {
         fontFamily: TYPOGRAPHY.fontFamily.bold,
@@ -168,7 +155,7 @@ const styles = StyleSheet.create({
     description: {
         fontFamily: TYPOGRAPHY.fontFamily.regular,
         fontSize: TYPOGRAPHY.fontSize.md,
-        lineHeight: 25,
+        lineHeight: TYPOGRAPHY.lineHeight.md,
     },
     section: {
         marginBottom: SPACING.md,
