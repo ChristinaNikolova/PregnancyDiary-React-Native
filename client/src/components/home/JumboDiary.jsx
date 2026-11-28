@@ -1,9 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import useFetch from "../../hooks/useFetch";
+import useThemeContext from "../../contexts/theme/useThemeContext";
+import { StyleSheet, Text, View } from "react-native";
 import Icon from "../shared/Icon";
 import JumboWrapper from "./JumboWrapper";
-import useThemeContext from "../../contexts/theme/useThemeContext";
 import { getGenderLabel } from "../../utils/helpers/gender";
+import { apiPaths } from "../../utils/constants/api";
+import { getCurrentWeek } from "../../utils/helpers/pregnancy";
 import { SIZES, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function JumboDiary({
@@ -15,9 +18,16 @@ export default function JumboDiary({
     const navigation = useNavigation();
     const { theme } = useThemeContext();
 
-    // todo navigate to diary details
+    const currentWeek = getCurrentWeek(dueDate);
+    const { values: currentWeekId, loading } = useFetch(`${apiPaths.DIARIES}/${id}/${currentWeek}`);
+
     const handlePress = () => {
-        navigation.navigate("Diary");
+        navigation.navigate("WeeksNavigator", {
+            screen: "WeekDetails",
+            params: {
+                id: currentWeekId
+            },
+        });
     };
 
     return (

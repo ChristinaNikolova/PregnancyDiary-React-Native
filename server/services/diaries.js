@@ -83,6 +83,12 @@ async function getWeeksById(id) {
   return diary.weeks.map(weekViewModel);
 }
 
+async function getWeekByDiaryId(diaryId, weekTitle) {
+  const diary = await Diary.findById(diaryId).populate("weeks");
+  const week = diary.weeks.find((w) => w.title === weekTitle);
+  return week._id
+}
+
 async function update(
   id,
   title,
@@ -130,5 +136,6 @@ module.exports = {
   deleteById,
   getById,
   update,
-  getWeeksById
+  getWeeksById,
+  getWeekByDiaryId
 };

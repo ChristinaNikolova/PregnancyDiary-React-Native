@@ -8,6 +8,7 @@ const {
   update,
   getActive,
   getWeeksById,
+  getWeekByDiaryId
 } = require("../services/diaries");
 const { mapErrors } = require("../utils/parser");
 
@@ -55,6 +56,18 @@ router.get("/:diaryId/weeks", hasUser(), async (req, res) => {
     const id = req.params.diaryId;
     const weeks = await getWeeksById(id);
     res.json(weeks);
+  } catch (error) {
+    const message = mapErrors(error);
+    res.status(400).json({ message });
+  }
+});
+
+router.get("/:id/:currentWeek", hasUser(), async (req, res) => {
+  try {
+    const diaryId = req.params.id;
+    const weekTitle = Number(req.params.currentWeek);
+    const weekId = await getWeekByDiaryId(diaryId, weekTitle);
+    res.json(weekId);
   } catch (error) {
     const message = mapErrors(error);
     res.status(400).json({ message });
