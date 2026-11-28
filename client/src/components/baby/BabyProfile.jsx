@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useCallback, useRef, useState } from "react";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { Alert, RefreshControl, ScrollView, StyleSheet, Text, View } from "react-native";
 import ProfilePicture from "../profile/ProfilePicture";
 import BabyProfileRow from "../profile/BabyProfileRow";
@@ -14,9 +14,23 @@ export default function BabyProfile({ babyId }) {
 
     const [refreshing, setRefreshing] = useState(false);
     const navigation = useNavigation();
+    const isFirstFocus = useRef(true);
 
     const url = `${apiPaths.BABIES}/${babyId}`;
     const { values: baby, execute, loading } = useFetch(url);
+
+    useFocusEffect(
+        useCallback(() => {
+            if (isFirstFocus.current) {
+                isFirstFocus.current = false;
+                return;
+            }
+
+            execute(url, httpMethods.GET).catch((error) => {
+                Alert.alert("Error", error.message);
+            });
+        }, [execute, url])
+    );
 
     const handleRefresh = async () => {
         setRefreshing(true);
@@ -54,12 +68,11 @@ export default function BabyProfile({ babyId }) {
                     iconName="pencil"
                     iconColor={theme.colors.white}
                     iconSize={SIZES.iconSmall}
-                    // handlePress={() => navigation.navigate("BabyForm", { baby })}
-                    handlePress={() => {
-                        console.log("Edit pressed", { baby, loading });
-                        navigation.navigate("BabyForm", { baby });
-                    }
-                    }
+                    handlePress={() => navigation.navigate("BabyForm", {
+                        mode: "update",
+                        baby
+
+                    })}
                 />
                 <Text style={[styles.name, { color: theme.colors.text }]}>{baby?.name}</Text>
             </View>

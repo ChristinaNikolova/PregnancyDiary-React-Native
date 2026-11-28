@@ -20,10 +20,9 @@ import { COLORS, SPACING } from "../theme";
 export default function BabyFormScreen() {
     const navigation = useNavigation();
     const route = useRoute();
-    // in case of edit , no diayId
-    const diaryId = route.params?.diaryId;
-    const baby = route.params?.baby ?? {};
-    const isEditMode = !!baby?.id;
+
+    const { mode, diaryId, baby = {} } = route.params ?? {};
+    const isEditMode = mode === "update";
 
     const { execute, loading, serverError } = useFetch();
 
@@ -96,11 +95,20 @@ export default function BabyFormScreen() {
                 );
             }
             // todo fix back here
-            navigation.replace("Baby", {
-                diaryId,
-                babyId: result._id,
-                isBabyBorn: true,
-            });
+            const babyId = isEditMode ? baby.id : result._id;
+
+            if (isEditMode) {
+                navigation.popTo("Baby", {
+                    babyId,
+                    isBabyBorn: true,
+                });
+            } else {
+                navigation.replace("Baby", {
+                    diaryId,
+                    babyId,
+                    isBabyBorn: true,
+                });
+            }
         } catch (err) {
             console.error(err.response?.data || err.message);
         }

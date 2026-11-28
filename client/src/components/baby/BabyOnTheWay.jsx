@@ -4,7 +4,6 @@ import PrimaryButton from "../shared/PrimaryButton";
 import useThemeContext from "../../contexts/theme/useThemeContext";
 import { SPACING, TYPOGRAPHY } from "../../theme";
 
-// todo change db isBabyBorn prop
 export default function BabyOnTheWay({ diaryId }) {
     const navigation = useNavigation();
     const { theme, isDarkMode } = useThemeContext();
@@ -36,7 +35,10 @@ export default function BabyOnTheWay({ diaryId }) {
                     </View>
                     <PrimaryButton
                         buttonText="Baby is born"
-                        handlePress={() => navigation.navigate("BabyForm", { diaryId })}
+                        handlePress={() => navigation.navigate("BabyForm", {
+                            mode: "create",
+                            diaryId
+                        })}
                     />
                 </View>
             </ImageBackground>

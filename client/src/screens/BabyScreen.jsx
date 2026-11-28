@@ -3,7 +3,6 @@ import BabyOnTheWay from "../components/baby/BabyOnTheWay";
 import BabyProfile from "../components/baby/BabyProfile";
 import useThemeContext from "../contexts/theme/useThemeContext";
 
-// todo check if isBabyBorn is needed
 export default function BabyScreen({ route }) {
     const { theme } = useThemeContext();
 
