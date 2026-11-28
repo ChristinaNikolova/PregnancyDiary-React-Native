@@ -1,7 +1,8 @@
+import useThemeContext from "../../contexts/theme/useThemeContext";
 import { Pressable, StyleSheet, View, Text } from "react-native";
 import DateTimePickerContainer from "./DateTimePickerContainer";
 import ModalWrapper from "../shared/ModalWrapper";
-import { BORDERS, COLORS, SPACING, TYPOGRAPHY } from "../../theme";
+import { BORDERS, SPACING, TYPOGRAPHY } from "../../theme";
 
 export default function IOSModal({
     isVisible,
@@ -13,6 +14,8 @@ export default function IOSModal({
     handleClose,
     handleConfirm
 }) {
+    const { theme } = useThemeContext();
+
     return (
         <ModalWrapper
             visible={isVisible}
@@ -20,15 +23,15 @@ export default function IOSModal({
             overlayStyle={{ justifyContent: "flex-end" }}
             handleClose={handleClose}
         >
-            <View style={styles.modalContent}>
+            <View style={[styles.modalContent, { backgroundColor: theme.colors.background }]}>
                 <View style={styles.modalHeader}>
                     <Pressable
                         onPress={handleClose}
                     >
-                        <Text style={styles.action}>Cancel</Text>
+                        <Text style={[styles.action, { color: theme.colors.primary }]}>Cancel</Text>
                     </Pressable>
                     <Pressable onPress={handleConfirm}>
-                        <Text style={styles.action}>Done</Text>
+                        <Text style={[styles.action, { color: theme.colors.primary }]}>Done</Text>
                     </Pressable>
                 </View>
                 <DateTimePickerContainer
@@ -38,6 +41,8 @@ export default function IOSModal({
                     minimumDate={minimumDate}
                     maximumDate={maximumDate}
                     handleChange={handleChange}
+                    textColor={theme.colors.text}
+                    themeVariant={theme.dark ? "dark" : "light"}
                 />
             </View>
         </ModalWrapper>
@@ -48,7 +53,6 @@ const styles = StyleSheet.create({
     modalContent: {
         alignItems: "center",
         paddingBottom: SPACING.xl,
-        backgroundColor: COLORS.background,
         borderTopLeftRadius: BORDERS.radius.xxl,
         borderTopRightRadius: BORDERS.radius.xxl,
     },
@@ -61,6 +65,5 @@ const styles = StyleSheet.create({
     action: {
         fontFamily: TYPOGRAPHY.fontFamily.semiBold,
         fontSize: TYPOGRAPHY.fontSize.sm,
-        color: COLORS.primary,
     },
 });

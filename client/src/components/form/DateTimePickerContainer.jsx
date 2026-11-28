@@ -7,6 +7,8 @@ export default function DateTimePickerContainer({
     maximumDate,
     display = "default",
     is24Hour = true,
+    textColor,
+    themeVariant = "dark",
     handleChange,
 }) {
     return (
@@ -18,6 +20,8 @@ export default function DateTimePickerContainer({
             onChange={handleChange}
             minimumDate={minimumDate}
             maximumDate={maximumDate}
+            textColor={textColor}
+            themeVariant={themeVariant}
         />
     );
 }
