@@ -3,10 +3,11 @@ import useThemeContext from "../contexts/theme/useThemeContext";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import Icon from "../components/shared/Icon";
 import Tag from "../components/shared/Tag";
+import SwipeableMeasurements from "../components/week/SwipeableMeasurements";
 import { apiPaths } from "../utils/constants/api";
 import { getWeekImage } from "../utils/helpers/image";
-import { BORDERS, SPACING, TYPOGRAPHY } from "../theme";
-import SwipeableMeasurements from "../components/week/SwipeableMeasurements";
+import { triggerHaptic } from "../utils/native-helpers/haptics";
+import { BORDERS, SIZES, SPACING, TYPOGRAPHY } from "../theme";
 
 export default function WeekDetailsScreen({ route }) {
     const { theme } = useThemeContext();
@@ -18,9 +19,11 @@ export default function WeekDetailsScreen({ route }) {
     const image = getWeekImage(week?.title);
 
     const handleEdit = () => {
+        triggerHaptic();
         null;
     }
     // todo pull to refresh
+    // todo constants
     return (
         <ScrollView
             style={[styles.container, { backgroundColor: theme.colors.background }]}
@@ -39,11 +42,9 @@ export default function WeekDetailsScreen({ route }) {
                     <Tag
                         text={`${week?.trimester} trimester`}
                     />
-
                     <Text style={[styles.babySize, { color: theme.colors.text }]}>
                         Your baby is the size of {week?.babySize}
                     </Text>
-
                     <View style={styles.measurements}>
                         <View style={styles.measurement}>
                             <Icon name="resize-outline" color={theme.colors.primary} />
@@ -71,22 +72,12 @@ export default function WeekDetailsScreen({ route }) {
                     {week?.text}
                 </Text>
             </View>
-
-            <SwipeableMeasurements
-                weight={week?.myWeight}
-                bellySize={week?.myBellySize}
-                handleEdit={handleEdit}
-            />
-
-            {/* <View style={[styles.section, {
-                backgroundColor: theme.colors.surface,
-                borderColor: theme.colors.border,
-            }]}>
+            <View style={[styles.section, { backgroundColor: theme.colors.surface, borderColor: theme.colors.border }]}>
                 <View style={styles.sectionHeader}>
                     <View style={[styles.iconContainer, {
                         backgroundColor: theme.colors.secondary,
                     }]}>
-                        <Icon name="heart-outline" color={theme.colors.primary} size={24} />
+                        <Icon name="heart-outline" color={theme.colors.primary} size={SIZES.iconDefault} />
                     </View>
 
                     <View style={styles.headerText}>
@@ -98,33 +89,15 @@ export default function WeekDetailsScreen({ route }) {
                         </Text>
                     </View>
                 </View>
-
-                <View style={styles.dataRow}>
-                    <View style={[styles.dataCard, { backgroundColor: theme.colors.background }]}>
-                        <Icon name="scale-outline" color={theme.colors.primary} size={22} />
-                        <Text style={[styles.dataLabel, { color: theme.colors.textSecondary }]}>
-                            My weight
-                        </Text>
-                        <Text style={[styles.dataValue, { color: theme.colors.text }]}>
-                            {week?.myWeight || "Add"} {week?.myWeight ? "kg" : ""}
-                        </Text>
-                    </View>
-
-                    <View style={[styles.dataCard, { backgroundColor: theme.colors.background }]}>
-                        <Icon name="resize-outline" color={theme.colors.primary} size={22} />
-                        <Text style={[styles.dataLabel, { color: theme.colors.textSecondary }]}>
-                            Belly size
-                        </Text>
-                        <Text style={[styles.dataValue, { color: theme.colors.text }]}>
-                            {week?.myBellySize || "Add"} {week?.myBellySize ? "cm" : ""}
-                        </Text>
-                    </View>
-                </View>
-
+                <SwipeableMeasurements
+                    weight={week?.myWeight}
+                    bellySize={week?.myBellySize}
+                    handlePress={handleEdit}
+                />
                 <Text style={[styles.footerText, { color: theme.colors.textSecondary }]}>
                     Every little change matters
                 </Text>
-            </View> */}
+            </View>
         </ScrollView>
     )
 }
@@ -198,10 +171,10 @@ const styles = StyleSheet.create({
         lineHeight: 25,
     },
     section: {
+        marginBottom: SPACING.md,
+        padding: SPACING.lg,
         borderWidth: BORDERS.width.thin,
         borderRadius: BORDERS.radius.xl,
-        padding: SPACING.lg,
-        marginBottom: SPACING.md,
     },
     sectionHeader: {
         flexDirection: "row",
@@ -210,11 +183,11 @@ const styles = StyleSheet.create({
         marginBottom: SPACING.lg,
     },
     iconContainer: {
+        alignItems: "center",
+        justifyContent: "center",
         width: 44,
         height: 44,
         borderRadius: BORDERS.radius.lg,
-        alignItems: "center",
-        justifyContent: "center",
     },
     headerText: {
         flex: 1,
@@ -224,36 +197,14 @@ const styles = StyleSheet.create({
         fontSize: TYPOGRAPHY.fontSize.lg,
     },
     cardSubtitle: {
-        fontFamily: TYPOGRAPHY.fontFamily.regular,
-        fontSize: TYPOGRAPHY.fontSize.xs,
         marginTop: SPACING.xs,
-    },
-    dataRow: {
-        flexDirection: "row",
-        gap: SPACING.md,
-    },
-    dataCard: {
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        gap: SPACING.sm,
-        paddingVertical: SPACING.lg,
-        paddingHorizontal: SPACING.sm,
-        borderRadius: BORDERS.radius.lg,
-    },
-    dataLabel: {
         fontFamily: TYPOGRAPHY.fontFamily.regular,
         fontSize: TYPOGRAPHY.fontSize.xs,
-        textAlign: "center",
-    },
-    dataValue: {
-        fontFamily: TYPOGRAPHY.fontFamily.bold,
-        fontSize: TYPOGRAPHY.fontSize.lg,
     },
     footerText: {
+        marginTop: SPACING.lg,
         fontFamily: TYPOGRAPHY.fontFamily.regular,
         fontSize: TYPOGRAPHY.fontSize.xs,
         textAlign: "center",
-        marginTop: SPACING.lg,
     },
 });

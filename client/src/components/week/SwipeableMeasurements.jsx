@@ -1,9 +1,10 @@
 import useThemeContext from "../../contexts/theme/useThemeContext";
-import { Pressable, StyleSheet, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import ReanimatedSwipeable from "react-native-gesture-handler/ReanimatedSwipeable";
 import SingleMeasurement from "./SingleMeasurement";
-import Icon from "../shared/Icon";
-import { BORDERS, SIZES, SPACING } from "../../theme";
+import { BORDERS, SPACING } from "../../theme";
+import SwipeableAction from "../shared/SwipeableAction";
+import useSwipeable from "../../hooks/useSwipeable";
 
 export default function SwipeableMeasurements({
     weight,
@@ -11,20 +12,19 @@ export default function SwipeableMeasurements({
     handlePress
 }) {
     const { theme } = useThemeContext();
+    const swipeProps = useSwipeable();
 
-    const renderRightActions = () => (
-        <Pressable
-            style={[styles.button, { backgroundColor: theme.colors.primary }]}
-            onPress={handlePress}
-        >
-            <Icon name="pencil" color={theme.colors.white} size={SIZES.iconDefault} />
-        </Pressable>
+    const renderRightActions = (progress) => (
+        <SwipeableAction
+            progress={progress}
+            handlePress={handlePress}
+        />
     );
 
     return (
         <ReanimatedSwipeable
             renderRightActions={renderRightActions}
-            overshootRight={false}
+            {...swipeProps}
         >
             <View style={[styles.section, { backgroundColor: theme.colors.surface, borderColor: theme.colors.border }]}>
                 <View style={styles.row}>
@@ -55,13 +55,5 @@ const styles = StyleSheet.create({
     row: {
         flexDirection: "row",
         gap: SPACING.md,
-    },
-    button: {
-        alignItems: "center",
-        justifyContent: "center",
-        gap: SPACING.xs,
-        width: 75,
-        marginLeft: SPACING.sm,
-        borderRadius: BORDERS.radius.lg,
     },
 });
